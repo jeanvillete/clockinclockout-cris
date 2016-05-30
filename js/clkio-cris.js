@@ -1,4 +1,5 @@
 var clkio = window.clkio || {};
+clkio.grid = {};
 
 clkio.rest = function( req ) {
 	if ( !req || !req.uri ) {
@@ -37,6 +38,10 @@ clkio.logout = function() {
 			window.location.href = "index.html";
 		}
 	});
+}
+
+clkio.grid.getButton = function( btnName, callback ) {
+	return $( "<a></a>" ).attr( "class", "btn-edit" ).text( btnName ).click( callback );
 }
 
 $.fn.serializeObject = function(){

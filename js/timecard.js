@@ -7,9 +7,9 @@ clkio.timecard.updateBalance = function() {
 		uri : clkio.profiles.uri() + "/timecard/totaltime",
 		success : function( resp ) {
 			if ( resp.totalTime.charAt( 0 ) == "-" ) {
-				$balance.parent().parent().removeClass( "panel-primary" ).addClass( "panel-danger" );
+				$balance.parent().parent().removeClass( "panel-primary" ).addClass( "panel-warning" );
 			} else {
-				$balance.parent().parent().removeClass( "panel-danger" ).addClass( "panel-primary" );
+				$balance.parent().parent().removeClass( "panel-warning" ).addClass( "panel-primary" );
 			}
 			$balance.text( resp.totalTime );
 		}
@@ -22,9 +22,9 @@ clkio.timecard.updateMonthBalance = function() {
 		uri : clkio.profiles.uri() + "/timecard/totaltime/" + $year.val() + "-" + $month.val(),
 		success : function( resp ) {
 			if ( resp.totalTimeMonthly.charAt( 0 ) == "-" ) {
-				$monthBalance.parent().parent().removeClass( "panel-primary" ).addClass( "panel-danger" );
+				$monthBalance.parent().parent().removeClass( "panel-primary" ).addClass( "panel-warning" );
 			} else {
-				$monthBalance.parent().parent().removeClass( "panel-danger" ).addClass( "panel-primary" );
+				$monthBalance.parent().parent().removeClass( "panel-warning" ).addClass( "panel-primary" );
 			}
 			$monthBalance.text( resp.totalTimeMonthly );
 		}
@@ -32,42 +32,143 @@ clkio.timecard.updateMonthBalance = function() {
 }
 
 clkio.timecard.update = function() {
-	var $timecard = $( "#tbl-timecard tbody" ), $tr, tdContent, $month = $( "#cmb-month" ), $year = $( "#cmb-year" ), strclkin, strclkout, balance;
+	var $timecard = $( "#tbl-timecard tbody" ), $tr, $td, $div, tdContent, $month = $( "#cmb-month" ), $year = $( "#cmb-year" ), strclkin, strclkout, balance;
 	$timecard.empty();
 	clkio.rest({
 		uri : clkio.profiles.uri() + "/timecard/" + $year.val() + "-" + $month.val(),
 		success : function( resp ) {
 			$.each( resp.timeCard.days, function( index, value ){
-				balance = value.balance ? value.balance.trim() : "";
-
 				$tr = $( "<tr></tr>" );
-				if ( balance.charAt( 0 ) == "-" ) {
-					$tr.attr( "class", "danger" );
-				} else if ( balance.length > 0 ) {
-					$tr.attr( "class", "success" );
-				}
+				$tr.append( $( "<input></input>" ).attr( "type", "hidden" ).attr( "name", "data" ).attr( "value", JSON.stringify( value ) ) );
+				$tr.click( clkio.timecard.handleRow );
 
 				$tr.append( $( "<td></td>" ).text( value.date ) );
-				tdContent = "";
+
+				// clockin/clockout or manualentering
+				$td = $( "<td></td>" );
 				$.each( value.tableEntering, function( tIndex, tValue ){
+					$div = $( "<div></div>" ).attr( "class", "label" );
+
 					if ( tValue.reason ) {
-						tdContent += "[ " + tValue.reason.reason + " " + tValue.timeInterval + " ]";
+						$div.addClass( "label-primary" ).text( tValue.reason.reason + " " + tValue.timeInterval );
 					} else if ( tValue.clockin || tValue.clockout ) {
 						strclkin = ( tValue.clockin ? tValue.clockin.trim() : "?" ), strclkout = ( tValue.clockout ? tValue.clockout.trim() : "?" );
 						strclkin = strclkin.substring( strclkin.indexOf( " " ) );
 						strclkout = strclkout.substring( strclkout.indexOf( " " ) );
 
-						tdContent += "[ " + strclkin + " - " + strclkout + " ]";
+						$div.addClass( !tValue.clockin || !tValue.clockout ? "label-warning" : "label-success" ).text( strclkin + " - " + strclkout );
 					}
+					$td.append( $div );
 				});
-				$tr.append( $( "<td></td>" ).text( tdContent ) );
-				$tr.append( $( "<td></td>" ).text( value.expectedHours ? value.expectedHours : "" ) );
-				$tr.append( $( "<td></td>" ).text( balance ) );
-				$tr.append( $( "<td></td>" ).text( value.notes ? value.notes : "" ) );
+				$tr.append( $td );
+
+				// expectedHours
+				$td = $( "<td></td>" ).attr( "class", "not_for_small" ).text( value.expectedHours ? value.expectedHours : "" );
+				$tr.append( $td );
+
+				// balance
+				$tr.append( $( "<td></td>" ).text( value.balance ? value.balance.trim() : "" ) );
+
+				// notes
+				$tr.append( $( "<td></td>" ).attr( "class", "not_for_small" ).text( value.notes ? value.notes : "" ) );
+
+				// add tr to the table
 				$timecard.append( $tr );
 			});
 		}
 	});
+}
+
+clkio.timecard.handleRow = function( $tr ) {
+	$tr = $( $tr.currentTarget );
+	var $timecardForm = $( "#timecard-form" ), $tblClios = $( "#tbl-clkios tbody" ), $tblMnlEnterings = $( "#tbl-manualenterings tbody" ), day, $hdEnterings, $identifiers, $hdId, $clockins, $hdClockin, $clockouts, $hdClockout, $tr, $td;
+
+	if ( $tr.hasClass( "date-selected" ) ) {
+		$tr.removeClass( "date-selected" );
+		$tr.siblings().show();
+		$timecardForm.hide();
+		$tblClios.empty();
+		$tblMnlEnterings.empty();
+	} else {
+		$tr.addClass( "date-selected" );
+		$tr.siblings().hide();
+
+		day = JSON.parse( $tr.find( ":hidden[name=data]" ).val() );
+
+		// load expected hours
+		$timecardForm.find( "#txtb-expected" ).val( day.expectedHours ? day.expectedHours : "" );
+
+		// load notes
+		$timecardForm.find( "#txta-notes" ).val( day.notes ? day.notes : "" );
+
+		// load clockins clockouts
+		$.each( day.tableEntering, function( index, clockinclockout ){
+			if ( !clockinclockout.clockin && !clockinclockout.clockout ) return;
+			clockinclockout.clockin = clockinclockout.clockin ? clockinclockout.clockin : "";
+			clockinclockout.clockout = clockinclockout.clockout ? clockinclockout.clockout : "";
+			$tr = $( "<tr></tr>" );
+
+			// clockin
+			$td = $( "<td></td>" ).text( clockinclockout.clockin );
+			$td.append( $( "<input></input>" ).attr( "type", "hidden" ).attr( "name", "id" ).attr( "value", clockinclockout.id ) );
+			$tr.append( $td );
+
+			// clockout
+			$td = $( "<td></td>" ).text( clockinclockout.clockout );
+			$tr.append( $td );
+
+			// clockin/clockout button edit
+			$td = $( "<td></td>" );
+			$td.append( clkio.grid.getButton( "edit", function(){
+				alert( "bla" );
+			}) );
+
+			// clockin/clockout button remove
+			$td.append( clkio.grid.getButton( "remove", function(){
+				alert( "bla" );
+			}) );
+			$tr.append( $td );
+
+			$tblClios.append( $tr );
+		});
+		$( "#txtb-clockin-dt" ).val( day.date );
+		$( "#txtb-clockout-dt" ).val( day.date );
+
+		// load manualenterings
+		if ( !$( "#cmb-mnl-reason option" ).length ){
+			clkio.reasons.list( function( resp ) {
+				$.each( resp.reasons, function( index, reason ){
+					$( "#cmb-mnl-reason" ).append( $( "<option></option>" ).attr( "value", reason.id ).text( reason.reason ) );
+				});
+			});
+		}
+		$.each( day.tableEntering, function( index, manualEnterings ){
+			if ( !manualEnterings.reason ) return;
+			$tr = $( "<tr></tr>" );
+
+			$td = $( "<td></td>" );
+			$td.text( manualEnterings.reason.reason );
+			$td.append( $( "<input></input>" ).attr( "type", "hidden" ).attr( "name", "id" ).attr( "value", manualEnterings.id ) );
+			$td.append( $( "<input></input>" ).attr( "type", "hidden" ).attr( "name", "reason.id" ).attr( "value", manualEnterings.reason.id ) );
+			$tr.append( $td );
+
+			// manualentering button edit
+			$td = $( "<td></td>" );
+			$td.append( clkio.grid.getButton( "edit", function(){
+				alert( "bla" );
+			}) );
+
+			// manualentering button remove
+			$td.append( clkio.grid.getButton( "remove", function(){
+				alert( "bla" );
+			}) );
+			$tr.append( $td );
+
+			$tblMnlEnterings.append( $tr );
+		});
+
+		$timecardForm.show();
+	}
 }
 
 $( document ).ready( function(){
