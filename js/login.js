@@ -17,8 +17,8 @@ $( document ).ready( function(){
 					Cookies.set( "user", $email.val() );
 					clkio.profiles.list( function( resp ){
 						Cookies.set( "profile", resp.profiles[0].id );
+						window.location.href = "timecard.html";
 					});
-					window.location.href = "timecard.html";
 				} else alert( "Invalid 'success answer'. No 'clkioLoginCode' found on the answer." );
 			},
 			beforeSend : function( xhr ) {

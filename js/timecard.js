@@ -208,8 +208,8 @@ $( document ).ready( function(){
 	clkio.profiles.list( function( resp ){
 		$.each( resp.profiles, function( index, value ){
 			$profile.append( $( "<option></option>" ).attr( "value", value.id ).text( value.description ) );
+			$profile.val( Cookies.get( "profile" ) );
 		})
-		$profile.val( Cookies.get( "profile" ) );
 	});
 	$profile.change( function( data ){
 		Cookies.set( "profile", $profile.val() );
