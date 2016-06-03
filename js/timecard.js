@@ -135,13 +135,13 @@ clkio.timecard.handleRow = function( $tr ) {
 		$( "#txtb-clockout-dt" ).val( day.date );
 
 		// load manualenterings
-		if ( !$( "#cmb-mnl-reason option" ).length ){
+		// if ( !$( ".cmb-mnl-reason option" ).length ){
 			clkio.reasons.list( function( resp ) {
 				$.each( resp.reasons, function( index, reason ){
-					$( "#cmb-mnl-reason" ).append( $( "<option></option>" ).attr( "value", reason.id ).text( reason.reason ) );
+					$( ".cmb-mnl-reason" ).append( $( "<option></option>" ).attr( "value", reason.id ).text( reason.reason ) );
 				});
 			});
-		}
+		// }
 		$.each( day.tableEntering, function( index, manualEnterings ){
 			if ( !manualEnterings.reason ) return;
 			$tr = $( "<tr></tr>" );
