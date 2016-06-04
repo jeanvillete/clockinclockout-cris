@@ -5,6 +5,7 @@
 		<title>clkio-cris</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="js/jquery-1.12.4.min.js"></script>
+		<script src="js/jquery.mask.min.js"></script>
 		<script src="js/clkio-cris.js"></script>
 		<script src="js/js.cookie.js"></script>
 		<script src="js/profiles.js"></script>
@@ -48,6 +49,10 @@
 				cursor: pointer;
 			}
 
+			.navbar {
+				font-size: 14px;
+			}
+
 			.form-control {
 				font-size: 14px;
 			}
@@ -68,7 +73,8 @@
 			}
 
 			.timecard-panel-body {
-				padding: 8px 0px;
+				padding: 0px 5px;
+				background-color : #f5f5f5;
 			}
 
 			label {
@@ -77,6 +83,16 @@
 
 			div.input-group {
 				margin-bottom: 8px;
+			}
+
+			.input-group-add {
+				/*border-bottom: 1px solid #ddd;
+				padding-bottom: 8px;
+				background-color: #f5f5f5;*/
+			}
+
+			.clkio-panel-heading {
+				border-bottom: none;
 			}
 
 			/*.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
@@ -191,7 +207,7 @@
 						<div class="form-group">
 							<label class="control-label" for="">expected hours</label>
 							<div class="input-group">
-								<input class="form-control input-sm" id="txtb-expected" type="text"
+								<input class="form-control input-sm clkio-time" id="txtb-expected" type="text"
 								placeholder="expected hours" >
 								<span class="input-group-btn">
 									<button class="btn btn-primary bnt-input" type="button">
@@ -231,29 +247,31 @@
 			</div>
 
 			<div class="row">
+				<!--panel for clockins and clockouts -->
 				<div class="col-lg-6">
 					<div class="bs-component">
 						<div class="panel panel-default timecard-panel">
-							<div class="panel-heading">clockins and clockouts</div>
+							<div class="panel-heading clkio-panel-heading">clockins and clockouts</div>
 							<div class="panel-body timecard-panel-body">
-								<div class="input-group">
-									<input class="form-control input-sm" id="" type="text" placeholder="clock in" >
+								<div class="input-group input-group-add" id="clkio-input-group-add">
+									<input type="hidden" name="clkio-id" />
+									<input class="form-control input-sm clkio-time" name="clockin-hr" type="text" placeholder="clock in" >
 									<span class="input-group-btn">
 										<button class="btn btn-default bnt-input" type="button">
 											<i class="fa fa-calendar" aria-hidden="true"></i>
 										</button>
 									</span>
-									<input class="form-control input-sm" id="" type="text" placeholder="clock out" >
+									<input class="form-control input-sm clkio-time" name="clockout-hr" type="text" placeholder="clock out" >
 
 									<!-- clockin clockout add buttons -->
-									<span class="input-group-btn clkio-a-btn" style="padding-right: 47px;">
+									<span class="input-group-btn clkio-add-btn" style="padding-right: 47px;">
 										<button class="btn btn-success bnt-input" type="button">
 											<i class="fa fa-plus-square" aria-hidden="true"></i>
 										</button>
 									</span>
 
 									<!-- clockin clockout update/delete buttons -->
-									<span class="input-group-btn clkio-ud-btn" style="display:none">
+									<span class="input-group-btn clkio-uptdel-btn" style="display:none;">
 										<button class="btn btn-primary bnt-input" type="button">
 											<i class="fa fa-check-square-o" aria-hidden="true"></i>
 										</button>
@@ -266,17 +284,19 @@
 						</div>
 					</div>
 				</div>
+
+				<!--panel for manual enterings -->
 				<div class="col-lg-6">
 					<div class="bs-component">
 						<div class="panel panel-default timecard-panel">
-							<div class="panel-heading">manual enterings</div>
+							<div class="panel-heading clkio-panel-heading">manual enterings</div>
 							<div class="panel-body timecard-panel-body">
-								<div class="input-group">
+								<div class="input-group input-group-add" id="mnl-entering-input-group-add">
+									<input type="hidden" name="mnl-id" />
 									<select name="mnl-reason" class="form-control input-sm cmb-mnl-reason" style="width:65%;">
 										<option value="">select reason</option>
 									</select>
-									<!-- <span style="display:table-cell;"></span> -->
-									<input class="form-control input-sm" id="txtb-mnl-timeinterval" type="text" placeholder="interval" style="width:35%">
+									<input class="form-control input-sm clkio-time" name="mnl-timeinterval" type="text" placeholder="interval" style="width:35%">
 
 									<!-- button for add -->
 									<span class="input-group-btn mnl-enterings-add-btn" style="padding-right: 47px;">
@@ -286,7 +306,7 @@
 									</span>
 
 									<!-- buttons for update/delete -->
-									<span class="input-group-btn mnl-enterings-ud-btn" style="display:none;">
+									<span class="input-group-btn mnl-enterings-uptdel-btn" style="display:none;">
 										<button class="btn btn-primary bnt-input" type="button">
 											<i class="fa fa-check-square-o" aria-hidden="true"></i>
 										</button>
@@ -300,8 +320,6 @@
 					</div>
 				</div>
 			</div>
-
-
 
 		</div>
 	</body>

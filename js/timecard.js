@@ -1,8 +1,25 @@
 var clkio = window.clkio || {};
 clkio.timecard = {};
+clkio.timecard.onChange = function(){};
 clkio.timecard.data = {};
 
-clkio.timecard.updateBalance = function() {
+clkio.timecard.load = function( callback ) {
+	clkio.rest({
+		uri : clkio.profiles.uri() + "/timecard/" + $( "#cmb-year" ).val() + "-" + $( "#cmb-month" ).val(),
+		success : function( resp ) {
+			clkio.timecard.data = resp.timeCard || {};
+			if ( callback ) callback();
+			clkio.timecard.change();
+		}
+	});
+}
+
+clkio.timecard.change = function() {
+	if ( clkio.timecard.onChange )
+			clkio.timecard.onChange();
+}
+
+clkio.timecard.renderTotalBalance = function() {
 	var $balance = $( "#d-balance" );
 	clkio.rest({
 		uri : clkio.profiles.uri() + "/timecard/totaltime",
@@ -17,7 +34,7 @@ clkio.timecard.updateBalance = function() {
 	});
 }
 
-clkio.timecard.updateMonthBalance = function() {
+clkio.timecard.renderMonthBalance = function() {
 	var $monthBalance = $( "#d-balanceMonthly" ), $month = $( "#cmb-month" ), $year = $( "#cmb-year" );
 	clkio.rest({
 		uri : clkio.profiles.uri() + "/timecard/totaltime/" + $year.val() + "-" + $month.val(),
@@ -32,69 +49,67 @@ clkio.timecard.updateMonthBalance = function() {
 	});
 }
 
-clkio.timecard.update = function() {
+clkio.timecard.renderTable = function() {
 	var $timecard = $( "#tbl-timecard tbody" ), $tr, $td, $div, tdContent, $month = $( "#cmb-month" ), $year = $( "#cmb-year" ), strclkin, strclkout, balance;
 	$timecard.empty();
-	clkio.rest({
-		uri : clkio.profiles.uri() + "/timecard/" + $year.val() + "-" + $month.val(),
-		success : function( resp ) {
-			$.each( resp.timeCard.days, function( index, value ){
-				$tr = $( "<tr></tr>" );
-				$tr.append( $( "<input></input>" ).attr( "type", "hidden" ).attr( "name", "data" ).attr( "value", JSON.stringify( value ) ) );
-				$tr.click( clkio.timecard.handleRow );
+	$.each( clkio.timecard.data.days, function( index, value ){
+		$tr = $( "<tr></tr>" );
+		$tr.click( clkio.timecard.handleRow );
 
-				$tr.append( $( "<td></td>" ).text( value.date ) );
+		// date
+		$tr.append( $( "<td></td>" ).text( value.date ).append( $( "<input></input>" ).attr( "type", "hidden" ).attr( "name", "date" ).attr( "value", value.date ) ) );
 
-				// clockin/clockout or manualentering
-				$td = $( "<td></td>" );
-				$.each( value.tableEntering, function( tIndex, tValue ){
-					$div = $( "<div></div>" ).attr( "class", "label" );
+		// clockin/clockout or manualentering
+		$td = $( "<td></td>" );
+		$.each( value.tableEntering, function( tIndex, tValue ){
+			$div = $( "<div></div>" ).attr( "class", "label" );
 
-					if ( tValue.reason ) {
-						$div.addClass( "label-primary" ).text( tValue.reason.reason + " " + tValue.timeInterval );
-					} else if ( tValue.clockin || tValue.clockout ) {
-						strclkin = ( tValue.clockin ? tValue.clockin.trim() : "?" ), strclkout = ( tValue.clockout ? tValue.clockout.trim() : "?" );
-						strclkin = strclkin.substring( strclkin.indexOf( " " ) );
-						strclkout = strclkout.substring( strclkout.indexOf( " " ) );
+			if ( tValue.reason ) {
+				$div.addClass( "label-primary" ).text( tValue.reason.reason + " " + tValue.timeInterval );
+			} else if ( tValue.clockin || tValue.clockout ) {
+				strclkin = ( tValue.clockin ? tValue.clockin.trim() : "?" ), strclkout = ( tValue.clockout ? tValue.clockout.trim() : "?" );
+				strclkin = strclkin.substring( strclkin.indexOf( " " ) );
+				strclkout = strclkout.substring( strclkout.indexOf( " " ) );
 
-						$div.addClass( !tValue.clockin || !tValue.clockout ? "label-warning" : "label-success" ).text( strclkin + " - " + strclkout );
-					}
-					$td.append( $div );
-				});
-				$tr.append( $td );
+				$div.addClass( !tValue.clockin || !tValue.clockout ? "label-warning" : "label-success" ).text( strclkin + " - " + strclkout );
+			}
+			$td.append( $div );
+		});
+		$tr.append( $td );
 
-				// expectedHours
-				$td = $( "<td></td>" ).attr( "class", "not_for_small" ).text( value.expectedHours ? value.expectedHours : "" );
-				$tr.append( $td );
+		// expectedHours
+		$td = $( "<td></td>" ).attr( "class", "not_for_small" ).text( value.expectedHours ? value.expectedHours : "" );
+		$tr.append( $td );
 
-				// balance
-				$tr.append( $( "<td></td>" ).text( value.balance ? value.balance.trim() : "" ) );
+		// balance
+		$tr.append( $( "<td></td>" ).text( value.balance ? value.balance.trim() : "" ) );
 
-				// notes
-				$tr.append( $( "<td></td>" ).attr( "class", "not_for_small" ).text( value.notes ? value.notes : "" ) );
+		// notes
+		$tr.append( $( "<td></td>" ).attr( "class", "not_for_small" ).text( value.notes ? value.notes : "" ) );
 
-				// add tr to the table
-				$timecard.append( $tr );
-			});
-		}
+		// add tr to the table
+		$timecard.append( $tr );
 	});
 }
 
 clkio.timecard.handleRow = function( $tr ) {
 	$tr = $( $tr.currentTarget );
-	var $timecardForm = $( "#timecard-form" ), $tblClios = $( "#tbl-clkios tbody" ), $tblMnlEnterings = $( "#tbl-manualenterings tbody" ), day, $hdEnterings, $identifiers, $hdId, $clockins, $hdClockin, $clockouts, $hdClockout, $tr, $td;
+	var $timecardForm = $( "#timecard-form" ), $clkioGroup, $mnlGroup, $tblMnlEnterings = $( "#tbl-manualenterings tbody" ), day, $hdEnterings, $identifiers, $hdId, $clockins, $hdClockin, $clockouts, $hdClockout, $tr, $td;
 
 	if ( $tr.hasClass( "date-selected" ) ) {
 		$tr.removeClass( "date-selected" );
 		$tr.siblings().show();
 		$timecardForm.hide();
-		$tblClios.empty();
 		$tblMnlEnterings.empty();
+
+		$( "#clkio-input-group-add" ).show();
 	} else {
 		$tr.addClass( "date-selected" );
 		$tr.siblings().hide();
 
-		day = JSON.parse( $tr.find( ":hidden[name=data]" ).val() );
+		day = $.grep( clkio.timecard.data.days, function( current ){
+			return current.date == $tr.find( "td :hidden[name=date]" ).val();
+		})[0];
 
 		// date (day)
 		$( "#txtb-day-dt" ).val( day.date );
@@ -108,74 +123,66 @@ clkio.timecard.handleRow = function( $tr ) {
 		// load notes
 		$( "#txtb-notes" ).val( day.notes ? day.notes : "" );
 
+		// clear form for clockins and clockouts
+		$( "#clkio-input-group-add" ).siblings().remove();
+
+		// clear form for manual enterings
+		$( "#mnl-entering-input-group-add" ).siblings().remove();
+
 		// load clockins clockouts
 		$.each( day.tableEntering, function( index, clockinclockout ){
 			if ( !clockinclockout.clockin && !clockinclockout.clockout ) return;
 			clockinclockout.clockin = clockinclockout.clockin || "";
 			clockinclockout.clockout = clockinclockout.clockout || "";
-			$tr = $( "<tr></tr>" );
+
+			$clkioGroup = $( "#clkio-input-group-add" ).clone();
+			$clkioGroup.attr( "id", "" );
+			$clkioGroup.removeClass( "input-group-add" );
+
+			// clkio-id
+			$clkioGroup.find( "input:hidden[name=clkio-id]" ).val( clockinclockout.id );
 
 			// clockin
-			$td = $( "<td></td>" ).text( clockinclockout.clockin );
-			$td.append( $( "<input></input>" ).attr( "type", "hidden" ).attr( "name", "id" ).attr( "value", clockinclockout.id ) );
-			$tr.append( $td );
+			$clkioGroup.find( "input:text[name=clockin-hr]" ).val( clockinclockout.clockin.substring( clockinclockout.clockin.indexOf( " " ) ) );
 
 			// clockout
-			$td = $( "<td></td>" ).text( clockinclockout.clockout );
-			$tr.append( $td );
+			$clkioGroup.find( "input:text[name=clockout-hr]" ).val( clockinclockout.clockout.substring( clockinclockout.clockout.indexOf( " " ) ) );
 
-			// clockin/clockout button edit
-			$td = $( "<td></td>" );
-			$td.append( clkio.grid.getButton( "edit", function(){
-				alert( "bla" );
-			}) );
+			$clkioGroup.find( "span.clkio-add-btn" ).hide();
+			$clkioGroup.find( "span.clkio-uptdel-btn" ).css( "display", "table-cell" );
 
-			// clockin/clockout button remove
-			$td.append( clkio.grid.getButton( "remove", function(){
-				alert( "bla" );
-			}) );
-			$tr.append( $td );
-
-			$tblClios.append( $tr );
+			$( "#clkio-input-group-add" ).parent().append( $clkioGroup );
 		});
 
-		$( "#txtb-clockout-dt" ).val( day.date );
-
-		// load manualenterings
-		if ( !clkio.reasons.list || !clkio.reasons.list.length ){
-			clkio.reasons.load( function() {
-				$.each( clkio.reasons.list, function( index, reason ){
-					$( ".cmb-mnl-reason" ).append( $( "<option></option>" ).attr( "value", reason.id ).text( reason.reason ) );
-				});
-			});
-		}
 		$.each( day.tableEntering, function( index, manualEnterings ){
 			if ( !manualEnterings.reason ) return;
-			$tr = $( "<tr></tr>" );
 
-			$td = $( "<td></td>" );
-			$td.text( manualEnterings.reason.reason );
-			$td.append( $( "<input></input>" ).attr( "type", "hidden" ).attr( "name", "id" ).attr( "value", manualEnterings.id ) );
-			$td.append( $( "<input></input>" ).attr( "type", "hidden" ).attr( "name", "reason.id" ).attr( "value", manualEnterings.reason.id ) );
-			$tr.append( $td );
+			$mnlGroup = $( "#mnl-entering-input-group-add" ).clone();
+			$mnlGroup.attr( "id", "" );
+			$mnlGroup.removeClass( "input-group-add" );
 
-			// manualentering button edit
-			$td = $( "<td></td>" );
-			$td.append( clkio.grid.getButton( "edit", function(){
-				alert( "bla" );
-			}) );
+			// mnl-id
+			$mnlGroup.find( "input:text[name=mnl-id]" ).val( manualEnterings.id );
 
-			// manualentering button remove
-			$td.append( clkio.grid.getButton( "remove", function(){
-				alert( "bla" );
-			}) );
-			$tr.append( $td );
+			// reason
+			$mnlGroup.find( "select[name=mnl-reason]" ).val( manualEnterings.reason.id );
 
-			$tblMnlEnterings.append( $tr );
+			// time interval
+			$mnlGroup.find( "input:text[name=mnl-timeinterval]" ).val( manualEnterings.timeInterval );
+
+			$mnlGroup.find( "span.mnl-enterings-add-btn" ).hide();
+			$mnlGroup.find( "span.mnl-enterings-uptdel-btn" ).css( "display", "table-cell" );
+
+			$( "#mnl-entering-input-group-add" ).parent().append( $mnlGroup );
 		});
 
 		$timecardForm.show();
 	}
+	// masking
+	$( "input[type=text].clkio-time" ).unmask();
+	$( "input[type=text].clkio-date" ).unmask()
+	$( "input[type=text].clkio-time" ).mask( "00:00" );
+	$( "input[type=text].clkio-date" ).mask( clkio.profiles.getCurrent().dateFormat.replace( /y|M|d/g, "0" ) );
 }
 
 $( document ).ready( function(){
@@ -187,24 +194,6 @@ $( document ).ready( function(){
 		$profile = $( "#cmb-profile" ),
 		$user = $( "#d-email" );
 
-	// load and setup profiles
-	clkio.profiles.onChange = function(){
-		clkio.timecard.updateBalance();
-		clkio.timecard.updateMonthBalance();
-		clkio.timecard.update();
-		clkio.reasons.list = [];
-		$( "select.cmb-mnl-reason option:not(:first)" ).remove();
-	};
-	clkio.profiles.load( function(){
-		$.each( clkio.profiles.list, function( index, profile ){
-			$profile.append( $( "<option></option>" ).attr( "value", profile.id ).text( profile.description ) );
-			if ( !Cookies.get( "profile" ) )
-				Cookies.set( "profile", clkio.profiles.list[0].id );
-			$profile.val( Cookies.get( "profile" ) );
-		})
-		clkio.profiles.change();
-	});
-
 	// prepare combo for months
 	$.each( months, function( index, value ){
 		var optionValue = ( index + 1 ).toString();
@@ -213,8 +202,7 @@ $( document ).ready( function(){
 		if ( today.getMonth() === index ) $month.val( optionValue );
 	});
 	$month.change(function(){
-		clkio.timecard.updateMonthBalance();
-		clkio.timecard.update();
+		clkio.timecard.load();
 	});
 
 	// prepare combo for years
@@ -225,15 +213,42 @@ $( document ).ready( function(){
 	});
 	$year.val( today.getFullYear() );
 	$year.change(function(){
-		clkio.timecard.updateMonthBalance();
-		clkio.timecard.update();
-	});
-
-	$profile.change( function( data ){
-		Cookies.set( "profile", $profile.val() );
-		clkio.profiles.change();
+		clkio.timecard.load();
 	});
 
 	// shows current logged user
 	$user.empty().text( Cookies.get( "user" ) + " " ).append( $( "<span></span>" ).attr( "class", "caret" ) );
+
+	// setup onChange for timecard, when timecard is loaded/reloaded
+	clkio.timecard.onChange = function() {
+		clkio.timecard.renderTotalBalance();
+		clkio.timecard.renderMonthBalance();
+		clkio.timecard.renderTable();
+	}
+
+	// load and setup profiles
+	clkio.profiles.onChange = function(){
+		clkio.timecard.load();
+
+		// load manualenterings
+		clkio.reasons.load( function() {
+			$.each( clkio.reasons.list, function( index, reason ){
+				$( ".cmb-mnl-reason" ).append( $( "<option></option>" ).attr( "value", reason.id ).text( reason.reason ) );
+			});
+		});
+
+		$( "select.cmb-mnl-reason option:not(:first)" ).remove();
+	};
+	clkio.profiles.load( function(){
+		$.each( clkio.profiles.list, function( index, profile ){
+			$profile.append( $( "<option></option>" ).attr( "value", profile.id ).text( profile.description ) );
+			if ( !Cookies.get( "profile" ) )
+				Cookies.set( "profile", clkio.profiles.list[0].id );
+			$profile.val( Cookies.get( "profile" ) );
+		});
+	});
+	$profile.change( function( data ){
+		Cookies.set( "profile", $profile.val() );
+		clkio.profiles.change();
+	});
 });

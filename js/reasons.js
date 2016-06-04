@@ -8,7 +8,7 @@ clkio.reasons.load = function( callback ) {
 		uri : clkio.profiles.uri() + "/reasons",
 		success : function( resp ) {
 			clkio.reasons.list = resp.reasons || [];
-			callback();
+			if ( callback ) callback();
 		}
 	});
 }

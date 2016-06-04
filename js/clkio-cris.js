@@ -41,10 +41,6 @@ clkio.logout = function() {
 	});
 }
 
-clkio.grid.getButton = function( btnName, callback ) {
-	return $( "<a></a>" ).attr( "class", "btn-edit" ).text( btnName ).click( callback );
-}
-
 $.fn.serializeObject = function(){
     var o = {};
     var a = this.serializeArray();

@@ -9,13 +9,10 @@ clkio.profiles.load = function( callback ) {
 		uri : "profiles",
 		success : function( resp ) {
 			clkio.profiles.list = resp.profiles || [];
-			callback();
+			if ( callback ) callback();
+			clkio.profiles.change();
 		}
 	});
-}
-
-clkio.profiles.uri = function() {
-	return "profiles/" + Cookies.get( "profile" );
 }
 
 clkio.profiles.change = function() {
@@ -23,11 +20,19 @@ clkio.profiles.change = function() {
 			clkio.profiles.onChange();
 }
 
-clkio.profiles.getExpectedHours = function( day ) {
-	var weekDay, profile, year, month, day;
-	profile = $.grep( clkio.profiles.list, function( current ){
+clkio.profiles.uri = function() {
+	return "profiles/" + Cookies.get( "profile" );
+}
+
+clkio.profiles.getCurrent = function() {
+	return profile = $.grep( clkio.profiles.list, function( current ){
 		return current.id == Cookies.get( "profile" );
 	})[0];
+}
+
+clkio.profiles.getExpectedHours = function( day ) {
+	var weekDay, profile, year, month, day;
+	profile = clkio.profiles.getCurrent();
 	if ( !profile ) {
 		console.log( "[clkio.profiles.getExpectedHours] No profile found." );
 		return null;
