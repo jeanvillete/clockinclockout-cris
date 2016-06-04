@@ -177,11 +177,11 @@
 
 			<div class="row">
 				<div class="col-lg-2">
-					<!-- label (disabled field) date -->
+					<!-- date -->
 					<div class="bs-component">
 						<div class="form-group">
-							<label class="control-label" for="txtb-clockin-dt">date</label>
-							<input value="31/05/2016" disabled="" class="form-control input-sm" id="txtb-clockin-dt" type="text">
+							<label class="control-label" for="txtb-day-dt">date</label>
+							<input value="31/05/2016" disabled="" class="form-control input-sm" id="txtb-day-dt" type="text">
 						</div>
 					</div>
 				</div>
@@ -189,10 +189,10 @@
 					<!-- expected hours -->
 					<div class="bs-component">
 						<div class="form-group">
-							<label class="control-label" for="txtb-clockin-dt">expected hours</label>
+							<label class="control-label" for="">expected hours</label>
 							<div class="input-group">
-								<input class="form-control input-sm" id="" type="text"
-								placeholder="expected hours" value="08:00">
+								<input class="form-control input-sm" id="txtb-expected" type="text"
+								placeholder="expected hours" >
 								<span class="input-group-btn">
 									<button class="btn btn-primary bnt-input" type="button">
 										<i class="fa fa-check-square-o" aria-hidden="true"></i>
@@ -206,8 +206,8 @@
 					<!-- balance -->
 					<div class="bs-component">
 						<div class="form-group">
-							<label class="control-label" for="txtb-clockin-dt">balance</label>
-							<input value="-04:00" disabled="" class="form-control input-sm" id="" type="text">
+							<label class="control-label" for="txtb-balance">balance</label>
+							<input value="" disabled="" class="form-control input-sm" id="txtb-balance" type="text">
 						</div>
 					</div>
 				</div>
@@ -215,10 +215,10 @@
 					<!-- notes -->
 					<div class="bs-component">
 						<div class="form-group">
-							<label class="control-label" for="txtb-clockin-dt">notes</label>
+							<label class="control-label" for="">notes</label>
 							<div class="input-group">
-								<input class="form-control input-sm" id="" type="text"
-									placeholder="notes" value="here is gona be my notes for some day">
+								<input class="form-control input-sm" id="txtb-notes" type="text"
+									placeholder="notes" value="">
 								<span class="input-group-btn">
 									<button class="btn btn-primary bnt-input" type="button">
 										<i class="fa fa-check-square-o" aria-hidden="true"></i>
@@ -236,7 +236,6 @@
 						<div class="panel panel-default timecard-panel">
 							<div class="panel-heading">clockins and clockouts</div>
 							<div class="panel-body timecard-panel-body">
-
 								<div class="input-group">
 									<input class="form-control input-sm" id="" type="text" placeholder="clock in" >
 									<span class="input-group-btn">
@@ -245,46 +244,21 @@
 										</button>
 									</span>
 									<input class="form-control input-sm" id="" type="text" placeholder="clock out" >
-									<span class="input-group-btn">
-										<button class="btn btn-primary bnt-input" type="button">
-											<i class="fa fa-check-square-o" aria-hidden="true"></i>
-										</button>
-										<button class="btn btn-danger bnt-input" type="button">
-											<i class="fa fa-trash" aria-hidden="true"></i>
-										</button>
-									</span>
-								</div>
 
-								<div class="input-group">
-									<input class="form-control input-sm" id="" type="text" placeholder="clock in" >
-									<span class="input-group-btn">
-										<button class="btn btn-default bnt-input" type="button">
-											<i class="fa fa-calendar" aria-hidden="true"></i>
-										</button>
-									</span>
-									<input class="form-control input-sm" id="" type="text" placeholder="clock out" >
-									<span class="input-group-btn">
-										<button class="btn btn-primary bnt-input" type="button">
-											<i class="fa fa-check-square-o" aria-hidden="true"></i>
-										</button>
-										<button class="btn btn-danger bnt-input" type="button">
-											<i class="fa fa-trash" aria-hidden="true"></i>
-										</button>
-									</span>
-								</div>
-
-								<!--add clockin -->
-								<div class="input-group">
-									<input class="form-control input-sm" id="" type="text" placeholder="clock in" >
-									<span class="input-group-btn">
-										<button class="btn btn-default bnt-input" type="button">
-											<i class="fa fa-calendar" aria-hidden="true"></i>
-										</button>
-									</span>
-									<input class="form-control input-sm" id="" type="text" placeholder="clock out" >
-									<span class="input-group-btn" style="padding-right: 47px;">
+									<!-- clockin clockout add buttons -->
+									<span class="input-group-btn clkio-a-btn" style="padding-right: 47px;">
 										<button class="btn btn-success bnt-input" type="button">
 											<i class="fa fa-plus-square" aria-hidden="true"></i>
+										</button>
+									</span>
+
+									<!-- clockin clockout update/delete buttons -->
+									<span class="input-group-btn clkio-ud-btn" style="display:none">
+										<button class="btn btn-primary bnt-input" type="button">
+											<i class="fa fa-check-square-o" aria-hidden="true"></i>
+										</button>
+										<button class="btn btn-danger bnt-input" type="button">
+											<i class="fa fa-trash" aria-hidden="true"></i>
 										</button>
 									</span>
 								</div>
@@ -297,48 +271,30 @@
 						<div class="panel panel-default timecard-panel">
 							<div class="panel-heading">manual enterings</div>
 							<div class="panel-body timecard-panel-body">
-
-
 								<div class="input-group">
-									<select name="mnl-reason" class="form-control input-sm cmb-mnl-reason"></select>
-									<span style="display:table-cell;"></span>
-									<input class="form-control input-sm" id="txtb-mnl-timeinterval" type="text" placeholder="time interval">
-									<span class="input-group-btn">
-										<button class="btn btn-primary bnt-input" type="button">
-											<i class="fa fa-check-square-o" aria-hidden="true"></i>
-										</button>
-										<button class="btn btn-danger bnt-input" type="button">
-											<i class="fa fa-trash" aria-hidden="true"></i>
-										</button>
-									</span>
-								</div>
-								
-								<div class="input-group">
-									<select name="mnl-reason" class="form-control input-sm cmb-mnl-reason"></select>
-									<span style="display:table-cell;"></span>
-									<input class="form-control input-sm" id="txtb-mnl-timeinterval" type="text" placeholder="time interval">
-									<span class="input-group-btn">
-										<button class="btn btn-primary bnt-input" type="button">
-											<i class="fa fa-check-square-o" aria-hidden="true"></i>
-										</button>
-										<button class="btn btn-danger bnt-input" type="button">
-											<i class="fa fa-trash" aria-hidden="true"></i>
-										</button>
-									</span>
-								</div>
+									<select name="mnl-reason" class="form-control input-sm cmb-mnl-reason" style="width:65%;">
+										<option value="">select reason</option>
+									</select>
+									<!-- <span style="display:table-cell;"></span> -->
+									<input class="form-control input-sm" id="txtb-mnl-timeinterval" type="text" placeholder="interval" style="width:35%">
 
-								<!--add clockin -->
-								<div class="input-group">
-									<select name="mnl-reason" class="form-control input-sm cmb-mnl-reason"></select>
-									<span style="display:table-cell;"></span>
-									<input class="form-control input-sm" id="txtb-mnl-timeinterval" type="text" placeholder="time interval">
-									<span class="input-group-btn" style="padding-right: 47px;">
+									<!-- button for add -->
+									<span class="input-group-btn mnl-enterings-add-btn" style="padding-right: 47px;">
 										<button class="btn btn-success bnt-input" type="button">
 											<i class="fa fa-plus-square" aria-hidden="true"></i>
 										</button>
 									</span>
-								</div>
 
+									<!-- buttons for update/delete -->
+									<span class="input-group-btn mnl-enterings-ud-btn" style="display:none;">
+										<button class="btn btn-primary bnt-input" type="button">
+											<i class="fa fa-check-square-o" aria-hidden="true"></i>
+										</button>
+										<button class="btn btn-danger bnt-input" type="button">
+											<i class="fa fa-trash" aria-hidden="true"></i>
+										</button>
+									</span>
+								</div>
 							</div>
 						</div>
 					</div>

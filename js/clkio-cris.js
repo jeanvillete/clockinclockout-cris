@@ -35,6 +35,7 @@ clkio.logout = function() {
 		uri : "logout",
 		success : function( resp ) {
 			Cookies.remove( "clkioLoginCode" );
+			Cookies.remove( "profile" );
 			window.location.href = "index.html";
 		}
 	});

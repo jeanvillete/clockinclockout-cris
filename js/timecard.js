@@ -1,5 +1,6 @@
 var clkio = window.clkio || {};
 clkio.timecard = {};
+clkio.timecard.data = {};
 
 clkio.timecard.updateBalance = function() {
 	var $balance = $( "#d-balance" );
@@ -95,17 +96,23 @@ clkio.timecard.handleRow = function( $tr ) {
 
 		day = JSON.parse( $tr.find( ":hidden[name=data]" ).val() );
 
+		// date (day)
+		$( "#txtb-day-dt" ).val( day.date );
+
+		// balance
+		$( "#txtb-balance" ).val( day.balance );
+
 		// load expected hours
-		$timecardForm.find( "#txtb-expected" ).val( day.expectedHours ? day.expectedHours : "" );
+		$( "#txtb-expected" ).val( day.expectedHours || clkio.profiles.getExpectedHours( day.date ) );
 
 		// load notes
-		$timecardForm.find( "#txta-notes" ).val( day.notes ? day.notes : "" );
+		$( "#txtb-notes" ).val( day.notes ? day.notes : "" );
 
 		// load clockins clockouts
 		$.each( day.tableEntering, function( index, clockinclockout ){
 			if ( !clockinclockout.clockin && !clockinclockout.clockout ) return;
-			clockinclockout.clockin = clockinclockout.clockin ? clockinclockout.clockin : "";
-			clockinclockout.clockout = clockinclockout.clockout ? clockinclockout.clockout : "";
+			clockinclockout.clockin = clockinclockout.clockin || "";
+			clockinclockout.clockout = clockinclockout.clockout || "";
 			$tr = $( "<tr></tr>" );
 
 			// clockin
@@ -131,17 +138,17 @@ clkio.timecard.handleRow = function( $tr ) {
 
 			$tblClios.append( $tr );
 		});
-		$( "#txtb-clockin-dt" ).val( day.date );
+
 		$( "#txtb-clockout-dt" ).val( day.date );
 
 		// load manualenterings
-		// if ( !$( ".cmb-mnl-reason option" ).length ){
-			clkio.reasons.list( function( resp ) {
-				$.each( resp.reasons, function( index, reason ){
+		if ( !clkio.reasons.list || !clkio.reasons.list.length ){
+			clkio.reasons.load( function() {
+				$.each( clkio.reasons.list, function( index, reason ){
 					$( ".cmb-mnl-reason" ).append( $( "<option></option>" ).attr( "value", reason.id ).text( reason.reason ) );
 				});
 			});
-		// }
+		}
 		$.each( day.tableEntering, function( index, manualEnterings ){
 			if ( !manualEnterings.reason ) return;
 			$tr = $( "<tr></tr>" );
@@ -180,6 +187,24 @@ $( document ).ready( function(){
 		$profile = $( "#cmb-profile" ),
 		$user = $( "#d-email" );
 
+	// load and setup profiles
+	clkio.profiles.onChange = function(){
+		clkio.timecard.updateBalance();
+		clkio.timecard.updateMonthBalance();
+		clkio.timecard.update();
+		clkio.reasons.list = [];
+		$( "select.cmb-mnl-reason option:not(:first)" ).remove();
+	};
+	clkio.profiles.load( function(){
+		$.each( clkio.profiles.list, function( index, profile ){
+			$profile.append( $( "<option></option>" ).attr( "value", profile.id ).text( profile.description ) );
+			if ( !Cookies.get( "profile" ) )
+				Cookies.set( "profile", clkio.profiles.list[0].id );
+			$profile.val( Cookies.get( "profile" ) );
+		})
+		clkio.profiles.change();
+	});
+
 	// prepare combo for months
 	$.each( months, function( index, value ){
 		var optionValue = ( index + 1 ).toString();
@@ -204,29 +229,11 @@ $( document ).ready( function(){
 		clkio.timecard.update();
 	});
 
-	// load and setup profiles
-	clkio.profiles.list( function( resp ){
-		$.each( resp.profiles, function( index, value ){
-			$profile.append( $( "<option></option>" ).attr( "value", value.id ).text( value.description ) );
-			$profile.val( Cookies.get( "profile" ) );
-		})
-	});
 	$profile.change( function( data ){
 		Cookies.set( "profile", $profile.val() );
-		clkio.timecard.updateBalance();
-		clkio.timecard.updateMonthBalance();
-		clkio.timecard.update();
+		clkio.profiles.change();
 	});
 
 	// shows current logged user
 	$user.empty().text( Cookies.get( "user" ) + " " ).append( $( "<span></span>" ).attr( "class", "caret" ) );
-
-	// load total balance
-	clkio.timecard.updateBalance();
-
-	// load total balance for the month
-	clkio.timecard.updateMonthBalance();
-
-	// load timecard
-	clkio.timecard.update();
 });
