@@ -132,6 +132,7 @@ clkio.timecard.fillForm = function( day ) {
 
 	// clear form for manual enterings
 	$( "#mnl-entering-input-group-add" ).siblings().remove();
+	$( "#mnl-entering-input-group-add" ).find( "input:text[name=mnl-timeinterval], select[name=mnl-reason]" ).val( "" );
 
 	// load clockins clockouts
 	$.each( day.tableEntering, function( index, clockinclockout ){
@@ -172,7 +173,7 @@ clkio.timecard.fillForm = function( day ) {
 		$mnlGroup.removeClass( "input-group-add" );
 
 		// mnl-id
-		$mnlGroup.find( "input:text[name=mnl-id]" ).val( manualEnterings.id );
+		$mnlGroup.find( "input:hidden[name=mnl-id]" ).val( manualEnterings.id );
 
 		// reason
 		$mnlGroup.find( "select[name=mnl-reason]" ).val( manualEnterings.reason.id );
@@ -197,6 +198,12 @@ clkio.timecard.fillForm = function( day ) {
 
 	// setup listening for delete clkio
 	$( ".btn-delete-clkio" ).click( { method : "DELETE" }, clkio.timecard.clkio );
+
+	// setup listening for update manual entering
+	$( ".btn-update-entering" ).click( { method : "PUT" }, clkio.timecard.manualEntering );
+
+	// setup listening for update manual entering
+	$( ".btn-delete-entering" ).click( { method : "DELETE" }, clkio.timecard.manualEntering );
 }
 
 clkio.timecard.saveExpectedHours = function() {
@@ -277,6 +284,39 @@ clkio.timecard.clkio = function( event ) {
 				clkio.msgBox.error( "Sorry, but something went wrong;", error );
 			}
 			$panel.find( "input:text, button" ).removeAttr( "disabled" );
+		}
+	});
+}
+
+clkio.timecard.manualEntering = function( event ) {
+	var data = {}, $panel, $reason, $timeInterval;
+
+	if ( event.data.method === "DELETE" && !confirm( "Delete record?" ) ) return;
+
+	$panel = $( this ).parent().parent();
+	$reason = $panel.find( "select[name=mnl-reason]" );
+	$timeInterval = $panel.find( "input:text[name=mnl-timeinterval]" );
+
+	data[ "timeInterval" ] = $timeInterval.val();
+	data[ "reason" ] = { id : $reason.val() };
+	data[ "day" ] = { date : $( "#txtb-day-dt" ).val() };
+
+	$panel.find( "select, input:text, button" ).attr( "disabled", "" );
+
+	clkio.rest({
+		uri : clkio.profiles.uri() + "/timecard/manualentering/" + ( event.data.method === "POST" ? "" : $panel.find( "input:hidden[name=mnl-id]" ).val() ),
+		method : event.data.method,
+		data : ( event.data.method === "DELETE" ? {} : JSON.stringify( data ) ),
+		success : function() {
+			clkio.timecard.load( function() {
+				$panel.find( "select, input:text, button" ).removeAttr( "disabled" );
+				clkio.timecard.fillForm( clkio.timecard.getSelectedDay() );
+			});
+		},
+		error : function( xhr, status, error ) {
+			console.log( {"xhr":xhr, "status":status, "error":error} );
+			clkio.msgBox.error( "Sorry, but something went wrong;", JSON.parse( xhr.responseText ).message );
+			$panel.find( "select, input:text, button" ).removeAttr( "disabled" );
 		}
 	});
 }
@@ -369,4 +409,6 @@ $( document ).ready( function(){
 	// setup listening for insert clkio
 	$( "#btn-insert-clkio" ).click( { method : "POST" }, clkio.timecard.clkio );
 
+	// setup listening for insert manual entering
+	$( "#btn-mnl-entering" ).click( { method : "POST" }, clkio.timecard.manualEntering );
 });
