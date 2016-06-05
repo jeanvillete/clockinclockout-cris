@@ -92,6 +92,12 @@ clkio.timecard.renderTable = function() {
 	});
 }
 
+clkio.timecard.getSelectedDay = function() {
+	return $.grep( clkio.timecard.data.days, function( current ){
+		return current.date == $( "#txtb-day-dt" ).val();
+	})[0];
+}
+
 clkio.timecard.handleRow = function( $tr ) {
 	$tr = $( $tr.currentTarget );
 	var $clkioGroup, $mnlGroup, day, $tr;
@@ -104,17 +110,6 @@ clkio.timecard.handleRow = function( $tr ) {
 	})[0];
 
 	clkio.timecard.fillForm( day );
-
-	// if ( $tr.hasClass( "date-selected" ) ) {
-	// 	$tr.removeClass( "date-selected" );
-	// 	$tr.siblings().show();
-	//
-	// 	$( "#clkio-input-group-add" ).show();
-	// } else {
-	// 	$tr.addClass( "date-selected" );
-	// 	$tr.siblings().hide();
-	//
-	// }
 }
 
 clkio.timecard.fillForm = function( day ) {
@@ -200,13 +195,14 @@ clkio.timecard.saveExpectedHours = function() {
 		method : "PUT",
 		data : JSON.stringify( data ),
 		success : function() {
-			clkio.timecard.load();
+			clkio.timecard.load( function() {
+				clkio.timecard.fillForm( clkio.timecard.getSelectedDay() );
+				$( "#txtb-expected" ).parent().find( "input:text, button" ).removeAttr( "disabled" );
+			});
 		},
 		error : function( xhr, status, error ) {
 			console.log( {"xhr":xhr, "status":status, "error":error} );
 			clkio.msgBox.error( "Hey, expected hours was not persisted;", JSON.parse( xhr.responseText ).message );
-		},
-		complete : function() {
 			$( "#txtb-expected" ).parent().find( "input:text, button" ).removeAttr( "disabled" );
 		}
 	});
@@ -222,14 +218,15 @@ clkio.timecard.saveNotes = function() {
 		method : "PUT",
 		data : JSON.stringify( data ),
 		success : function() {
-			clkio.timecard.load();
+			clkio.timecard.load( function() {
+				clkio.timecard.fillForm( clkio.timecard.getSelectedDay() );
+				$( "#txtb-notes" ).parent().find( "input:text, button" ).removeAttr( "disabled" );
+			});
 		},
 		error : function( xhr, status, error ) {
 			console.log( {"xhr":xhr, "status":status, "error":error} );
 			clkio.msgBox.error( "Ops, notes was not saved;", JSON.parse( xhr.responseText ).message );
-		},
-		complete : function() {
-			$( "#txtb-notes" ).parent().find( "input:text, button" ).removeAttr( "disabled" );
+			$( "#txtb-notes" ).parent().find( "input:text, button" ).removeAttr( "disabled" ).focus();
 		}
 	});
 }
@@ -252,6 +249,8 @@ $( document ).ready( function(){
 	});
 	$month.change(function(){
 		clkio.timecard.load();
+		$( "#row-timecard" ).show();
+		$( ".row-timecard-form" ).hide();
 	});
 
 	// prepare combo for years
@@ -263,6 +262,8 @@ $( document ).ready( function(){
 	$year.val( today.getFullYear() );
 	$year.change(function(){
 		clkio.timecard.load();
+		$( "#row-timecard" ).show();
+		$( ".row-timecard-form" ).hide();
 	});
 
 	// shows current logged user
@@ -299,6 +300,8 @@ $( document ).ready( function(){
 	$profile.change( function( data ){
 		Cookies.set( "profile", $profile.val() );
 		clkio.profiles.change();
+		$( "#row-timecard" ).show();
+		$( ".row-timecard-form" ).hide();
 	});
 
 	// setup listening for save expected hours button
