@@ -147,10 +147,10 @@ clkio.timecard.fillForm = function( day ) {
 		$clkioGroup.find( "input:hidden[name=clkio-id]" ).val( clockinclockout.id );
 
 		// clockin date
-		$clkioGroup.find( "input:hidden[name=clockin-dt]" ).val( clockinclockout.clockin.substring( 0, clockinclockout.clockin.lastIndexOf( " " ) ) );
+		$clkioGroup.find( "input:hidden[name=clockin-dt]" ).val( clockinclockout.clockin ? clockinclockout.clockin.substring( 0, clockinclockout.clockin.lastIndexOf( " " ) ) : day.date );
 
 		// clockout date
-		$clkioGroup.find( "input:hidden[name=clockout-dt]" ).val( clockinclockout.clockout.substring( 0, clockinclockout.clockout.lastIndexOf( " " ) ) );
+		$clkioGroup.find( "input:hidden[name=clockout-dt]" ).val( clockinclockout.clockout ? clockinclockout.clockout.substring( 0, clockinclockout.clockout.lastIndexOf( " " ) ) : day.date );
 
 		// clockin
 		$clkioGroup.find( "input:text[name=clockin-hr]" ).val( clockinclockout.clockin.substring( clockinclockout.clockin.indexOf( " " ) ) );
@@ -191,6 +191,9 @@ clkio.timecard.fillForm = function( day ) {
 	$( "input[type=text].clkio-date" ).unmask()
 	$( "input[type=text].clkio-time" ).mask( "00:00" );
 	$( "input[type=text].clkio-date" ).mask( clkio.profiles.getCurrent().dateFormat.replace( /y|M|d/g, "0" ) );
+
+	// setup listening for update clkio
+	$( ".btn-update-clkio" ).click( clkio.timecard.updateClkio );
 }
 
 clkio.timecard.saveExpectedHours = function() {
@@ -250,6 +253,32 @@ clkio.timecard.insertClkio = function() {
 	clkio.rest({
 		uri : clkio.profiles.uri() + "/timecard/clockinclockout",
 		method : "POST",
+		data : JSON.stringify( data ),
+		success : function() {
+			clkio.timecard.load( function() {
+				$panel.find( "input:text, button" ).removeAttr( "disabled" );
+				clkio.timecard.fillForm( clkio.timecard.getSelectedDay() );
+			});
+		},
+		error : function( xhr, status, error ) {
+			console.log( {"xhr":xhr, "status":status, "error":error} );
+			clkio.msgBox.error( "Sorry but something went wrong;", JSON.parse( xhr.responseText ).message );
+			$panel.find( "input:text, button" ).removeAttr( "disabled" );
+		}
+	});
+}
+
+clkio.timecard.updateClkio = function() {
+	var data = {}, $panel = $( this ).parent().parent();
+	$panel.find( "input:text, button" ).attr( "disabled", "" );
+	data[ "clockin" ] = $panel.find( "input:text[name=clockin-hr]" ).val() ?
+		$panel.find( "input:hidden[name=clockin-dt]" ).val() + " " + $panel.find( "input:text[name=clockin-hr]" ).val() : "";
+	data[ "clockout" ] = $panel.find( "input:text[name=clockout-hr]" ).val() ?
+		$panel.find( "input:hidden[name=clockout-dt]" ).val() + " " + $panel.find( "input:text[name=clockout-hr]" ).val() : "";
+
+	clkio.rest({
+		uri : clkio.profiles.uri() + "/timecard/clockinclockout/" + $panel.find( "input:hidden[name=clkio-id]" ).val(),
+		method : "PUT",
 		data : JSON.stringify( data ),
 		success : function() {
 			clkio.timecard.load( function() {
@@ -352,4 +381,5 @@ $( document ).ready( function(){
 
 	// setup listening for insert clkio
 	$( "#btn-insert-clkio" ).click( clkio.timecard.insertClkio );
+
 });
