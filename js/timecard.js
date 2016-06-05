@@ -193,7 +193,10 @@ clkio.timecard.fillForm = function( day ) {
 	$( "input[type=text].clkio-date" ).mask( clkio.profiles.getCurrent().dateFormat.replace( /y|M|d/g, "0" ) );
 
 	// setup listening for update clkio
-	$( ".btn-update-clkio" ).click( clkio.timecard.updateClkio );
+	$( ".btn-update-clkio" ).click( { method : "PUT" }, clkio.timecard.clkio );
+
+	// setup listening for delete clkio
+	$( ".btn-delete-clkio" ).click( { method : "DELETE" }, clkio.timecard.clkio );
 }
 
 clkio.timecard.saveExpectedHours = function() {
@@ -242,18 +245,24 @@ clkio.timecard.saveNotes = function() {
 	});
 }
 
-clkio.timecard.insertClkio = function() {
-	var data = {}, $panel = $( "#clkio-input-group-add" );
+clkio.timecard.clkio = function( event ) {
+	var data = {}, $panel, $clockIn, $clockOut;
+
+	if ( event.data.method === "DELETE" && !confirm( "Delete record?" ) ) return;
+
+	$panel = $( this ).parent().parent();
+	$clockIn = $panel.find( "input:text[name=clockin-hr]" );
+	$clockOut = $panel.find( "input:text[name=clockout-hr]" );
+
+	data[ "clockin" ] = $clockIn.val() ? $panel.find( "input:hidden[name=clockin-dt]" ).val() + " " + $clockIn.val() : "";
+	data[ "clockout" ] = $clockOut.val() ? $panel.find( "input:hidden[name=clockout-dt]" ).val() + " " + $clockOut.val() : "";
+
 	$panel.find( "input:text, button" ).attr( "disabled", "" );
-	data[ "clockin" ] = $panel.find( "input:text[name=clockin-hr]" ).val() ?
-		$panel.find( "input:hidden[name=clockin-dt]" ).val() + " " + $panel.find( "input:text[name=clockin-hr]" ).val() : "";
-	data[ "clockout" ] = $panel.find( "input:text[name=clockout-hr]" ).val() ?
-		$panel.find( "input:hidden[name=clockout-dt]" ).val() + " " + $panel.find( "input:text[name=clockout-hr]" ).val() : "";
 
 	clkio.rest({
-		uri : clkio.profiles.uri() + "/timecard/clockinclockout",
-		method : "POST",
-		data : JSON.stringify( data ),
+		uri : clkio.profiles.uri() + "/timecard/clockinclockout/" + ( event.data.method === "POST" ? "" : $panel.find( "input:hidden[name=clkio-id]" ).val() ),
+		method : event.data.method,
+		data : ( event.data.method === "DELETE" ? {} : JSON.stringify( data ) ),
 		success : function() {
 			clkio.timecard.load( function() {
 				$panel.find( "input:text, button" ).removeAttr( "disabled" );
@@ -262,33 +271,11 @@ clkio.timecard.insertClkio = function() {
 		},
 		error : function( xhr, status, error ) {
 			console.log( {"xhr":xhr, "status":status, "error":error} );
-			clkio.msgBox.error( "Sorry but something went wrong;", JSON.parse( xhr.responseText ).message );
-			$panel.find( "input:text, button" ).removeAttr( "disabled" );
-		}
-	});
-}
-
-clkio.timecard.updateClkio = function() {
-	var data = {}, $panel = $( this ).parent().parent();
-	$panel.find( "input:text, button" ).attr( "disabled", "" );
-	data[ "clockin" ] = $panel.find( "input:text[name=clockin-hr]" ).val() ?
-		$panel.find( "input:hidden[name=clockin-dt]" ).val() + " " + $panel.find( "input:text[name=clockin-hr]" ).val() : "";
-	data[ "clockout" ] = $panel.find( "input:text[name=clockout-hr]" ).val() ?
-		$panel.find( "input:hidden[name=clockout-dt]" ).val() + " " + $panel.find( "input:text[name=clockout-hr]" ).val() : "";
-
-	clkio.rest({
-		uri : clkio.profiles.uri() + "/timecard/clockinclockout/" + $panel.find( "input:hidden[name=clkio-id]" ).val(),
-		method : "PUT",
-		data : JSON.stringify( data ),
-		success : function() {
-			clkio.timecard.load( function() {
-				$panel.find( "input:text, button" ).removeAttr( "disabled" );
-				clkio.timecard.fillForm( clkio.timecard.getSelectedDay() );
-			});
-		},
-		error : function( xhr, status, error ) {
-			console.log( {"xhr":xhr, "status":status, "error":error} );
-			clkio.msgBox.error( "Sorry but something went wrong;", JSON.parse( xhr.responseText ).message );
+			try {
+				clkio.msgBox.error( "Sorry, but something went wrong;", JSON.parse( xhr.responseText ).message );
+			} catch ( e ) {
+				clkio.msgBox.error( "Sorry, but something went wrong;", error );
+			}
 			$panel.find( "input:text, button" ).removeAttr( "disabled" );
 		}
 	});
@@ -380,6 +367,6 @@ $( document ).ready( function(){
 	});
 
 	// setup listening for insert clkio
-	$( "#btn-insert-clkio" ).click( clkio.timecard.insertClkio );
+	$( "#btn-insert-clkio" ).click( { method : "POST" }, clkio.timecard.clkio );
 
 });
