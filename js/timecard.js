@@ -127,6 +127,8 @@ clkio.timecard.fillForm = function( day ) {
 
 	// clear form for clockins and clockouts
 	$( "#clkio-input-group-add" ).siblings().remove();
+	$( "#clkio-input-group-add" ).find( "input:text[name=clockin-hr], input:text[name=clockout-hr]" ).val( "" );
+	$( "#clkio-input-group-add" ).find( "input:hidden[name=clockin-dt], input:hidden[name=clockout-dt]" ).val( day.date );
 
 	// clear form for manual enterings
 	$( "#mnl-entering-input-group-add" ).siblings().remove();
@@ -143,6 +145,12 @@ clkio.timecard.fillForm = function( day ) {
 
 		// clkio-id
 		$clkioGroup.find( "input:hidden[name=clkio-id]" ).val( clockinclockout.id );
+
+		// clockin date
+		$clkioGroup.find( "input:hidden[name=clockin-dt]" ).val( clockinclockout.clockin.substring( 0, clockinclockout.clockin.lastIndexOf( " " ) ) );
+
+		// clockout date
+		$clkioGroup.find( "input:hidden[name=clockout-dt]" ).val( clockinclockout.clockout.substring( 0, clockinclockout.clockout.lastIndexOf( " " ) ) );
 
 		// clockin
 		$clkioGroup.find( "input:text[name=clockin-hr]" ).val( clockinclockout.clockin.substring( clockinclockout.clockin.indexOf( " " ) ) );
@@ -231,6 +239,32 @@ clkio.timecard.saveNotes = function() {
 	});
 }
 
+clkio.timecard.insertClkio = function() {
+	var data = {}, $panel = $( "#clkio-input-group-add" );
+	$panel.find( "input:text, button" ).attr( "disabled", "" );
+	data[ "clockin" ] = $panel.find( "input:text[name=clockin-hr]" ).val() ?
+		$panel.find( "input:hidden[name=clockin-dt]" ).val() + " " + $panel.find( "input:text[name=clockin-hr]" ).val() : "";
+	data[ "clockout" ] = $panel.find( "input:text[name=clockout-hr]" ).val() ?
+		$panel.find( "input:hidden[name=clockout-dt]" ).val() + " " + $panel.find( "input:text[name=clockout-hr]" ).val() : "";
+
+	clkio.rest({
+		uri : clkio.profiles.uri() + "/timecard/clockinclockout",
+		method : "POST",
+		data : JSON.stringify( data ),
+		success : function() {
+			clkio.timecard.load( function() {
+				$panel.find( "input:text, button" ).removeAttr( "disabled" );
+				clkio.timecard.fillForm( clkio.timecard.getSelectedDay() );
+			});
+		},
+		error : function( xhr, status, error ) {
+			console.log( {"xhr":xhr, "status":status, "error":error} );
+			clkio.msgBox.error( "Sorry but something went wrong;", JSON.parse( xhr.responseText ).message );
+			$panel.find( "input:text, button" ).removeAttr( "disabled" );
+		}
+	});
+}
+
 $( document ).ready( function(){
 	var today = new Date(),
 		year, years = [],
@@ -315,4 +349,7 @@ $( document ).ready( function(){
 		$( "#row-timecard" ).show();
 		$( ".row-timecard-form" ).hide();
 	});
+
+	// setup listening for insert clkio
+	$( "#btn-insert-clkio" ).click( clkio.timecard.insertClkio );
 });
