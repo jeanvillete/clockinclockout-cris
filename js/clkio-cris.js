@@ -26,7 +26,8 @@ clkio.rest = function( req ) {
 		},
 		error : req.error || function( xhr, status, error ) {
 			console.log( {"xhr":xhr, "status":status, "error":error} );
-		}
+		},
+		complete : req.complete || {}
 	});
 }
 
@@ -39,6 +40,14 @@ clkio.logout = function() {
 			window.location.href = "index.html";
 		}
 	});
+}
+
+clkio.msgBox = {};
+clkio.msgBox.error = function( title, msg ) {
+	var modal = $( "#modal-error-msg" );
+	modal.find( "strong" ).text( title || "" );
+	modal.find( "p" ).text( msg || "" );
+	modal.modal( 'show' );
 }
 
 $.fn.serializeObject = function(){

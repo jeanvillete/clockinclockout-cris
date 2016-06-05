@@ -96,21 +96,25 @@ clkio.timecard.handleRow = function( $tr ) {
 	$tr = $( $tr.currentTarget );
 	var $clkioGroup, $mnlGroup, day, $tr;
 
-	if ( $tr.hasClass( "date-selected" ) ) {
-		$tr.removeClass( "date-selected" );
-		$tr.siblings().show();
+	$( "#row-timecard" ).hide();
+	$( ".row-timecard-form" ).show();
 
-		$( "#clkio-input-group-add" ).show();
-	} else {
-		$tr.addClass( "date-selected" );
-		$tr.siblings().hide();
+	day = $.grep( clkio.timecard.data.days, function( current ){
+		return current.date == $tr.find( "td :hidden[name=date]" ).val();
+	})[0];
 
-		day = $.grep( clkio.timecard.data.days, function( current ){
-			return current.date == $tr.find( "td :hidden[name=date]" ).val();
-		})[0];
+	clkio.timecard.fillForm( day );
 
-		clkio.timecard.fillForm( day );
-	}
+	// if ( $tr.hasClass( "date-selected" ) ) {
+	// 	$tr.removeClass( "date-selected" );
+	// 	$tr.siblings().show();
+	//
+	// 	$( "#clkio-input-group-add" ).show();
+	// } else {
+	// 	$tr.addClass( "date-selected" );
+	// 	$tr.siblings().hide();
+	//
+	// }
 }
 
 clkio.timecard.fillForm = function( day ) {
@@ -186,6 +190,32 @@ clkio.timecard.fillForm = function( day ) {
 	$( "input[type=text].clkio-date" ).mask( clkio.profiles.getCurrent().dateFormat.replace( /y|M|d/g, "0" ) );
 }
 
+clkio.timecard.saveExpectedHours = function() {
+	var data = $( "#txtb-expected" ).serializeObject();
+	data[ "date" ] = $( "#txtb-day-dt" ).val();
+
+	$( "#txtb-expected" ).parent().find( "input:text, button" ).attr( "disabled", "" );
+	clkio.rest({
+		uri : clkio.profiles.uri() + "/timecard/expectedhours",
+		method : "PUT",
+		data : JSON.stringify( data ),
+		success : function() {
+			clkio.timecard.load();
+		},
+		error : function( xhr, status, error ) {
+			console.log( {"xhr":xhr, "status":status, "error":error} );
+			clkio.msgBox.error( "Hey, pay attention;", JSON.parse( xhr.responseText ).message );
+		},
+		complete : function() {
+			$( "#txtb-expected" ).parent().find( "input:text, button" ).removeAttr( "disabled" );
+		}
+	});
+}
+
+clkio.timecard.saveNotes = function() {
+
+}
+
 $( document ).ready( function(){
 	var today = new Date(),
 		year, years = [],
@@ -251,5 +281,17 @@ $( document ).ready( function(){
 	$profile.change( function( data ){
 		Cookies.set( "profile", $profile.val() );
 		clkio.profiles.change();
+	});
+
+	// setup listening for save expected hours button
+	$( "#btn-save-expected" ).click( clkio.timecard.saveExpectedHours );
+
+	// setup listening for save notes button
+	$( "#btn-save-notes" ).click( clkio.timecard.saveNotes );
+
+	// setup listening for close timecard form button
+	$( "#btn-timecard-closeform" ).click( function() {
+		$( "#row-timecard" ).show();
+		$( ".row-timecard-form" ).hide();
 	});
 });

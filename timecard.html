@@ -90,6 +90,28 @@
 			.clkio-panel-heading {
 				border-bottom: none;
 			}
+
+			.alert {
+				margin-bottom : 0px;
+			}
+
+			.row-timecard-top {
+				border-top: 2px solid #dddddd;
+				padding-top: 20px;
+				margin-top: 10px;
+			}
+
+			.row-timecard-bottom {
+				border-bottom: 2px solid #dddddd;
+				padding-bottom: 20px;
+				margin-bottom: 10px;
+				text-align: right;
+				margin-top: 20px;
+			}
+
+			.row-timecard-form {
+				display: none;
+			}
 		</style>
 	</head>
 	<body>
@@ -163,7 +185,7 @@
 				</div>
 			</div>
 
-			<div class="row">
+			<div class="row" id="row-timecard">
 				<div class="col-lg-12">
 					<div class="bs-component">
 						<table id="tbl-timecard" class="table table-striped table-hover ">
@@ -183,13 +205,13 @@
 			</div>
 
 
-			<div class="row">
+			<div class="row row-timecard-form row-timecard-top">
 				<div class="col-lg-2">
 					<!-- date -->
 					<div class="bs-component">
 						<div class="form-group">
 							<label class="control-label" for="txtb-day-dt">date</label>
-							<input value="31/05/2016" disabled="" class="form-control input-sm" id="txtb-day-dt" type="text">
+							<input value="" disabled="" class="form-control input-sm" id="txtb-day-dt" type="text" name="date">
 						</div>
 					</div>
 				</div>
@@ -197,12 +219,11 @@
 					<!-- expected hours -->
 					<div class="bs-component">
 						<div class="form-group">
-							<label class="control-label" for="">expected hours</label>
+							<label class="control-label" for="txtb-expected">expected hours</label>
 							<div class="input-group">
-								<input class="form-control input-sm clkio-time" id="txtb-expected" type="text"
-								placeholder="expected hours" >
+								<input class="form-control input-sm clkio-time" id="txtb-expected" type="text" placeholder="expected hours" name="expectedHours">
 								<span class="input-group-btn">
-									<button class="btn btn-primary bnt-input" type="button">
+									<button class="btn btn-primary bnt-input" type="button" id="btn-save-expected">
 										<i class="fa fa-check-square-o" aria-hidden="true"></i>
 									</button>
 								</span>
@@ -223,12 +244,11 @@
 					<!-- notes -->
 					<div class="bs-component">
 						<div class="form-group">
-							<label class="control-label" for="">notes</label>
+							<label class="control-label" for="txtb-notes">notes</label>
 							<div class="input-group">
-								<input class="form-control input-sm" id="txtb-notes" type="text"
-									placeholder="notes" value="">
+								<input class="form-control input-sm" id="txtb-notes" type="text" placeholder="notes" value="">
 								<span class="input-group-btn">
-									<button class="btn btn-primary bnt-input" type="button">
+									<button class="btn btn-primary bnt-input" type="button" id="btn-save-notes">
 										<i class="fa fa-check-square-o" aria-hidden="true"></i>
 									</button>
 								</span>
@@ -238,7 +258,7 @@
 				</div>
 			</div>
 
-			<div class="row">
+			<div class="row row-timecard-form">
 				<!--panel for clockins and clockouts -->
 				<div class="col-lg-6">
 					<div class="bs-component">
@@ -308,6 +328,26 @@
 									</span>
 								</div>
 							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row row-timecard-form row-timecard-bottom">
+				<div class="col-lg-12">
+					<div class="bs-component">
+							<button style="padding: 8px 27px;" class="btn btn-success" id="btn-timecard-closeform"><i style="font-size: 20px; font-weight: bold;" class="fa fa-times" aria-hidden="true"></i> conclude</button>
+					</div>
+				</div>
+			</div>
+
+			<div class="modal" id="modal-error-msg">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-body alert alert-dismissible alert-danger">
+							<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+							<strong>Oh snap!</strong>
+							<p style="font-size:14px;">One fine body…</p>
 						</div>
 					</div>
 				</div>
