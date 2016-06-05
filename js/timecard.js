@@ -204,7 +204,7 @@ clkio.timecard.saveExpectedHours = function() {
 		},
 		error : function( xhr, status, error ) {
 			console.log( {"xhr":xhr, "status":status, "error":error} );
-			clkio.msgBox.error( "Hey, pay attention;", JSON.parse( xhr.responseText ).message );
+			clkio.msgBox.error( "Hey, expected hours was not persisted;", JSON.parse( xhr.responseText ).message );
 		},
 		complete : function() {
 			$( "#txtb-expected" ).parent().find( "input:text, button" ).removeAttr( "disabled" );
@@ -213,7 +213,25 @@ clkio.timecard.saveExpectedHours = function() {
 }
 
 clkio.timecard.saveNotes = function() {
+	var data = $( "#txtb-notes" ).serializeObject();
+	data[ "date" ] = $( "#txtb-day-dt" ).val();
 
+	$( "#txtb-notes" ).parent().find( "input:text, button" ).attr( "disabled", "" );
+	clkio.rest({
+		uri : clkio.profiles.uri() + "/timecard/notes",
+		method : "PUT",
+		data : JSON.stringify( data ),
+		success : function() {
+			clkio.timecard.load();
+		},
+		error : function( xhr, status, error ) {
+			console.log( {"xhr":xhr, "status":status, "error":error} );
+			clkio.msgBox.error( "Ops, notes was not saved;", JSON.parse( xhr.responseText ).message );
+		},
+		complete : function() {
+			$( "#txtb-notes" ).parent().find( "input:text, button" ).removeAttr( "disabled" );
+		}
+	});
 }
 
 $( document ).ready( function(){
