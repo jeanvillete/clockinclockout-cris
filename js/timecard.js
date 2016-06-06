@@ -45,6 +45,10 @@ clkio.timecard.renderMonthBalance = function() {
 				$monthBalance.parent().parent().removeClass( "panel-danger" ).addClass( "panel-primary" );
 			}
 			$monthBalance.text( resp.totalTimeMonthly );
+
+			$( "#d-label-balanceMonthly" ).text(
+				$month.find( "option:selected" ).text() + " " + $year.find( "option:selected" ).text() + ":"
+			);
 		}
 	});
 }
