@@ -4,6 +4,7 @@ clkio.timecard.onChange = function(){};
 clkio.timecard.data = {};
 
 clkio.timecard.load = function( callback ) {
+	clkio.progress.on();
 	clkio.rest({
 		uri : clkio.profiles.uri() + "/timecard/" + $( "#cmb-year" ).val() + "-" + $( "#cmb-month" ).val(),
 		success : function( resp ) {
@@ -15,8 +16,11 @@ clkio.timecard.load = function( callback ) {
 }
 
 clkio.timecard.change = function() {
-	if ( clkio.timecard.onChange )
-			clkio.timecard.onChange();
+	if ( clkio.timecard.onChange ) {
+		clkio.timecard.onChange();
+		clkio.progress.off();
+		$( "#timecard-body" ).show();
+	}
 }
 
 clkio.timecard.renderTotalBalance = function() {

@@ -50,6 +50,14 @@ clkio.msgBox.error = function( title, msg ) {
 	modal.modal( 'show' );
 }
 
+clkio.progress = {};
+clkio.progress.on = function() {
+	$( "#clkio-progress-bar" ).show();
+}
+clkio.progress.off = function() {
+	$( "#clkio-progress-bar" ).hide();
+}
+
 $.fn.serializeObject = function(){
     var o = {};
     var a = this.serializeArray();
