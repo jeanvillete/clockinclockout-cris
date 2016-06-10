@@ -14,142 +14,7 @@
 		<script src="js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="css/bootstrap.css" media="screen">
 		<link rel="stylesheet" href="css/font-awesome.min.css" media="screen">
-		<style>
-			#tbl-timecard {
-				border-bottom: solid 1px #ddd;
-			}
-
-			#tbl-timecard tbody tr {
-				cursor: pointer;
-			}
-
-			#tbl-timecard tbody tr td div.label {
-				font-size: 100%;
-				font-weight: bold;
-				margin: 3px 0px;
-				padding: 5px 2px;
-				display: block;
-				overflow-x: hidden;
-				max-width: 220px;
-			}
-
-			.btn-edit {
-				margin-right: 10px;
-				cursor: pointer;
-			}
-
-			.navbar {
-				font-size: 14px;
-			}
-
-			.form-control {
-				font-size: 14px;
-			}
-
-			table {
-				font-size: 14px;
-			}
-
-			.bnt-input {
-				height: 36px;
-				font-size: 25px;
-				padding: 0px 12px;
-			}
-
-			.timecard-panel {
-				border-left: medium none;
-				border-right: medium none;
-			}
-
-			.timecard-panel-body {
-				padding: 0px 5px;
-				background-color : #f5f5f5;
-			}
-
-			label {
-				font-size: 14px !important;
-			}
-
-			div.input-group {
-				margin-bottom: 8px;
-			}
-
-			.input-group-add {
-			}
-
-			.clkio-panel-heading {
-				border-bottom: none;
-			}
-
-			.alert {
-				margin-bottom : 0px;
-			}
-
-			.row-timecard-top {
-				border-top: 2px solid #dddddd;
-				padding-top: 20px;
-				margin-top: 10px;
-			}
-
-			.row-timecard-bottom {
-				border-bottom: 2px solid #dddddd;
-				padding-bottom: 20px;
-				margin-bottom: 10px;
-				text-align: right;
-				margin-top: 20px;
-			}
-
-			.row-timecard-form {
-				display: none;
-			}
-
-			.progress {
-				height: 15px;
-				padding: 0px;
-				background-color: #f6f6f6;
-				border: 1px solid #ccc;
-				-webkit-box-shadow: none;
-				box-shadow: none;
-				margin-bottom: 0;
-			}
-
-			.panel-heading {
-				padding: 8px 15px;
-			}
-
-			footer p {
-				clear: left;
-				margin-bottom: 0;
-			}
-
-			#timecard-body {
-				margin-bottom: 30px;
-			}
-
-			@media (min-width: 1200px) {
-				.container{
-						max-width: 870px;
-				}
-			}
-
-			@media (max-width: 760px) {
-			}
-
-			@media(max-width: 380px){
-				#tbl-timecard tbody tr td div.label {
-					max-width: 160px;
-				}
-				.not_for_small {
-					display: none;
-				}
-				footer {
-					display: none;
-				}
-				#timecard-body {
-					margin-bottom: 5px;
-				}
-			}
-		</style>
+		<link rel="stylesheet" href="css/clkio.css" media="screen">
 	</head>
 	<body>
 		<div class="navbar navbar-default navbar-fixed-top">
@@ -361,10 +226,10 @@
 				</div>
 			</div>
 
-			<div class="row row-timecard-form row-timecard-bottom">
-				<div class="col-lg-12">
+			<div style="display: block;" class="row row-timecard-form row-timecard-bottom">
+				<div style="" class="col-lg-12">
 					<div class="bs-component">
-							<button style="padding: 8px 27px;" class="btn btn-success" id="btn-timecard-closeform"><i style="font-size: 20px; font-weight: bold;" class="fa fa-times" aria-hidden="true"></i> conclude</button>
+							<button class="btn btn-primary" style="padding: 8px 27px;" id="btn-timecard-closeform"><i style="font-size: 20px; font-weight: bold;" class="fa fa-times" aria-hidden="true"></i> close</button>
 					</div>
 				</div>
 			</div>
@@ -387,8 +252,7 @@
 		  <div class="container">
 		    <div style="color: white;" class="row">
 					<div class="col-lg-12">
-						<p>Project created and supported by <a href="https://br.linkedin.com/in/jeanvillete" rel="nofollow">Jean Villete</a>, fork it on <a href="https://github.com/jeanvillete/clockinclockout-cris">git hub</a>.</p>
-						<!-- <p>Bootstrap template <a href="http://getbootstrap.com" rel="nofollow">bootswatch Yeti</a>. Icons from <a href="http://fortawesome.github.io/Font-Awesome/" rel="nofollow">Font Awesome</a>.</p> -->
+						<p>Supported by <a href="https://br.linkedin.com/in/jeanvillete" rel="nofollow">Jean Villete</a>, fork me on <a href="https://github.com/jeanvillete/clockinclockout-cris">git hub</a>.</p>
 					</div>
 				</div>
 		  </div>
