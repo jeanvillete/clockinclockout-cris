@@ -53,3 +53,39 @@ clkio.profiles.getExpectedHours = function( day ) {
 	console.log( "[clkio.profiles.getExpectedHours] Impossible infer value for expectedHours." );
 	return null;
 }
+
+clkio.profiles.renderNavBar = function() {
+	var $li, $a;
+	$( "li.navbar-menu-profile" ).remove();
+
+	$.each( clkio.profiles.list, function( index, profile ){
+		$li = $( "<li></li>" ).addClass( "navbar-menu-profile" );
+		$li.append( $( "<input></input>" ).attr( "type", "hidden" ).attr( "name", "id" ).attr( "value", profile.id ) );
+		$a = $( "<a></a>" ).attr( "href", "#" );
+		$a.append( document.createTextNode( profile.description ) );
+		$li.append( $a );
+
+		if ( profile.id == Cookies.get( "profile" ) )
+			clkio.profiles.selected( $li );
+
+		$li.click( clkio.profiles.selected );
+		$( "li#navbar-menu-profile" ).after( $li );
+	});
+}
+
+clkio.profiles.selected = function( $selected ) {
+	var $li = this === clkio.profiles ? $selected : $( this );
+
+	if ( this !== clkio.profiles && $li.find( "input:hidden[name=id]" ).val() === Cookies.get( "profile" ) )
+		return;
+
+	Cookies.set( "profile", $li.find( "input:hidden[name=id]" ).val() );
+
+	$li.siblings().removeClass( "selected" );
+	$li.parent().find( "li a i" ).remove();
+
+	$li.addClass( "selected" );
+	$li.find( "a" ).append( $( "<i></i>" ).attr( "aria-hidden", "true" ).attr( "class", "fa fa-dot-circle-o" ) );
+
+	clkio.profiles.change();
+}

@@ -1,3 +1,21 @@
+#navbar-menu-profile {
+
+}
+
+li.navbar-menu-profile a {
+	padding-left: 35px;
+}
+
+li.selected a {
+	font-weight: bold !important;
+}
+
+li.selected a i {
+	position: absolute;
+	left: 5px;
+	font-size: 18px;
+}
+
 /** timecard **/
 #tbl-timecard {
 	border-bottom: solid 1px #ddd;

@@ -335,7 +335,6 @@ $( document ).ready( function(){
 		$year = $( "#cmb-year" ),
 		months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
 		$month = $( "#cmb-month" ),
-		$profile = $( "#cmb-profile" ),
 		$user = $( "#d-email" );
 
 	// prepare combo for months
@@ -386,20 +385,14 @@ $( document ).ready( function(){
 		});
 
 		$( "select.cmb-mnl-reason option:not(:first)" ).remove();
-	};
-	clkio.profiles.load( function(){
-		$.each( clkio.profiles.list, function( index, profile ){
-			$profile.append( $( "<option></option>" ).attr( "value", profile.id ).text( profile.description ) );
-			if ( !Cookies.get( "profile" ) )
-				Cookies.set( "profile", clkio.profiles.list[0].id );
-			$profile.val( Cookies.get( "profile" ) );
-		});
-	});
-	$profile.change( function( data ){
-		Cookies.set( "profile", $profile.val() );
-		clkio.profiles.change();
+
 		$( "#row-timecard" ).show();
 		$( ".row-timecard-form" ).hide();
+	};
+	clkio.profiles.load( function(){
+		if ( !Cookies.get( "profile" ) )
+			Cookies.set( "profile", clkio.profiles.list[0].id );
+		clkio.profiles.renderNavBar();
 	});
 
 	// setup listening for save expected hours button
