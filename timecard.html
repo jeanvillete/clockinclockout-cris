@@ -6,50 +6,51 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<script src="js/jquery-1.12.4.min.js"></script>
 		<script src="js/jquery.mask.min.js"></script>
-		<script src="js/clkio-cris.js"></script>
 		<script src="js/js.cookie.js"></script>
+        <script src="js/bootstrap.min.js"></script>
 		<script src="js/profiles.js"></script>
 		<script src="js/reasons.js"></script>
 		<script src="js/timecard.js"></script>
-		<script src="js/bootstrap.min.js"></script>
+        <script src="js/clkio-cris.js"></script>
 		<link rel="stylesheet" href="css/bootstrap.css" media="screen">
 		<link rel="stylesheet" href="css/font-awesome.min.css" media="screen">
 		<link rel="stylesheet" href="css/clkio.css" media="screen">
 	</head>
 	<body>
 		<div class="navbar navbar-default navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <a href="index.html" class="navbar-brand">clkio-cris</a>
-          <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-        </div>
-        <div class="navbar-collapse collapse" id="navbar-main">
-          <ul class="nav navbar-nav">
-						<!--to be defined -->
-          </ul>
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="index.html" class="navbar-brand">clkio-cris</a>
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar-main">
+                    <ul class="nav navbar-nav">
+                    <!--to be defined -->
+                    </ul>
 
-          <ul class="nav navbar-nav navbar-right">
-						<li></li>
-						<li class="dropdown">
-              <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="d-email"></a>
-              <ul class="dropdown-menu" aria-labelledby="themes">
-								<li class="divider" id="navbar-menu-profile"></li>
-								<li class="divider"></li>
-								<li><a href="profiles.html">Settings</a></li>
-                <li><a id="ach-lgout" href="#">Logout</a></li>
-              </ul>
-            </li>
-          </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="d-email"></a>
+                            <ul class="dropdown-menu" aria-labelledby="themes">
+                                <li class="divider" id="navbar-menu-profile"></li>
+                                <li class="divider"></li>
+                                <li><a href="timecard.html">timecard</a></li>
+                                <li><a href="settings.html">settings</a></li>
+                                <li><a id="ach-lgout" href="#">logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="clkio-progress-bar" style="display: none;" class="progress progress-striped active">
+                <div style="width: 100%" class="progress-bar"></div>
+            </div>
         </div>
-      </div>
-			<div id="clkio-progress-bar" style="display: none;" class="progress progress-striped active">
-				<div style="width: 100%" class="progress-bar"></div>
-			</div>
-    </div>
 
 		<div class="container" id="timecard-body" style="display:none;" >
 			<div class="row" style="margin-top: 70px;">
@@ -108,7 +109,7 @@
 					<div class="bs-component">
 						<div class="form-group">
 							<label class="control-label" for="txtb-day-dt">date</label>
-							<input value="" disabled="" class="form-control input-sm" id="txtb-day-dt" type="text" name="date">
+							<input value="" disabled="" class="form-control input-sm" id="txtb-day-dt" type="text" name="date"/>
 						</div>
 					</div>
 				</div>
@@ -118,9 +119,9 @@
 						<div class="form-group">
 							<label class="control-label" for="txtb-expected">expected hours</label>
 							<div class="input-group">
-								<input class="form-control input-sm clkio-time" id="txtb-expected" type="text" placeholder="expected hours" name="expectedHours">
+								<input class="form-control input-sm clkio-time" id="txtb-expected" type="text" placeholder="expected hours" name="expectedHours"/>
 								<span class="input-group-btn">
-									<button class="btn btn-primary bnt-input" type="button" id="btn-save-expected">
+									<button class="btn btn-primary btn-input" type="button" id="btn-save-expected">
 										<i class="fa fa-check-square-o" aria-hidden="true"></i>
 									</button>
 								</span>
@@ -133,7 +134,7 @@
 					<div class="bs-component">
 						<div class="form-group">
 							<label class="control-label" for="txtb-balance">balance</label>
-							<input value="" disabled="" class="form-control input-sm" id="txtb-balance" type="text">
+							<input value="" disabled="" class="form-control input-sm" id="txtb-balance" type="text"/>
 						</div>
 					</div>
 				</div>
@@ -143,9 +144,9 @@
 						<div class="form-group">
 							<label class="control-label" for="txtb-notes">notes</label>
 							<div class="input-group">
-								<input class="form-control input-sm" id="txtb-notes" type="text" placeholder="notes" value="" name="text">
+								<input class="form-control input-sm" id="txtb-notes" type="text" placeholder="notes" value="" name="text"/>
 								<span class="input-group-btn">
-									<button class="btn btn-primary bnt-input" type="button" id="btn-save-notes">
+									<button class="btn btn-primary btn-input" type="button" id="btn-save-notes">
 										<i class="fa fa-check-square-o" aria-hidden="true"></i>
 									</button>
 								</span>
@@ -165,24 +166,24 @@
 								<div class="input-group input-group-add" id="clkio-input-group-add">
 									<input type="hidden" name="clkio-id" />
 									<input type="hidden" name="clockin-dt" />
-									<input class="form-control input-sm clkio-time" name="clockin-hr" type="text" placeholder="clock in" >
+									<input class="form-control input-sm clkio-time" name="clockin-hr" type="text" placeholder="clock in" />
 									<span class="input-group-btn" style="width:0px;"></span>
 									<input type="hidden" name="clockout-dt" />
-									<input class="form-control input-sm clkio-time" name="clockout-hr" type="text" placeholder="clock out" >
+									<input class="form-control input-sm clkio-time" name="clockout-hr" type="text" placeholder="clock out" />
 
 									<!-- clockin clockout add buttons -->
 									<span class="input-group-btn clkio-add-btn" style="padding-right: 47px;">
-										<button class="btn btn-success bnt-input" type="button" id="btn-insert-clkio">
+										<button class="btn btn-success btn-input" type="button" id="btn-insert-clkio">
 											<i class="fa fa-plus-square" aria-hidden="true"></i>
 										</button>
 									</span>
 
 									<!-- clockin clockout update/delete buttons -->
 									<span class="input-group-btn clkio-uptdel-btn" style="display:none;">
-										<button class="btn btn-primary bnt-input btn-update-clkio" type="button">
+										<button class="btn btn-primary btn-input btn-update-clkio" type="button">
 											<i class="fa fa-check-square-o" aria-hidden="true"></i>
 										</button>
-										<button class="btn btn-danger bnt-input btn-delete-clkio" type="button">
+										<button class="btn btn-danger btn-input btn-delete-clkio" type="button">
 											<i class="fa fa-trash" aria-hidden="true"></i>
 										</button>
 									</span>
@@ -203,21 +204,21 @@
 									<select name="mnl-reason" class="form-control input-sm cmb-mnl-reason" style="width:65%;">
 										<option value="">select reason</option>
 									</select>
-									<input class="form-control input-sm clkio-time" name="mnl-timeinterval" type="text" placeholder="interval" style="width:35%">
+									<input class="form-control input-sm clkio-time" name="mnl-timeinterval" type="text" placeholder="interval" style="width:35%"/>
 
 									<!-- button for add -->
 									<span class="input-group-btn mnl-enterings-add-btn" style="padding-right: 47px;">
-										<button class="btn btn-success bnt-input" type="button" id="btn-mnl-entering">
+										<button class="btn btn-success btn-input" type="button" id="btn-mnl-entering">
 											<i class="fa fa-plus-square" aria-hidden="true"></i>
 										</button>
 									</span>
 
 									<!-- buttons for update/delete -->
 									<span class="input-group-btn mnl-enterings-uptdel-btn" style="display:none;">
-										<button class="btn btn-primary bnt-input btn-update-entering" type="button">
+										<button class="btn btn-primary btn-input btn-update-entering" type="button">
 											<i class="fa fa-check-square-o" aria-hidden="true"></i>
 										</button>
-										<button class="btn btn-danger bnt-input btn-delete-entering" type="button">
+										<button class="btn btn-danger btn-input btn-delete-entering" type="button">
 											<i class="fa fa-trash" aria-hidden="true"></i>
 										</button>
 									</span>

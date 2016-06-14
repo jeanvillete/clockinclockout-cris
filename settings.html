@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>clkio-cris</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="js/jquery-1.12.4.min.js"></script>
+		<script src="js/jquery.mask.min.js"></script>
+		<script src="js/clkio-cris.js"></script>
+		<script src="js/js.cookie.js"></script>
+		<script src="js/profiles.js"></script>
+		<script src="js/reasons.js"></script>
+        <script src="js/emails.js"></script>
+        <script src="js/settings.js"></script>
+		<script src="js/bootstrap.min.js"></script>
+		<link rel="stylesheet" href="css/bootstrap.css" media="screen">
+		<link rel="stylesheet" href="css/font-awesome.min.css" media="screen">
+		<link rel="stylesheet" href="css/clkio.css" media="screen">
+	</head>
+	<body>
+		<div class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a href="index.html" class="navbar-brand">clkio-cris</a>
+                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#navbar-main">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+                <div class="navbar-collapse collapse" id="navbar-main">
+                    <ul class="nav navbar-nav">
+                    <!--to be defined -->
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="d-email"></a>
+                            <ul class="dropdown-menu" aria-labelledby="themes">
+                                <li class="divider" id="navbar-menu-profile"></li>
+                                <li class="divider"></li>
+                                <li><a href="timecard.html">timecard</a></li>
+                                <li><a href="settings.html">settings</a></li>
+                                <li><a id="ach-lgout" href="#">logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div id="clkio-progress-bar" style="display: none;" class="progress progress-striped active">
+                <div style="width: 100%" class="progress-bar"></div>
+            </div>
+        </div>
+
+		<div class="container" >
+            <!-- nav pills (menu) on top -->
+			<div class="row" id="row-nav-pill-settings">
+                <div class="bs-component">
+                  <ul class="nav nav-pills" id="clkio-nav-pill">
+                    <li id="clkio-nav-pill-emails"><a href="#">emails</a></li>
+                    <li id="clkio-nav-pill-profiles"><a href="#">profiles</a></li>
+                    <li id="clkio-nav-pill-password"><a href="#">password</a></li>
+                  </ul>
+                </div>
+			</div>
+            
+            <!-- panel for emails -->
+            <div class="row" id="row-panel-emails">
+                <div class="col-lg-12">
+                    <div class="bs-component">
+                        <div class="input-group input-group-add" >
+                            <input type="hidden" name="id" />
+                            <input class="form-control input-sm" name="emailAddress" type="text" placeholder="email address" />
+                            
+                            <!-- btn add email record -->
+                            <span class="input-group-btn clkio-add-btn" >
+                                <button class="btn btn-success btn-input" type="button" >
+                                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                </button>
+                            </span>
+                            
+                            <!-- btn update/delete email record -->
+                            <span class="input-group-btn btn-update-delete" style="display:none;">
+                            	<div class="btn-group">
+                                    <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+                                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                    </button>
+                                    <ul class="dropdown-menu clkio-dropdown-menu">
+                                        <li><a href="#">set as primary</a></li>
+                                        <li><a href="#">delete</a></li>
+                                    </ul>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+		</div>
+
+		<footer class="navbar-default navbar-fixed-bottom">
+            <div class="container">
+                <div style="color: white;" class="row">
+                    <div class="col-lg-12">
+                        <p>Supported by <a href="https://br.linkedin.com/in/jeanvillete" rel="nofollow">Jean Villete</a>, fork me on <a href="https://github.com/jeanvillete/clockinclockout-cris">git hub</a>.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal" id="modal-error-msg">
+                <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <strong></strong>
+                        <p style="font-size:14px;"></p>
+                    </div>
+                </div>
+                </div>
+            </div>
+		</footer>
+	</body>
+</html>

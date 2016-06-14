@@ -75,8 +75,19 @@ $.fn.serializeObject = function(){
 };
 
 $( document ).ready( function(){
+    var $user = $( "#d-email" );
+    
 	// setup logout button
 	$( "#ach-lgout" ).click( function(){
 		clkio.logout();
+	});
+    
+    // shows current logged user
+	$user.empty().text( Cookies.get( "user" ) + " " ).append( $( "<span></span>" ).attr( "class", "caret" ) );
+    
+    clkio.profiles.load( function(){
+		if ( !Cookies.get( "profile" ) )
+			Cookies.set( "profile", clkio.profiles.list[0].id );
+		clkio.profiles.renderNavBar();
 	});
 });

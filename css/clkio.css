@@ -1,3 +1,8 @@
+/** clkio **/
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
+    z-index: auto;
+}
+
 #navbar-menu-profile {
 
 }
@@ -15,6 +20,27 @@ li.selected a i {
 	left: 5px;
 	font-size: 18px;
 }
+
+.btn-input {
+	height: 36px;
+	font-size: 25px;
+	padding: 0px 12px;
+}
+
+.btn-input-caret {
+    padding: 0px 15px;
+}
+
+.dropdown-menu {
+    left: auto;
+    min-width: auto;
+    right: 0px;
+}
+
+.clkio-dropdown-menu li {
+/*    border-bottom: 1px solid #cccccc;*/
+}
+/** end, clkio **/
 
 /** timecard **/
 #tbl-timecard {
@@ -52,12 +78,6 @@ table {
 	font-size: 14px;
 }
 
-.bnt-input {
-	height: 36px;
-	font-size: 25px;
-	padding: 0px 12px;
-}
-
 .timecard-panel {
 	border-left: medium none;
 	border-right: medium none;
@@ -77,6 +97,12 @@ div.input-group {
 }
 
 .input-group-add {
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+    background-color: #f9f9f9;
+    margin-bottom: 25px !important;
 }
 
 .clkio-panel-heading {
@@ -153,3 +179,15 @@ footer p {
 	}
 }
 /** end, timecard **/
+
+/** settings **/
+div#row-nav-pill-settings {
+    margin-top: 70px;
+    padding-bottom: 0px;
+    border-bottom: 2px solid #ddd;
+}
+
+div#row-panel-emails {
+    padding-top: 30px;
+}
+/** settings **/

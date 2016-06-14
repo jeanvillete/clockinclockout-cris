@@ -334,8 +334,7 @@ $( document ).ready( function(){
 		year, years = [],
 		$year = $( "#cmb-year" ),
 		months = [ "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec" ],
-		$month = $( "#cmb-month" ),
-		$user = $( "#d-email" );
+		$month = $( "#cmb-month" );
 
 	// prepare combo for months
 	$.each( months, function( index, value ){
@@ -363,9 +362,6 @@ $( document ).ready( function(){
 		$( ".row-timecard-form" ).hide();
 	});
 
-	// shows current logged user
-	$user.empty().text( Cookies.get( "user" ) + " " ).append( $( "<span></span>" ).attr( "class", "caret" ) );
-
 	// setup onChange for timecard, when timecard is loaded/reloaded
 	clkio.timecard.onChange = function() {
 		clkio.timecard.renderTotalBalance();
@@ -389,11 +385,6 @@ $( document ).ready( function(){
 		$( "#row-timecard" ).show();
 		$( ".row-timecard-form" ).hide();
 	};
-	clkio.profiles.load( function(){
-		if ( !Cookies.get( "profile" ) )
-			Cookies.set( "profile", clkio.profiles.list[0].id );
-		clkio.profiles.renderNavBar();
-	});
 
 	// setup listening for save expected hours button
 	$( "#btn-save-expected" ).click( clkio.timecard.saveExpectedHours );

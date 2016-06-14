@@ -1,6 +1,6 @@
 var clkio = window.clkio || {};
 clkio.profiles = {};
-clkio.profiles.onChange = {};
+clkio.profiles.onChange = function(){};
 clkio.profiles.list = [];
 
 clkio.profiles.load = function( callback ) {
