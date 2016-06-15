@@ -8,24 +8,30 @@ clkio.settings.change = function() {
 }
 
 clkio.settings.renderEmails = function() {
-    var $emailBsComponent = $( "#row-panel-emails div.bs-component" ), $inputGroup;
+    var $emailBsComponent = $( "#row-panel-emails div.bs-component" ),
+        $inputGroup = $emailBsComponent.find( "div.input-group-add" );
     
     clkio.settings.change();
     $( "li#clkio-nav-pill-emails" ).addClass( "active" );
     
-    $emailBsComponent.find( "div.input-group-add" ).siblings().remove();
+    $inputGroup.siblings().remove();
+    $inputGroup.find( "input:text[name=id]" ).val( "" )
+    $inputGroup.find( "input:text[name=emailAddress]" ).focus().val( "" );
     
     $.each( clkio.emails.list, function( index, email ){
         $inputGroup = $emailBsComponent.find( "div.input-group-add" ).clone();
         $inputGroup.removeClass( "input-group-add" );
         $inputGroup.find( "input:hidden[name=id]" ).val( email.id );
-        $inputGroup.find( "input:text[name=emailAddress]" ).attr( "disabled", "" ).val( email.emailAddress );
+        $inputGroup.find( "input:text[name=emailAddress]" ).attr( "disabled", "" ).addClass( "emails-disabled" ).val( email.emailAddress );
         
         $inputGroup.find( "span.clkio-add-btn" ).hide();
         $inputGroup.find( "span.btn-update-delete" ).css( "display", "table-cell" );
         
         $emailBsComponent.append( $inputGroup );
     });
+    
+    $( "a.btn-emails-set-as-primary" ).click( { method : "PUT" }, clkio.settings.emails );
+    $( "a.btn-emails-delete" ).click( { method : "DELETE" }, clkio.settings.emails );
 }
 
 clkio.settings.renderProfiles = function() {
@@ -38,6 +44,42 @@ clkio.settings.renderPassword = function() {
     clkio.settings.change();
     $( "li#clkio-nav-pill-password" ).addClass( "active" );
     
+}
+
+clkio.settings.emails = function( event ) {
+	var data = {}, $panel;
+
+	if ( event.data.method === "DELETE" && !confirm( "Delete record?" ) ) return;
+    
+    $panel = $( this ).parents( "div.input-group" );
+    
+    if ( event.data.method === "PUT" )
+        data[ "primary" ] = true;
+    
+    data[ "emailAddress" ] = $panel.find( "input:text[name=emailAddress]" ).val();
+
+	$panel.find( "input:text, button, a" ).attr( "disabled", "" );
+
+	clkio.rest({
+		uri : "/emails/" + ( event.data.method === "POST" ? "" : $panel.find( "input:hidden[name=id]" ).val() ),
+		method : event.data.method,
+		data : ( event.data.method === "DELETE" ? {} : JSON.stringify( data ) ),
+		success : function() {
+            clkio.emails.load( function() {
+                clkio.settings.renderEmails();
+            });
+            $panel.find( "input:not(.emails-disabled), button, a" ).removeAttr( "disabled" );
+		},
+		error : function( xhr, status, error ) {
+			console.log( {"xhr":xhr, "status":status, "error":error} );
+			try {
+				clkio.msgBox.error( "Sorry, but something went wrong;", JSON.parse( xhr.responseText ).message );
+			} catch ( e ) {
+				clkio.msgBox.error( "Sorry, but something went wrong;", error );
+			}
+			$panel.find( "input:not(.emails-disabled), button, a" ).removeAttr( "disabled" );
+		}
+	});
 }
 
 $( document ).ready( function(){
@@ -57,5 +99,8 @@ $( document ).ready( function(){
     clkio.emails.load( function() {
         clkio.settings.renderEmails();
     });
+    
+    // bind proper function to insert email
+    $( "div.input-group-add" ).find( "span.clkio-add-btn" ).click( { method : "POST" }, clkio.settings.emails );
     
 });
