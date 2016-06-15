@@ -167,7 +167,7 @@ clkio.timecard.fillForm = function( day ) {
 		// clockout
 		$clkioGroup.find( "input:text[name=clockout-hr]" ).val( clockinclockout.clockout.substring( clockinclockout.clockout.indexOf( " " ) ) );
 
-		$clkioGroup.find( "span.clkio-add-btn" ).hide();
+		$clkioGroup.find( "span.clkio-btn-add" ).hide();
 		$clkioGroup.find( "span.clkio-uptdel-btn" ).css( "display", "table-cell" );
 
 		$( "#clkio-input-group-add" ).parent().append( $clkioGroup );

@@ -74,14 +74,14 @@
                             <input class="form-control input-sm" name="emailAddress" type="text" placeholder="email address" />
                             
                             <!-- btn add email record -->
-                            <span class="input-group-btn clkio-add-btn" >
+                            <span class="input-group-btn clkio-btn-add" >
                                 <button class="btn btn-success btn-input" type="button" >
                                     <i class="fa fa-plus-square" aria-hidden="true"></i>
                                 </button>
                             </span>
                             
                             <!-- btn update/delete email record -->
-                            <span class="input-group-btn btn-update-delete" style="display:none;">
+                            <span class="input-group-btn clkio-btn-upd-del" style="display:none;">
                             	<div class="btn-group">
                                     <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
                                         <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -96,6 +96,211 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- panel for profiles -->
+            <div class="row" id="row-panel-profiles" style="display:none;">
+            	<!-- form for profile's description -->
+            	<div class="col-lg-12">
+                    <div class="bs-component">
+                    	<div class="input-group input-group-add" >
+                            <input class="form-control input-sm" name="description" type="text" placeholder="profile description" />
+                            
+                            <!-- btn add profile (description) record -->
+                            <span class="input-group-btn clkio-btn-add" >
+                                <button class="btn btn-success btn-input" type="button" >
+                                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+				</div>
+				
+				<!-- table/list profiles -->
+				<div class="col-lg-12">
+					<div class="bs-component">
+						<table id="tbl-profiles" class="table table-striped table-hover">
+							<thead>
+								<tr>
+									<th>description</th>
+									<th class="not_for_small">date format</th>
+									<th class="not_for_small">hours format</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>default profile</td>
+									<td>yyyy-MM-dd</td>
+									<td>H:mm</td>
+								</tr>
+								<tr>
+									<td>jean @ gft</td>
+									<td>dd/MM/yyyy</td>
+									<td>HH:mm</td>
+								</tr>
+								<tr>
+									<td>sample profile description</td>
+									<td>dd/MM/yyyy</td>
+									<td>HH:mm</td>
+								</tr>
+								<tr>
+									<td>2 sample profile description</td>
+									<td>dd/MM/yyyy</td>
+									<td>HH:mm</td>
+								</tr>
+								<tr>
+									<td>3 sample profile description</td>
+									<td>dd/MM/yyyy</td>
+									<td>HH:mm</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<!-- box for profile description -->
+				<div class="col-lg-6 clkio-profile-form">
+					<input type="text" name="description" placeholder="profile description"/>
+				</div>
+				
+				<!-- box for hours and date format -->
+				<div class="col-lg-6 clkio-profile-form">
+					<div class="col-lg-3">
+						<input type="text" name="hoursFormat" placeholder="hours format">
+					</div>
+					<div class="col-lg-3">
+						<input type="text" name="dateFormat" placeholder="date format">
+					</div>
+				</div>
+				
+				<!-- boxes for monday and tuesday -->
+				<div class="col-lg-6 clkio-profile-form">
+					<div class="col-lg-3">
+						<input type="text" name="expectedMonday" placeholder="monday">
+					</div>
+					<div class="col-lg-3">
+						<input type="text" name="expectedTuesday" placeholder="tuesday">
+					</div>
+				</div>
+				
+				<!-- boxes for wednesday and thursday -->
+				<div class="col-lg-6 clkio-profile-form">
+					<div class="col-lg-3">
+						<input type="text" name="expectedWednesday" placeholder="wednesday">
+					</div>
+					<div class="col-lg-3">
+						<input type="text" name="expectedThursday" placeholder="thursday">
+					</div>
+				</div>
+				
+				<!-- boxes for friday and saturday -->
+				<div class="col-lg-6 clkio-profile-form">
+					<div class="col-lg-3">
+						<input type="text" name="expectedFriday" placeholder="friday">
+					</div>
+					<div class="col-lg-3">
+						<input type="text" name="expectedSaturday" placeholder="saturday">
+					</div>
+				</div>
+				
+				<!-- boxes for synday box and save/delete buttons -->
+				<div class="col-lg-6 clkio-profile-form">
+					<div class="col-lg-3">
+						<input type="text" name="expectedSunday" placeholder="friday">
+					</div>
+					<div class="col-lg-3">
+						<div class="btn-group">
+							<button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+                               <i class="fa fa-caret-down" aria-hidden="true"></i>
+                           </button>
+                           <ul class="dropdown-menu clkio-dropdown-menu">
+                               <li><a href="#" class="">save</a></li>
+                               <li><a href="#" class="">delete</a></li>
+                           </ul>
+						</div>
+					</div>
+				</div>
+				
+				<!-- panel for adjustings -->
+				<div class="col-lg-6 clkio-profile-form">
+					<div class="bs-component">
+						<div class="panel panel-default clkio-panel">
+							<div class="panel-heading clkio-panel-heading">adjustings</div>
+							<div class="panel-body clkio-panel-body">
+								<div class="input-group input-group-add" >
+									<input type="hidden" name="id" />
+									<input class="form-control input-sm" name="description" type="text" placeholder="description" />
+									<span class="input-group-btn" style="width:0px;"></span>
+									<input class="form-control input-sm" name="timeInterval" type="text" placeholder="time interval" />
+
+									<!-- add buttons -->
+									<span class="input-group-btn clkio-btn-add" >
+										<button class="btn btn-success btn-input" type="button" >
+											<i class="fa fa-plus-square" aria-hidden="true"></i>
+										</button>
+									</span>
+
+									<!-- update and delete buttons -->
+									<span class="input-group-btn clkio-btn-upd-del" style="display:none;">
+		                            	<div class="btn-group">
+		                                    <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+		                                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+		                                    </button>
+		                                    <ul class="dropdown-menu clkio-dropdown-menu">
+		                                        <li><a href="#" class="btn-adjustings-save">save</a></li>
+		                                        <li><a href="#" class="btn-adjustings-delete">delete</a></li>
+		                                    </ul>
+		                                </div>
+		                            </span>
+		                            
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- panel for reasons -->
+				<div class="col-lg-6 clkio-profile-form">
+					<div class="bs-component">
+						<div class="panel panel-default clkio-panel">
+							<div class="panel-heading clkio-panel-heading">reasons</div>
+							<div class="panel-body clkio-panel-body">
+								<div class="input-group input-group-add" >
+									<input type="hidden" name="id" />
+									<input class="form-control input-sm" name="reason" type="text" placeholder="reason text" />
+
+									<!-- add buttons -->
+									<span class="input-group-btn clkio-btn-add" >
+										<button class="btn btn-success btn-input" type="button" >
+											<i class="fa fa-plus-square" aria-hidden="true"></i>
+										</button>
+									</span>
+
+									<!-- update and delete buttons -->
+									<span class="input-group-btn clkio-btn-upd-del" style="display:none;">
+		                            	<div class="btn-group">
+		                                    <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+		                                        <i class="fa fa-caret-down" aria-hidden="true"></i>
+		                                    </button>
+		                                    <ul class="dropdown-menu clkio-dropdown-menu">
+		                                        <li><a href="#" class="btn-reasons-save">save</a></li>
+		                                        <li><a href="#" class="btn-reasons-delete">delete</a></li>
+		                                    </ul>
+		                                </div>
+		                            </span>
+		                            
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+            </div>
+            
+            <!-- panel for password -->
+            <div class="row" id="row-panel-password" style="display:none;">
+            	
+            </div>
+            
             <div class="modal" id="modal-error-msg">
                 <div class="modal-dialog">
                 <div class="modal-content">

@@ -24,8 +24,8 @@ clkio.settings.renderEmails = function() {
         $inputGroup.find( "input:hidden[name=id]" ).val( email.id );
         $inputGroup.find( "input:text[name=emailAddress]" ).attr( "disabled", "" ).addClass( "emails-disabled" ).val( email.emailAddress );
         
-        $inputGroup.find( "span.clkio-add-btn" ).hide();
-        $inputGroup.find( "span.btn-update-delete" ).css( "display", "table-cell" );
+        $inputGroup.find( "span.clkio-btn-add" ).hide();
+        $inputGroup.find( "span.clkio-btn-upd-del" ).css( "display", "table-cell" );
         
         $emailBsComponent.append( $inputGroup );
     });
@@ -101,6 +101,6 @@ $( document ).ready( function(){
     });
     
     // bind proper function to insert email
-    $( "div.input-group-add" ).find( "span.clkio-add-btn" ).click( { method : "POST" }, clkio.settings.emails );
+    $( "div.input-group-add" ).find( "span.clkio-btn-add" ).click( { method : "POST" }, clkio.settings.emails );
     
 });

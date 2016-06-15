@@ -38,8 +38,18 @@ li.selected a i {
 }
 
 .clkio-dropdown-menu li {
-/*    border-bottom: 1px solid #cccccc;*/
 }
+
+.clkio-panel {
+	border-left: medium none;
+	border-right: medium none;
+}
+
+.clkio-panel-body {
+	padding: 0px 5px;
+	background-color : #f5f5f5;
+}
+
 /** end, clkio **/
 
 /** timecard **/
@@ -76,16 +86,6 @@ li.selected a i {
 
 table {
 	font-size: 14px;
-}
-
-.timecard-panel {
-	border-left: medium none;
-	border-right: medium none;
-}
-
-.timecard-panel-body {
-	padding: 0px 5px;
-	background-color : #f5f5f5;
 }
 
 label {
