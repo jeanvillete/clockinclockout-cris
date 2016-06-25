@@ -52,6 +52,9 @@ li.selected a i {
 
 .clkio-lg-6 {
     width: 49%;
+    padding-left: 0px;
+    padding-right: 0px;
+    display: inline-flex;
 }
 
 .clkio-btn {
@@ -105,11 +108,11 @@ div.input-group {
 }
 
 .input-group-add {
-    padding-bottom: 15px;
+    /**padding-bottom: 15px;
     border-bottom: 1px solid #ddd;
     padding-top: 15px;
     border-top: 1px solid #ddd;
-    background-color: #f9f9f9;
+    background-color: #f9f9f9;**/
     margin-bottom: 25px !important;
 }
 
@@ -200,11 +203,26 @@ div.clkio-row-settings {
 }
 
 div.clkio-profile-form {
-   padding-top: 5px;
-    padding-bottom: 5px; 
+   padding-top: 2px;
+    padding-bottom: 2px; 
 }
 
 div.clkio-profile-list {
     display: none;
 }
-/** settings **/
+/** end, settings **/
+
+/** going back button **/
+div.btn-back {
+	margin-bottom: 25px;
+}
+@media (min-width: 760px) {
+	div.btn-back {
+		float:right;
+	}
+}
+div.btn-back a.btn-back {
+	width: 100%;
+	font-size: 18px;
+}
+/** end, going back button **/
