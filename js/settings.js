@@ -14,6 +14,7 @@ clkio.settings.renderEmails = function() {
     // highlighting emails pill option
     clkio.settings.change();
     $( "li#clkio-nav-pill-emails" ).addClass( "active" );
+    $( "#row-panel-emails" ).show();
     
     // clearing table
     $formGroup.siblings().remove();
@@ -40,7 +41,7 @@ clkio.settings.renderEmails = function() {
 clkio.settings.renderProfiles = function() {
     clkio.settings.change();
     $( "li#clkio-nav-pill-profiles" ).addClass( "active" );
-    
+    $( "#row-panel-profiles" ).show();
 }
 
 clkio.settings.renderPassword = function() {
@@ -56,10 +57,10 @@ $( document ).ready( function(){
     $( "li#clkio-nav-pill-profiles a" ).click( clkio.settings.renderProfiles );
     $( "li#clkio-nav-pill-password a" ).click( clkio.settings.renderPassword );
     
-    
     // prepare on change for settings
     clkio.settings.onChange = function() {
         $( "ul#clkio-nav-pill" ).find( "li" ).removeClass( "active" );
+        $( "#row-panel-emails, #row-panel-profiles, #row-panel-password" ).hide();
     }
 
     // prepare on change for emails
