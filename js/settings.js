@@ -61,9 +61,14 @@ $( document ).ready( function(){
     clkio.settings.onChange = function() {
         $( "ul#clkio-nav-pill" ).find( "li" ).removeClass( "active" );
     }
+
+    // prepare on change for emails
+    clkio.emails.onChange = function() {
+        clkio.emails.load( function() {
+            clkio.settings.renderEmails();
+        });
+    };
     
-    // load emaisl, as the default tab for settings
-    clkio.emails.load( function() {
-        clkio.settings.renderEmails();
-    });
+    // invokes the loading for emails as it is the default 'form' to be shown on 'settings'
+    clkio.emails.change();
 });

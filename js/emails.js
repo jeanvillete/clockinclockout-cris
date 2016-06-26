@@ -14,7 +14,6 @@ clkio.emails.load = function( callback ) {
 		success : function( resp ) {
 			clkio.emails.list = resp.emails || [];
 			if ( callback ) callback();
-			clkio.emails.change();
 		}
 	});
 }
@@ -27,9 +26,7 @@ clkio.emails.create = function( event ) {
         method : "POST",
         data : form.disable().dataAsString(),
         success : function() {
-            clkio.emails.load( function() {
-                clkio.settings.renderEmails();
-            });
+            clkio.emails.change();
         },
         complete : function() {
             form.enable();
@@ -47,9 +44,7 @@ clkio.emails.setAsPrimary = function() {
         method : "PUT",
         data : form.dataAsString(),
         success : function() {
-            clkio.emails.load( function() {
-                clkio.settings.renderEmails();
-            });
+            clkio.emails.change();
         },
         complete : function() {
             form.enable();
@@ -64,9 +59,7 @@ clkio.emails.delete = function() {
         uri : "emails/" + form.data.id,
         method : "DELETE",
         success : function() {
-            clkio.emails.load( function() {
-                clkio.settings.renderEmails();
-            });
+            clkio.emails.change();
         }
     });
 }
