@@ -26,6 +26,11 @@ clkio.rest = function( req ) {
 		},
 		error : req.error || function( xhr, status, error ) {
 			console.log( {"xhr":xhr, "status":status, "error":error} );
+			try {
+				clkio.msgBox.error( "Sorry, but something went wrong;", JSON.parse( xhr.responseText ).message );
+            } catch ( e ) {
+                clkio.msgBox.error( "Sorry, but something went wrong;", error );
+            }
 		},
 		complete : req.complete || {}
 	});
@@ -56,6 +61,27 @@ clkio.progress.on = function() {
 }
 clkio.progress.off = function() {
 	$( "#clkio-progress-bar" ).hide();
+}
+
+clkio.forms = function( form ) {
+	return {
+		data : {},
+		dataAsString : function() {
+			return JSON.stringify( this.data );
+		},
+		disable : function() {
+			$( form ).find( "input, button, a" ).attr( "disabled", "" );
+			return this;
+		},
+		enable : function() {
+			$( form ).find( "input:not(.keep-disabled), button:not(.keep-disabled), a:not(.keep-disabled)" ).removeAttr( "disabled" );
+			return this;
+		},
+		serialize : function() {
+			this.data = $( form ).serializeObject();
+			return this;
+		}
+	};
 }
 
 $.fn.serializeObject = function(){

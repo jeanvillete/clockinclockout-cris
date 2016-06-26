@@ -103,8 +103,16 @@ label {
 	font-size: 14px !important;
 }
 
-div.input-group {
+.input-group {
 	margin-bottom: 8px;
+}
+
+form.input-group-add span.clkio-btn-add, form.input-group-upd-del span.clkio-btn-upd-del {
+	display: table-cell;
+}
+
+form.input-group-add span.clkio-btn-upd-del, form.input-group-upd-del span.clkio-btn-add {
+	display: none;
 }
 
 .input-group-add {
@@ -219,6 +227,7 @@ div.btn-back {
 @media (min-width: 760px) {
 	div.btn-back {
 		float:right;
+		padding-left: 5px;
 	}
 }
 div.btn-back a.btn-back {

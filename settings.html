@@ -66,22 +66,23 @@
 			</div>
             
             <!-- panel for emails -->
-            <div class="row clkio-row-settings" id="row-panel-emails" style="display:none;">
+            <div class="row clkio-row-settings" id="row-panel-emails" >
                 <div class="col-lg-12">
                     <div class="bs-component">
-                        <div class="input-group input-group-add" >
+                        <form class="input-group input-group-add" >
                             <input type="hidden" name="id" />
+                            <input type="hidden" name="primary" />
                             <input class="form-control input-sm" name="emailAddress" type="text" placeholder="email address" />
                             
                             <!-- btn add email record -->
                             <span class="input-group-btn clkio-btn-add" >
-                                <button class="btn btn-success btn-input" type="button" >
+                                <button type="submit" class="btn btn-success btn-input" >
                                     <i class="fa fa-plus-square" aria-hidden="true"></i>
                                 </button>
                             </span>
                             
                             <!-- btn update/delete email record -->
-                            <span class="input-group-btn clkio-btn-upd-del" style="display:none;">
+                            <span class="input-group-btn clkio-btn-upd-del">
                             	<div class="btn-group">
                                     <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
                                         <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -92,13 +93,13 @@
                                     </ul>
                                 </div>
                             </span>
-                        </div>
+                        </form>
                     </div>
                 </div>
             </div>
             
             <!-- panel for profiles -->
-            <div class="row clkio-row-settings" id="row-panel-profiles" >
+            <div class="row clkio-row-settings" id="row-panel-profiles" style="display:none;">
             	<!-- form for profile's description -->
             	<div class="col-lg-12 clkio-profile-list">
                     <div class="bs-component">
@@ -129,35 +130,37 @@
 							<tbody>
 								<tr>
 									<td>default profile</td>
-									<td>yyyy-MM-dd</td>
-									<td>H:mm</td>
+									<td class="not_for_small">yyyy-MM-dd</td>
+									<td class="not_for_small">H:mm</td>
 								</tr>
 								<tr>
 									<td>jean @ gft</td>
-									<td>dd/MM/yyyy</td>
-									<td>HH:mm</td>
+									<td class="not_for_small">dd/MM/yyyy</td>
+									<td class="not_for_small">HH:mm</td>
 								</tr>
 								<tr>
 									<td>sample profile description</td>
-									<td>dd/MM/yyyy</td>
-									<td>HH:mm</td>
+									<td class="not_for_small">dd/MM/yyyy</td>
+									<td class="not_for_small">HH:mm</td>
 								</tr>
 								<tr>
 									<td>2 sample profile description</td>
-									<td>dd/MM/yyyy</td>
-									<td>HH:mm</td>
+									<td class="not_for_small">dd/MM/yyyy</td>
+									<td class="not_for_small">HH:mm</td>
 								</tr>
 								<tr>
 									<td>3 sample profile description</td>
-									<td>dd/MM/yyyy</td>
-									<td>HH:mm</td>
+									<td class="not_for_small">dd/MM/yyyy</td>
+									<td class="not_for_small">HH:mm</td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</div>
 				
-                <div class="col-lg-12" style="padding: 15px 0px;">
+                <form class="col-lg-12" id="profile-form" style="padding: 15px 0px;">
+                	<input type="hidden" name="id"/>
+
                     <!-- box for profile description -->
                     <div class="col-lg-6 clkio-profile-form" >
                         <input type="text" name="description" placeholder="profile description" class="form-control input-sm" />
@@ -176,10 +179,10 @@
                     <!-- boxes for monday and tuesday -->
                     <div class="col-lg-6 clkio-profile-form">
                     	<div class="clkio-lg-6">
-                        	<input type="text" name="expectedTuesday" placeholder="tuesday" class="form-control input-sm ">
+                        	<input type="text" name="expectedMonday" placeholder="monday" class="form-control input-sm ">
                     	</div>
                     	<div class="clkio-lg-6 pull-right">
-                        	<input type="text" name="expectedMonday" placeholder="monday" class="form-control input-sm ">
+                        	<input type="text" name="expectedTuesday" placeholder="tuesday" class="form-control input-sm ">
                     	</div>
                     </div>
 
@@ -209,12 +212,12 @@
                         	<input type="text" name="expectedSunday" placeholder="sunday" class="form-control input-sm" >
                     	</div>
                     	<div class="clkio-lg-6 pull-right">
-                            <a class="btn btn-primary clkio-btn" style="width: 50%;" href="#">save</a>
+                            <button type="submit" class="btn btn-primary clkio-btn" style="width: 50%;" >save</button>
                             <span>&nbsp;</span>
-                            <a class="btn btn-danger clkio-btn" style="width: 50%;" href="#">delete</a>
+                            <button type="button" class="btn btn-danger clkio-btn" style="width: 50%;" >delete</button>
                     	</div>
                     </div>
-                </div>
+                </form>
 				
 				<!-- panel for adjustings -->
 				<div class="col-lg-6 clkio-profile-form">
@@ -249,7 +252,7 @@
 								</div>
 							</div>-->
                             <div class="panel-body clkio-panel-body">
-								<div class="input-group input-group-add">
+								<form class="input-group input-group-add">
 									<input name="id" type="hidden">
 									<input class="form-control input-sm" name="description" placeholder="description" type="text">
 									<span class="input-group-btn" style="width:0px;"></span>
@@ -257,7 +260,7 @@
 
 									<!-- add buttons -->
 									<span class="input-group-btn clkio-btn-add">
-										<button class="btn btn-success btn-input" type="button">
+										<button type="submit" class="btn btn-success btn-input">
 											<i class="fa fa-plus-square" aria-hidden="true"></i>
 										</button>
 									</span>
@@ -275,7 +278,7 @@
 		                                </div>
 		                            </span>
 		                            
-								</div>
+								</form>
 
 
 <div class="input-group">
