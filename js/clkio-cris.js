@@ -13,7 +13,7 @@ clkio.rest = function( req ) {
 		method : req.method || "GET",
 		url : "data/" + req.uri,
 		dataType : 'json',
-		contentType : 'application/json',
+		contentType : 'application/json; charset=UTF-8',
 		data : req.data || {},
 		beforeSend : function( xhr ) {
 			xhr.setRequestHeader( "clkioLoginCode" , Cookies.get( "clkioLoginCode" ) || '' );

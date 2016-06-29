@@ -3,8 +3,11 @@
     z-index: auto;
 }
 
-#navbar-menu-profile {
+.form-onedit {
+	display: none;
+}
 
+#navbar-menu-profile {
 }
 
 li.navbar-menu-profile a {
@@ -212,11 +215,10 @@ div.clkio-row-settings {
 
 div.clkio-profile-form {
    padding-top: 2px;
-    padding-bottom: 2px; 
+   padding-bottom: 2px; 
 }
 
 div.clkio-profile-list {
-    display: none;
 }
 /** end, settings **/
 

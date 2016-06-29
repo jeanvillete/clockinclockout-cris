@@ -63,13 +63,17 @@ $( document ).ready( function(){
         $( "#row-panel-emails, #row-panel-profiles, #row-panel-password" ).hide();
     }
 
-    // prepare on change for emails
+    // prepare on change for emails and then,
+    // invokes the loading for emails as it is the default 'form' to be shown on 'settings'
     clkio.emails.onChange = function() {
         clkio.emails.load( function() {
             clkio.settings.renderEmails();
         });
     };
-    
-    // invokes the loading for emails as it is the default 'form' to be shown on 'settings'
     clkio.emails.change();
+
+    // prepare on change for profiles
+    clkio.profiles.onChange = function() {
+        
+    }
 });
