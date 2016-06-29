@@ -25,9 +25,9 @@ clkio.settings.renderEmails = function() {
     $formGroup.siblings().remove();
 
     // clearing form for create/add, giving focus to its email address input
-    $formGroup.find( "input:text[name=id]" ).val( "" )
-    $formGroup.find( "input:text[name=emailAddress]" ).val( "" );
-    $formGroup.submit( clkio.emails.create );
+    $formGroup.find( "input[name=id]" ).val( "" )
+    $formGroup.find( "input[name=emailAddress]" ).val( "" );
+    $formGroup.unbind().submit( clkio.emails.create );
     
     $.each( clkio.emails.list, function( index, email ){
         $formGroup = $panelEmails.find( "form.input-group-add" ).clone();
@@ -44,7 +44,7 @@ clkio.settings.renderEmails = function() {
 }
 
 clkio.settings.renderProfiles = function() {
-    var $panelProfiles = $( "#row-panel-emails div.bs-component" ),
+    var $panelProfiles = $( "#row-panel-profiles div.bs-component" ),
         $formGroup = $panelProfiles.find( "form.input-group-add" ),
         $profiles = $( "#tbl-profiles tbody" ),
         $tr;
@@ -54,8 +54,8 @@ clkio.settings.renderProfiles = function() {
     $( "li#clkio-nav-pill-profiles" ).addClass( "active" );
     $( "#row-panel-profiles" ).show();
 
-    $formGroup.find( "input:text[name=description]" ).val( "" );
-    $formGroup.submit( clkio.profiles.create );
+    $formGroup.find( "input[name=description]" ).val( "" );
+    $formGroup.unbind().submit( clkio.profiles.create );
 
     // clearing table
     $profiles.empty();
@@ -101,8 +101,6 @@ $( document ).ready( function(){
     clkio.profiles.load( function(){
         if ( !Cookies.get( "profile" ) )
             Cookies.set( "profile", clkio.profiles.list[0].id );
-        //clkio.profiles.renderNavBar();
-
         clkio.profiles.change( clkio.settings.renderProfiles );
     });
 });

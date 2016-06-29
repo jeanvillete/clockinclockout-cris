@@ -98,7 +98,7 @@ clkio.profiles.selected = function( $selected ) {
 clkio.profiles.create = function( event ) {
 	var form = clkio.forms( this ).serialize();
 	event.preventDefault();
-	form.data = $.extend( clkio.profiles.getCurrent(), form.data );
+	form.data = $.extend( clkio.clone( clkio.profiles.getCurrent() ), form.data );
 	clkio.rest({
         uri : "profiles",
         method : "POST",

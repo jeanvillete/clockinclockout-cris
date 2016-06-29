@@ -99,6 +99,10 @@ $.fn.serializeObject = function(){
     return o;
 };
 
+clkio.clone = function( toBeCloned ) {
+	return JSON.parse( JSON.stringify( toBeCloned ) );
+}
+
 $( document ).ready( function(){
     var $user = $( "#d-email" );
     
