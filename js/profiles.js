@@ -67,6 +67,7 @@ clkio.profiles.renderNavBar = function() {
 		$li.append( $( "<input></input>" ).attr( "type", "hidden" ).attr( "name", "id" ).attr( "value", profile.id ) );
 		$a = $( "<a></a>" ).attr( "href", "#" );
 		$a.append( document.createTextNode( profile.description ) );
+		$a.append( $( "<i></i>" ).attr( "aria-hidden", "true" ).addClass( "fa" ) );
 		$li.append( $a );
 
 		if ( profile.id == Cookies.get( "profile" ) )
@@ -86,10 +87,10 @@ clkio.profiles.selected = function( $selected ) {
 	Cookies.set( "profile", $li.find( "input:hidden[name=id]" ).val() );
 
 	$li.siblings().removeClass( "selected" );
-	$li.parent().find( "li a i" ).remove();
+	$li.parent().find( "li a i" ).removeClass( "fa-check" );
 
 	$li.addClass( "selected" );
-	$li.find( "a" ).append( $( "<i></i>" ).attr( "aria-hidden", "true" ).attr( "class", "fa fa-dot-circle-o" ) );
+	$li.find( "a i" ).addClass( "fa-check" );
 
 	clkio.profiles.change();
 }
