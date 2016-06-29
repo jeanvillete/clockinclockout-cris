@@ -95,11 +95,20 @@ clkio.profiles.selected = function( $selected ) {
 	clkio.profiles.change();
 }
 
-$( document ).ready( function(){
-	clkio.profiles.load( function(){
-		if ( !Cookies.get( "profile" ) )
-			Cookies.set( "profile", clkio.profiles.list[0].id );
-		clkio.profiles.renderNavBar();
-		clkio.profiles.change();
-	});
-});
+clkio.profiles.create = function( event ) {
+	var form = clkio.forms( this ).serialize();
+	event.preventDefault();
+	form.data = $.extend( clkio.profiles.getCurrent(), form.data );
+	clkio.rest({
+        uri : "profiles",
+        method : "POST",
+        data : form.disable().dataAsString(),
+        success : function( resp ) {
+       		clkio.profiles.list.push( resp.domain );
+        },
+        complete : function() {
+            form.enable();
+        	clkio.profiles.change();
+        }
+    });
+}

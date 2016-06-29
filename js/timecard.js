@@ -370,20 +370,26 @@ $( document ).ready( function(){
 	}
 
 	// load and setup profiles
-	clkio.profiles.change( function(){
-		clkio.timecard.load();
+	clkio.profiles.load( function(){
+		if ( !Cookies.get( "profile" ) )
+			Cookies.set( "profile", clkio.profiles.list[0].id );
+		clkio.profiles.renderNavBar();
 
-		// load manualenterings
-		clkio.reasons.load( function() {
-			$.each( clkio.reasons.list, function( index, reason ){
-				$( ".cmb-mnl-reason" ).append( $( "<option></option>" ).attr( "value", reason.id ).text( reason.reason ) );
+		clkio.profiles.change( function(){
+			clkio.timecard.load();
+
+			// load manualenterings
+			clkio.reasons.load( function() {
+				$.each( clkio.reasons.list, function( index, reason ){
+					$( ".cmb-mnl-reason" ).append( $( "<option></option>" ).attr( "value", reason.id ).text( reason.reason ) );
+				});
 			});
-		});
 
-		$( "select.cmb-mnl-reason option:not(:first)" ).remove();
+			$( "select.cmb-mnl-reason option:not(:first)" ).remove();
 
-		$( "#row-timecard" ).show();
-		$( ".row-timecard-form" ).hide();
+			$( "#row-timecard" ).show();
+			$( ".row-timecard-form" ).hide();
+		})();
 	});
 
 	// setup listening for save expected hours button

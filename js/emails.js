@@ -31,8 +31,7 @@ clkio.emails.create = function( event ) {
         method : "POST",
         data : form.disable().dataAsString(),
         success : function( resp ) {
-        	if ( resp.domain && clkio.emails.list )
-        		clkio.emails.list.push( resp.domain );
+    		clkio.emails.list.push( resp.domain );
         },
         complete : function() {
             form.enable();

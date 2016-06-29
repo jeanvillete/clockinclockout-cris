@@ -44,11 +44,20 @@ clkio.settings.renderEmails = function() {
 }
 
 clkio.settings.renderProfiles = function() {
-    var $profiles = $( "#tbl-profiles tbody" ), $tr;
+    var $panelProfiles = $( "#row-panel-emails div.bs-component" ),
+        $formGroup = $panelProfiles.find( "form.input-group-add" ),
+        $profiles = $( "#tbl-profiles tbody" ),
+        $tr;
+
+    // highlighting emails pill option
     clkio.settings.change();
     $( "li#clkio-nav-pill-profiles" ).addClass( "active" );
     $( "#row-panel-profiles" ).show();
 
+    $formGroup.find( "input:text[name=description]" ).val( "" );
+    $formGroup.submit( clkio.profiles.create );
+
+    // clearing table
     $profiles.empty();
     $.each( clkio.profiles.list, function( index, profile ){
         $tr = $( "<tr></tr>" );
@@ -88,8 +97,12 @@ $( document ).ready( function(){
         })
     );
 
-    // prepare on change for profiles
-    clkio.profiles.change( function() {
-        
+    // load and prepare on change for profiles
+    clkio.profiles.load( function(){
+        if ( !Cookies.get( "profile" ) )
+            Cookies.set( "profile", clkio.profiles.list[0].id );
+        //clkio.profiles.renderNavBar();
+
+        clkio.profiles.change( clkio.settings.renderProfiles );
     });
 });
