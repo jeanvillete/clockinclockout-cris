@@ -1,5 +1,4 @@
 var clkio = window.clkio || {};
-clkio.grid = {};
 
 clkio.rest = function( req ) {
 	if ( !req || !req.uri ) {
@@ -110,10 +109,4 @@ $( document ).ready( function(){
     
     // shows current logged user
 	$user.empty().text( Cookies.get( "user" ) + " " ).append( $( "<span></span>" ).attr( "class", "caret" ) );
-    
-    clkio.profiles.load( function(){
-		if ( !Cookies.get( "profile" ) )
-			Cookies.set( "profile", clkio.profiles.list[0].id );
-		clkio.profiles.renderNavBar();
-	});
 });

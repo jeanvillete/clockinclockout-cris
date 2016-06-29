@@ -370,7 +370,7 @@ $( document ).ready( function(){
 	}
 
 	// load and setup profiles
-	clkio.profiles.onChange = function(){
+	clkio.profiles.change( function(){
 		clkio.timecard.load();
 
 		// load manualenterings
@@ -384,7 +384,7 @@ $( document ).ready( function(){
 
 		$( "#row-timecard" ).show();
 		$( ".row-timecard-form" ).hide();
-	};
+	});
 
 	// setup listening for save expected hours button
 	$( "#btn-save-expected" ).click( clkio.timecard.saveExpectedHours );

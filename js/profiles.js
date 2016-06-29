@@ -10,14 +10,18 @@ clkio.profiles.load = function( callback ) {
 		success : function( resp ) {
 			clkio.profiles.list = resp.profiles || [];
 			if ( callback ) callback();
-			clkio.profiles.change();
 		}
 	});
 }
 
-clkio.profiles.change = function() {
-	if ( clkio.profiles.onChange )
-			clkio.profiles.onChange();
+clkio.profiles.change = function( onChange ) {
+	if ( onChange ) {
+		clkio.profiles.onChange = onChange;
+		return onChange;
+	}
+
+	if ( typeof clkio.profiles.onChange === "function" )
+		clkio.profiles.onChange();
 }
 
 clkio.profiles.uri = function() {
@@ -69,7 +73,7 @@ clkio.profiles.renderNavBar = function() {
 			clkio.profiles.selected( $li );
 
 		$li.click( clkio.profiles.selected );
-		$( "li#navbar-menu-profile" ).after( $li );
+		$( "#navbar-menu-profile li.divider" ).before( $li );
 	});
 }
 
@@ -89,3 +93,12 @@ clkio.profiles.selected = function( $selected ) {
 
 	clkio.profiles.change();
 }
+
+$( document ).ready( function(){
+	clkio.profiles.load( function(){
+		if ( !Cookies.get( "profile" ) )
+			Cookies.set( "profile", clkio.profiles.list[0].id );
+		clkio.profiles.renderNavBar();
+		clkio.profiles.change();
+	});
+});

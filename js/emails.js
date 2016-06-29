@@ -3,8 +3,13 @@ clkio.emails = {};
 clkio.emails.onChange = function(){};
 clkio.emails.list = [];
 
-clkio.emails.change = function() {
-	if ( clkio.emails.onChange )
+clkio.emails.change = function( onChange ) {
+	if ( onChange ) {
+		clkio.emails.onChange = onChange;
+		return onChange;
+	}
+
+	if ( typeof clkio.emails.onChange === "function" )
 		clkio.emails.onChange();
 }
 
@@ -25,11 +30,13 @@ clkio.emails.create = function( event ) {
         uri : "emails",
         method : "POST",
         data : form.disable().dataAsString(),
-        success : function() {
-            clkio.emails.change();
+        success : function( resp ) {
+        	if ( resp.domain && clkio.emails.list )
+        		clkio.emails.list.push( resp.domain );
         },
         complete : function() {
             form.enable();
+        	clkio.emails.change();
         }
     });
 }
@@ -45,9 +52,6 @@ clkio.emails.setAsPrimary = function() {
         data : form.dataAsString(),
         success : function() {
             clkio.emails.change();
-        },
-        complete : function() {
-            form.enable();
         }
     });
 }
@@ -59,7 +63,12 @@ clkio.emails.delete = function() {
         uri : "emails/" + form.data.id,
         method : "DELETE",
         success : function() {
-            clkio.emails.change();
+        	for ( var i = 0; i < clkio.emails.list.length; i++ )
+        		if ( clkio.emails.list[i].id == form.data.id ) {
+        			clkio.emails.list.splice( i, 1 );
+            		clkio.emails.change();
+            		break;
+        		}
         }
     });
 }
