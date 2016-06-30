@@ -220,6 +220,10 @@ div.clkio-profile-form {
 
 div.clkio-profile-list {
 }
+
+#tbl-profiles tbody tr {
+	cursor: pointer;
+}
 /** end, settings **/
 
 /** going back button **/

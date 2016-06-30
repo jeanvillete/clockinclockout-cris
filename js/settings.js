@@ -1,6 +1,7 @@
 var clkio = window.clkio || {};
 clkio.settings = {};
 clkio.settings.onChange = function(){};
+clkio.settings.onBack = function(){};
 
 clkio.settings.change = function( onChange ) {
     if ( onChange ) {
@@ -10,6 +11,16 @@ clkio.settings.change = function( onChange ) {
 
 	if ( typeof clkio.settings.onChange === "function" )
 		clkio.settings.onChange();
+}
+
+clkio.settings.back = function( onBack ) {
+    if ( onBack ) {
+        clkio.settings.onBack = onBack;
+        return onBack;
+    }
+
+    if ( typeof clkio.settings.onBack === "function" )
+        clkio.settings.onBack();
 }
 
 clkio.settings.renderEmails = function() {
@@ -47,7 +58,7 @@ clkio.settings.renderProfiles = function() {
     var $panelProfiles = $( "#row-panel-profiles div.bs-component" ),
         $formGroup = $panelProfiles.find( "form.input-group-add" ),
         $profiles = $( "#tbl-profiles tbody" ),
-        $tr;
+        $tr, $td;
 
     // highlighting emails pill option
     clkio.settings.change();
@@ -62,9 +73,13 @@ clkio.settings.renderProfiles = function() {
     $.each( clkio.profiles.list, function( index, profile ){
         $tr = $( "<tr></tr>" );
 
-        $tr.append( $( "<td></td>" ).text( profile.description ) );
+        $td = $( "<td></td>" ).text( profile.description );
+        $td.append( $( "<input></input>" ).attr( "type", "hidden" ).attr( "name", "id" ).val( profile.id ) );
+        $tr.append( $td );
         $tr.append( $( "<td></td>" ).attr( "class", "not_for_small" ).text( profile.dateFormat ) );
         $tr.append( $( "<td></td>" ).attr( "class", "not_for_small" ).text( profile.hoursFormat ) );
+
+        $tr.click( clkio.profiles.handleRow );
 
         $profiles.append( $tr );
     });
@@ -102,5 +117,10 @@ $( document ).ready( function(){
         if ( !Cookies.get( "profile" ) )
             Cookies.set( "profile", clkio.profiles.list[0].id );
         clkio.profiles.change( clkio.settings.renderProfiles );
+    });
+
+    // bind function to 'back' button
+    $( "#clkio-goback" ).click( function(){
+        clkio.settings.back();
     });
 });
