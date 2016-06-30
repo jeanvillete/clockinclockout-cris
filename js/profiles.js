@@ -5,7 +5,6 @@ clkio.profiles.list = [];
 
 clkio.profiles.load = function( callback ) {
 	clkio.rest({
-		async : false,
 		uri : "profiles",
 		success : function( resp ) {
 			clkio.profiles.list = resp.profiles || [];
@@ -126,6 +125,9 @@ clkio.profiles.handleRow = function( $tr ) {
 		$( ".clkio-profile-list" ).show();
 		$( ".clkio-profile-form, .form-onedit" ).hide();
 	});
+
+	// load and render adjustings belonging to the current profile
+	clkio.adjustings.load( clkio.adjustings.change, profile.id );
 }
 
 clkio.profiles.create = function( event ) {

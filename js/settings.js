@@ -36,7 +36,7 @@ clkio.settings.renderEmails = function() {
     $formGroup.siblings().remove();
 
     // clearing form for create/add, giving focus to its email address input
-    $formGroup.find( "input[name=id]" ).val( "" )
+    $formGroup.find( "input[name=id]" ).val( "" );
     $formGroup.find( "input[name=emailAddress]" ).val( "" );
     $formGroup.unbind().submit( clkio.emails.create );
     
@@ -45,7 +45,7 @@ clkio.settings.renderEmails = function() {
         $formGroup.removeClass( "input-group-add" ).addClass( "input-group-upd-del" );
         $formGroup.find( "input:hidden[name=id]" ).val( email.id );
         $formGroup.find( "input:text[name=emailAddress]" ).attr( "disabled", "" ).addClass( "keep-disabled" ).val( email.emailAddress );
-        $formGroup.submit( function() { return false; } );
+        $formGroup.unbind().submit( function() { return false; } );
         
         $panelEmails.append( $formGroup );
     });
@@ -85,6 +85,29 @@ clkio.settings.renderProfiles = function() {
     });
 }
 
+clkio.settings.renderAdjustings = function() {
+    var $panelEmails = $( "#row-panel-adjustings div.clkio-panel-body" ),
+        $formGroup = $panelEmails.find( "form.input-group-add" );
+
+    // clearing table
+    $formGroup.siblings().remove();
+
+    // clearing form for create/add
+    $formGroup.find( "input[name=id], input[name=description], input[name=timeInterval]" ).val( "" );
+    $formGroup.unbind().submit( clkio.adjustings.create );
+
+    $.each( clkio.profiles.list, function( index, adjusting ){
+        $formGroup = $panelEmails.find( "form.input-group-add" ).clone();
+        $formGroup.removeClass( "input-group-add" ).addClass( "input-group-upd-del" );
+        $formGroup.find( ":hidden[name=id]" ).val( adjusting.id );
+        $formGroup.find( ":text[name=description]" ).val( adjusting.description );
+        $formGroup.find( ":text[name=timeInterval]" ).val( adjusting.timeInterval );
+        $formGroup.unbind().submit( clkio.adjustings.update );
+
+        $panelEmails.append( $formGroup );
+    });
+}
+
 clkio.settings.renderPassword = function() {
     clkio.settings.change();
     $( "li#clkio-nav-pill-password" ).addClass( "active" );
@@ -118,6 +141,9 @@ $( document ).ready( function(){
             Cookies.set( "profile", clkio.profiles.list[0].id );
         clkio.profiles.change( clkio.settings.renderProfiles );
     });
+
+    // prepare on change for adjustings
+    clkio.adjustings.change( clkio.settings.renderAdjustings );
 
     // bind function to 'back' button
     $( "#clkio-goback" ).click( function(){
