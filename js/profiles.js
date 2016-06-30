@@ -169,7 +169,7 @@ clkio.profiles.update = function( event ) {
 }
 
 clkio.profiles.delete = function() {
-	var form = clkio.forms( $( "#profile-form" ) ).serialize();
+	var form = clkio.forms( "#profile-form" ).serialize();
 	if ( !confirm( "Confirm delete record?" ) ) return;
 	clkio.rest({
         uri : "profiles/" + form.disable().data.id,

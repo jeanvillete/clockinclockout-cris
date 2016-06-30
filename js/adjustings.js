@@ -42,6 +42,7 @@ clkio.adjustings.create = function( event ) {
 }
 
 clkio.adjustings.update = function( event ) {
+    var form = clkio.forms( this ).serialize(),
 		profileId = $( "#profile-form :hidden[name=id]" ).val();
 	event.preventDefault();
 	clkio.rest({
