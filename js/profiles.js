@@ -134,6 +134,9 @@ clkio.profiles.create = function( event ) {
 	var form = clkio.forms( this ).serialize();
 	event.preventDefault();
 	form.data = $.extend( clkio.clone( clkio.profiles.getCurrent() ), form.data );
+	form.data.id = 0;
+	form.data.adjustings = [];
+	form.data.reasons = [];
 	clkio.rest({
         uri : "profiles",
         method : "POST",
