@@ -86,8 +86,8 @@ clkio.settings.renderProfiles = function() {
 }
 
 clkio.settings.renderAdjustings = function() {
-    var $panelEmails = $( "#row-panel-adjustings div.clkio-panel-body" ),
-        $formGroup = $panelEmails.find( "form.input-group-add" );
+    var $panelAdjustings = $( "#row-panel-adjustings div.clkio-panel-body" ),
+        $formGroup = $panelAdjustings.find( "form.input-group-add" );
 
     // clearing table
     $formGroup.siblings().remove();
@@ -97,7 +97,7 @@ clkio.settings.renderAdjustings = function() {
     $formGroup.unbind().submit( clkio.adjustings.create );
 
     $.each( clkio.adjustings.list, function( index, adjusting ){
-        $formGroup = $panelEmails.find( "form.input-group-add" ).clone();
+        $formGroup = $panelAdjustings.find( "form.input-group-add" ).clone();
         $formGroup.removeClass( "input-group-add" ).addClass( "input-group-upd-del" );
         $formGroup.find( ":hidden[name=id]" ).val( adjusting.id );
         $formGroup.find( ":text[name=description]" ).val( adjusting.description );
@@ -105,7 +105,30 @@ clkio.settings.renderAdjustings = function() {
         $formGroup.unbind().submit( clkio.adjustings.update );
         $formGroup.find( ".btn-adjustings-delete" ).unbind().click( clkio.adjustings.delete );
 
-        $panelEmails.append( $formGroup );
+        $panelAdjustings.append( $formGroup );
+    });
+}
+
+clkio.settings.renderReasons = function() {
+    var $panelReasons = $( "#row-panel-reasons div.clkio-panel-body" ),
+        $formGroup = $panelReasons.find( "form.input-group-add" );
+
+    // clearing table
+    $formGroup.siblings().remove();
+
+    // clearing form for create/add
+    $formGroup.find( "input[name=id], input[name=reason]" ).val( "" );
+    $formGroup.unbind().submit( clkio.reasons.create );
+
+    $.each( clkio.reasons.list, function( index, reason ){
+        $formGroup = $panelReasons.find( "form.input-group-add" ).clone();
+        $formGroup.removeClass( "input-group-add" ).addClass( "input-group-upd-del" );
+        $formGroup.find( ":hidden[name=id]" ).val( reason.id );
+        $formGroup.find( ":text[name=reason]" ).val( reason.reason );
+        $formGroup.unbind().submit( clkio.reasons.update );
+        $formGroup.find( ".btn-reasons-delete" ).unbind().click( clkio.reasons.delete );
+
+        $panelReasons.append( $formGroup );
     });
 }
 
@@ -154,6 +177,9 @@ $( document ).ready( function(){
 
     // prepare on change for adjustings
     clkio.adjustings.change( clkio.settings.renderAdjustings );
+
+    // prepare on change for reasons
+    clkio.reasons.change( clkio.settings.renderReasons );
 
     // bind function to 'back' button
     $( "#clkio-goback" ).click( function(){

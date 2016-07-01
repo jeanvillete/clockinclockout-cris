@@ -128,6 +128,9 @@ clkio.profiles.handleRow = function( $tr ) {
 
 	// load and render adjustings belonging to the current profile
 	clkio.adjustings.load( clkio.adjustings.change, profile );
+
+	// load and render reasons belonging to the current profile
+	clkio.reasons.load( clkio.reasons.change, profile );
 }
 
 clkio.profiles.create = function( event ) {

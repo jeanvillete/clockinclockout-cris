@@ -129,8 +129,7 @@
 									<th class="not_for_small">hours format</th>
 								</tr>
 							</thead>
-							<tbody>
-							</tbody>
+							<tbody></tbody>
 						</table>
 					</div>
 				</div>
@@ -246,7 +245,7 @@
 
 									<!-- add buttons -->
 									<span class="input-group-btn clkio-btn-add">
-										<button class="btn btn-success btn-input" type="button">
+										<button type="submit" class="btn btn-success btn-input">
 											<i class="fa fa-plus-square" aria-hidden="true"></i>
 										</button>
 									</span>
@@ -258,110 +257,12 @@
 		                                        <i class="fa fa-caret-down" aria-hidden="true"></i>
 		                                    </button>
 		                                    <ul class="dropdown-menu clkio-dropdown-menu">
-		                                        <li><a href="#" class="btn-reasons-save">save</a></li>
+		                                        <li><button type="button" class="btn-reasons-save">save</button></li>
 		                                        <li><a href="#" class="btn-reasons-delete">delete</a></li>
 		                                    </ul>
 		                                </div>
 		                            </span>
 								</form>
-
-                                <div class="input-group">
-									<input name="id" type="hidden">
-									<input class="form-control input-sm" name="reason" placeholder="reason text" type="text">
-
-									<!-- add buttons -->
-									<span style="display: none;" class="input-group-btn clkio-btn-add">
-										<button class="btn btn-success btn-input" type="button">
-											<i class="fa fa-plus-square" aria-hidden="true"></i>
-										</button>
-									</span>
-
-									<!-- update and delete buttons -->
-									<span class="input-group-btn clkio-btn-upd-del" style="">
-		                            	<div class="btn-group">
-		                                    <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
-		                                        <i class="fa fa-caret-down" aria-hidden="true"></i>
-		                                    </button>
-		                                    <ul class="dropdown-menu clkio-dropdown-menu">
-		                                        <li><a href="#" class="btn-reasons-save">save</a></li>
-		                                        <li><a href="#" class="btn-reasons-delete">delete</a></li>
-		                                    </ul>
-		                                </div>
-		                            </span>
-		                            
-								</div><div class="input-group">
-									<input name="id" type="hidden">
-									<input class="form-control input-sm" name="reason" placeholder="reason text" type="text">
-
-									<!-- add buttons -->
-									<span style="display: none;" class="input-group-btn clkio-btn-add">
-										<button class="btn btn-success btn-input" type="button">
-											<i class="fa fa-plus-square" aria-hidden="true"></i>
-										</button>
-									</span>
-
-									<!-- update and delete buttons -->
-									<span class="input-group-btn clkio-btn-upd-del" style="">
-		                            	<div class="btn-group">
-		                                    <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
-		                                        <i class="fa fa-caret-down" aria-hidden="true"></i>
-		                                    </button>
-		                                    <ul class="dropdown-menu clkio-dropdown-menu">
-		                                        <li><a href="#" class="btn-reasons-save">save</a></li>
-		                                        <li><a href="#" class="btn-reasons-delete">delete</a></li>
-		                                    </ul>
-		                                </div>
-		                            </span>
-		                            
-								</div><div class="input-group">
-									<input name="id" type="hidden">
-									<input class="form-control input-sm" name="reason" placeholder="reason text" type="text">
-
-									<!-- add buttons -->
-									<span style="display: none;" class="input-group-btn clkio-btn-add">
-										<button class="btn btn-success btn-input" type="button">
-											<i class="fa fa-plus-square" aria-hidden="true"></i>
-										</button>
-									</span>
-
-									<!-- update and delete buttons -->
-									<span class="input-group-btn clkio-btn-upd-del" style="">
-		                            	<div class="btn-group">
-		                                    <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
-		                                        <i class="fa fa-caret-down" aria-hidden="true"></i>
-		                                    </button>
-		                                    <ul class="dropdown-menu clkio-dropdown-menu">
-		                                        <li><a href="#" class="btn-reasons-save">save</a></li>
-		                                        <li><a href="#" class="btn-reasons-delete">delete</a></li>
-		                                    </ul>
-		                                </div>
-		                            </span>
-		                            
-								</div><div class="input-group">
-									<input name="id" type="hidden">
-									<input class="form-control input-sm" name="reason" placeholder="reason text" type="text">
-
-									<!-- add buttons -->
-									<span style="display: none;" class="input-group-btn clkio-btn-add">
-										<button class="btn btn-success btn-input" type="button">
-											<i class="fa fa-plus-square" aria-hidden="true"></i>
-										</button>
-									</span>
-
-									<!-- update and delete buttons -->
-									<span class="input-group-btn clkio-btn-upd-del" style="">
-		                            	<div class="btn-group">
-		                                    <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
-		                                        <i class="fa fa-caret-down" aria-hidden="true"></i>
-		                                    </button>
-		                                    <ul class="dropdown-menu clkio-dropdown-menu">
-		                                        <li><a href="#" class="btn-reasons-save">save</a></li>
-		                                        <li><a href="#" class="btn-reasons-delete">delete</a></li>
-		                                    </ul>
-		                                </div>
-		                            </span>
-		                            
-								</div>
 							</div>
 						</div>
 					</div>
@@ -389,13 +290,13 @@
             
             <div class="modal" id="modal-error-msg">
                 <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body alert alert-dismissible alert-danger">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <strong></strong>
-                        <p style="font-size:14px;"></p>
+                    <div class="modal-content">
+                        <div class="modal-body alert alert-dismissible alert-danger">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <strong></strong>
+                            <p style="font-size:14px;"></p>
+                        </div>
                     </div>
-                </div>
                 </div>
             </div>
 		</div>
