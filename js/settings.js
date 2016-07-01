@@ -96,13 +96,14 @@ clkio.settings.renderAdjustings = function() {
     $formGroup.find( "input[name=id], input[name=description], input[name=timeInterval]" ).val( "" );
     $formGroup.unbind().submit( clkio.adjustings.create );
 
-    $.each( clkio.profiles.list, function( index, adjusting ){
+    $.each( clkio.adjustings.list, function( index, adjusting ){
         $formGroup = $panelEmails.find( "form.input-group-add" ).clone();
         $formGroup.removeClass( "input-group-add" ).addClass( "input-group-upd-del" );
         $formGroup.find( ":hidden[name=id]" ).val( adjusting.id );
         $formGroup.find( ":text[name=description]" ).val( adjusting.description );
         $formGroup.find( ":text[name=timeInterval]" ).val( adjusting.timeInterval );
         $formGroup.unbind().submit( clkio.adjustings.update );
+        $formGroup.find( ".btn-adjustings-delete" ).unbind().click( clkio.adjustings.delete );
 
         $panelEmails.append( $formGroup );
     });
@@ -114,17 +115,26 @@ clkio.settings.renderPassword = function() {
     
 }
 
+clkio.settings.renderAccount = function() {
+    clkio.settings.change();
+    $( "li#clkio-nav-pill-account" ).addClass( "active" );
+    
+}
+
 $( document ).ready( function(){
     
     // bind functions for nav pills
     $( "li#clkio-nav-pill-emails a" ).click( clkio.settings.renderEmails );
     $( "li#clkio-nav-pill-profiles a" ).click( clkio.settings.renderProfiles );
     $( "li#clkio-nav-pill-password a" ).click( clkio.settings.renderPassword );
+    $( "li#clkio-nav-pill-account a" ).click( clkio.settings.renderAccount );
     
     // prepare on change for settings
     clkio.settings.change( function() {
         $( "ul#clkio-nav-pill" ).find( "li" ).removeClass( "active" );
-        $( "#row-panel-emails, #row-panel-profiles, #row-panel-password" ).hide();
+        $( "#row-panel-emails, #row-panel-profiles, #row-panel-password, #row-panel-account" ).hide();
+
+        clkio.settings.back();
     });
 
     // prepare on change for emails and then,

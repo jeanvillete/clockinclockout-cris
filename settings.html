@@ -11,6 +11,7 @@
 		<script src="js/profiles.js"></script>
 		<script src="js/reasons.js"></script>
         <script src="js/emails.js"></script>
+        <script src="js/adjustings.js"></script>
         <script src="js/settings.js"></script>
 		<script src="js/bootstrap.min.js"></script>
 		<link rel="stylesheet" href="css/bootstrap.css" media="screen">
@@ -60,6 +61,7 @@
                     <li id="clkio-nav-pill-emails"><a href="#">emails</a></li>
                     <li id="clkio-nav-pill-profiles"><a href="#">profiles</a></li>
                     <li id="clkio-nav-pill-password"><a href="#">password</a></li>
+                    <li id="clkio-nav-pill-account"><a href="#">account</a></li>
                   </ul>
                 </div>
 			</div>
@@ -215,7 +217,7 @@
 									</span>
 
 									<!-- update and delete buttons -->
-									<span class="input-group-btn clkio-btn-upd-del" style="display:none;">
+									<span class="input-group-btn clkio-btn-upd-del">
 		                            	<div class="btn-group">
 		                                    <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
 		                                        <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -238,7 +240,7 @@
 						<div class="panel panel-default clkio-panel">
 							<div class="panel-heading clkio-panel-heading">reasons</div>
                             <div class="panel-body clkio-panel-body">
-								<div class="input-group input-group-add">
+								<form class="input-group input-group-add">
 									<input name="id" type="hidden">
 									<input class="form-control input-sm" name="reason" placeholder="reason text" type="text">
 
@@ -250,7 +252,7 @@
 									</span>
 
 									<!-- update and delete buttons -->
-									<span class="input-group-btn clkio-btn-upd-del" style="display:none;">
+									<span class="input-group-btn clkio-btn-upd-del" >
 		                            	<div class="btn-group">
 		                                    <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
 		                                        <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -261,8 +263,9 @@
 		                                    </ul>
 		                                </div>
 		                            </span>
-		                            
-								</div><div class="input-group">
+								</form>
+
+                                <div class="input-group">
 									<input name="id" type="hidden">
 									<input class="form-control input-sm" name="reason" placeholder="reason text" type="text">
 
@@ -368,6 +371,11 @@
             
             <!-- panel for password -->
             <div class="row clkio-row-settings" id="row-panel-password" style="display:none;">
+                
+            </div>
+
+            <!-- panel for account -->
+            <div class="row clkio-row-settings" id="row-panel-account" style="display:none;">
             	
             </div>
 

@@ -13,14 +13,9 @@ clkio.adjustings.change = function( onChange ) {
 		clkio.adjustings.onChange();
 }
 
-clkio.adjustings.load = function( callback, profileId ) {
-	clkio.rest({
-		uri : "profiles/" + profileId || "" + "/adjustings",
-		success : function( resp ) {
-			clkio.adjustings.list = resp.adjustings || [];
-			if ( callback ) callback();
-		}
-	});
+clkio.adjustings.load = function( callback, profile ) {
+    clkio.adjustings.list = profile.adjustings;
+    if ( callback ) callback();
 }
 
 clkio.adjustings.create = function( event ) {
@@ -28,12 +23,13 @@ clkio.adjustings.create = function( event ) {
 		profileId = $( "#profile-form :hidden[name=id]" ).val();
 	event.preventDefault();
 	clkio.rest({
-        uri : "profiles/" + profileId || "" + "/adjustings",
+        uri : "profiles/" + ( profileId || "" ) + "/adjustings",
         method : "POST",
         data : form.disable().dataAsString(),
         success : function( resp ) {
        		clkio.adjustings.list.push( resp.domain );
-        	clkio.adjustings.change();
+            form.enable();
+            clkio.adjustings.change();
         },
         complete : function() {
             form.enable();
@@ -46,7 +42,7 @@ clkio.adjustings.update = function( event ) {
 		profileId = $( "#profile-form :hidden[name=id]" ).val();
 	event.preventDefault();
 	clkio.rest({
-        uri : "profiles/" + profileId || "" + "/adjustings/" + form.data.id,
+        uri : "profiles/" + ( profileId || "" ) + "/adjustings/" + form.data.id,
         method : "PUT",
         data : form.disable().dataAsString(),
         success : function( resp ) {
@@ -66,7 +62,7 @@ clkio.adjustings.delete = function() {
 		profileId = $( "#profile-form :hidden[name=id]" ).val();
 	if ( !confirm( "Confirm delete record?" ) ) return;
 	clkio.rest({
-        uri : "profiles/" + profileId || "" + "/adjustings/" + form.disable().data.id,
+        uri : "profiles/" + ( profileId || "" ) + "/adjustings/" + form.disable().data.id,
         method : "DELETE",
         success : function() {
         	for ( var i = 0; i < clkio.adjustings.list.length; i++ )

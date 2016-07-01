@@ -32,10 +32,11 @@ clkio.emails.create = function( event ) {
         data : form.disable().dataAsString(),
         success : function( resp ) {
     		clkio.emails.list.push( resp.domain );
+            form.enable();
+        	clkio.emails.change();
         },
         complete : function() {
             form.enable();
-        	clkio.emails.change();
         }
     });
 }
