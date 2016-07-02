@@ -248,12 +248,13 @@ div.clkio-profile-list {
 
 /** going back button **/
 div.btn-back {
-	margin-bottom: 25px;
+	margin-bottom: 20px;
 }
 @media (min-width: 760px) {
 	div.btn-back {
 		float:right;
 		padding-left: 5px;
+		margin-bottom: 40px;
 	}
 }
 div.btn-back a.btn-back {

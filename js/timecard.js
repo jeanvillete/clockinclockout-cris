@@ -378,14 +378,11 @@ $( document ).ready( function(){
 		clkio.profiles.change( function(){
 			clkio.timecard.load();
 
-			// load manualenterings
-			clkio.reasons.load( function() {
-				$.each( clkio.reasons.list, function( index, reason ){
-					$( ".cmb-mnl-reason" ).append( $( "<option></option>" ).attr( "value", reason.id ).text( reason.reason ) );
-				});
+			$( "select.cmb-mnl-reason option:not(:first)" ).remove();
+			$.each( clkio.profiles.getCurrent().reasons, function( index, reason ){
+				$( ".cmb-mnl-reason" ).append( $( "<option></option>" ).attr( "value", reason.id ).text( reason.reason ) );
 			});
 
-			$( "select.cmb-mnl-reason option:not(:first)" ).remove();
 
 			$( "#row-timecard" ).show();
 			$( ".row-timecard-form" ).hide();
