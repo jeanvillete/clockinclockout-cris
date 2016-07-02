@@ -29,9 +29,9 @@ clkio.timecard.renderTotalBalance = function() {
 		uri : clkio.profiles.uri() + "/timecard/totaltime",
 		success : function( resp ) {
 			if ( resp.totalTime.charAt( 0 ) == "-" ) {
-				$balance.parent().parent().removeClass( "panel-primary" ).addClass( "panel-danger" );
+				$balance.parent().parent().removeClass( "panel-success" ).addClass( "panel-danger" );
 			} else {
-				$balance.parent().parent().removeClass( "panel-danger" ).addClass( "panel-primary" );
+				$balance.parent().parent().removeClass( "panel-danger" ).addClass( "panel-success" );
 			}
 			$balance.text( resp.totalTime );
 		}
@@ -44,9 +44,9 @@ clkio.timecard.renderMonthBalance = function() {
 		uri : clkio.profiles.uri() + "/timecard/totaltime/" + $year.val() + "-" + $month.val(),
 		success : function( resp ) {
 			if ( resp.totalTimeMonthly.charAt( 0 ) == "-" ) {
-				$monthBalance.parent().parent().removeClass( "panel-primary" ).addClass( "panel-danger" );
+				$monthBalance.parent().parent().removeClass( "panel-success" ).addClass( "panel-danger" );
 			} else {
-				$monthBalance.parent().parent().removeClass( "panel-danger" ).addClass( "panel-primary" );
+				$monthBalance.parent().parent().removeClass( "panel-danger" ).addClass( "panel-success" );
 			}
 			$monthBalance.text( resp.totalTimeMonthly );
 
