@@ -26,19 +26,21 @@ clkio.emails.load = function( callback ) {
 clkio.emails.create = function( event ) {
     var form = clkio.forms( this ).serialize();
     event.preventDefault();
-    clkio.rest({
-        uri : "emails",
-        method : "POST",
-        data : form.disable().dataAsString(),
-        success : function( resp ) {
-    		clkio.emails.list.push( resp.domain );
-            form.enable();
-        	clkio.emails.change();
-        },
-        complete : function() {
-            form.enable();
-        }
-    });
+
+    if ( form.data.emailAddress.trim() )
+        clkio.rest({
+            uri : "emails",
+            method : "POST",
+            data : form.disable().dataAsString(),
+            success : function( resp ) {
+        		clkio.emails.list.push( resp.domain );
+                form.enable();
+            	clkio.emails.change();
+            },
+            complete : function() {
+                form.enable();
+            }
+        });
 }
 
 clkio.emails.setAsPrimary = function() {

@@ -47,6 +47,14 @@ clkio.settings.renderEmails = function() {
         $formGroup.find( "input:text[name=emailAddress]" ).attr( "disabled", "" ).addClass( "keep-disabled" ).val( email.emailAddress );
         $formGroup.unbind().submit( function() { return false; } );
         
+        if ( email.primary ) {
+            $formGroup.find( "span.email-info-primay" ).show();
+            $formGroup.find( "a.btn-emails-set-as-primary:parent" ).hide();
+        }
+
+        if ( !email.confirmed )
+            $formGroup.find( "span.email-info-notconfirmed" ).show();
+
         $panelEmails.append( $formGroup );
     });
     

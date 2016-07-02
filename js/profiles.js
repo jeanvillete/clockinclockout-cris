@@ -140,18 +140,20 @@ clkio.profiles.create = function( event ) {
 	form.data.id = 0;
 	form.data.adjustings = [];
 	form.data.reasons = [];
-	clkio.rest({
-        uri : "profiles",
-        method : "POST",
-        data : form.disable().dataAsString(),
-        success : function( resp ) {
-       		clkio.profiles.list.push( resp.domain );
-        	clkio.profiles.change();
-        },
-        complete : function() {
-            form.enable();
-        }
-    });
+
+	if ( form.data.description.trim() )
+		clkio.rest({
+	        uri : "profiles",
+	        method : "POST",
+	        data : form.disable().dataAsString(),
+	        success : function( resp ) {
+	       		clkio.profiles.list.push( resp.domain );
+	        	clkio.profiles.change();
+	        },
+	        complete : function() {
+	            form.enable();
+	        }
+	    });
 }
 
 clkio.profiles.update = function( event ) {
