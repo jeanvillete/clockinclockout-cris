@@ -22,39 +22,41 @@ clkio.adjustings.create = function( event ) {
 	var form = clkio.forms( this ).serialize(),
 		profileId = $( "#profile-form :hidden[name=id]" ).val();
 	event.preventDefault();
-	clkio.rest({
-        uri : "profiles/" + profileId + "/adjustings",
-        method : "POST",
-        data : form.disable().dataAsString(),
-        success : function( resp ) {
-       		clkio.adjustings.list.push( resp.domain );
-            form.enable();
-            clkio.adjustings.change();
-        },
-        complete : function() {
-            form.enable();
-        }
-    });
+    if ( form.data.description.trim() && form.data.timeInterval.trim() )
+    	clkio.rest({
+            uri : "profiles/" + profileId + "/adjustings",
+            method : "POST",
+            data : form.disable().dataAsString(),
+            success : function( resp ) {
+           		clkio.adjustings.list.push( resp.domain );
+                form.enable();
+                clkio.adjustings.change();
+            },
+            complete : function() {
+                form.enable();
+            }
+        });
 }
 
 clkio.adjustings.update = function( event ) {
     var form = clkio.forms( this ).serialize(),
 		profileId = $( "#profile-form :hidden[name=id]" ).val();
 	event.preventDefault();
-	clkio.rest({
-        uri : "profiles/" + profileId + "/adjustings/" + form.data.id,
-        method : "PUT",
-        data : form.disable().dataAsString(),
-        success : function( resp ) {
-        	var adjusting = $.grep( clkio.adjustings.list, function( current ){
-				return current.id == form.data.id;
-			})[0];
-        	$.extend( adjusting, form.data );
-        },
-        complete : function() {
-            form.enable();
-        }
-    });
+    if ( form.data.description.trim() && form.data.timeInterval.trim() )
+    	clkio.rest({
+            uri : "profiles/" + profileId + "/adjustings/" + form.data.id,
+            method : "PUT",
+            data : form.disable().dataAsString(),
+            success : function( resp ) {
+            	var adjusting = $.grep( clkio.adjustings.list, function( current ){
+    				return current.id == form.data.id;
+    			})[0];
+            	$.extend( adjusting, form.data );
+            },
+            complete : function() {
+                form.enable();
+            }
+        });
 }
 
 clkio.adjustings.delete = function() {

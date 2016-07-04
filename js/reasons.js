@@ -21,39 +21,41 @@ clkio.reasons.create = function( event ) {
 	var form = clkio.forms( this ).serialize(),
 		profileId = $( "#profile-form :hidden[name=id]" ).val();
 	event.preventDefault();
-	clkio.rest({
-        uri : "profiles/" + profileId + "/reasons",
-        method : "POST",
-        data : form.disable().dataAsString(),
-        success : function( resp ) {
-       		clkio.reasons.list.push( resp.domain );
-            form.enable();
-            clkio.reasons.change();
-        },
-        complete : function() {
-            form.enable();
-        }
-    });
+    if ( form.data.reason.trim() )
+    	clkio.rest({
+            uri : "profiles/" + profileId + "/reasons",
+            method : "POST",
+            data : form.disable().dataAsString(),
+            success : function( resp ) {
+           		clkio.reasons.list.push( resp.domain );
+                form.enable();
+                clkio.reasons.change();
+            },
+            complete : function() {
+                form.enable();
+            }
+        });
 }
 
 clkio.reasons.update = function( event ) {
     var form = clkio.forms( this ).serialize(),
 		profileId = $( "#profile-form :hidden[name=id]" ).val();
 	event.preventDefault();
-	clkio.rest({
-        uri : "profiles/" + profileId + "/reasons/" + form.data.id,
-        method : "PUT",
-        data : form.disable().dataAsString(),
-        success : function( resp ) {
-        	var reason = $.grep( clkio.reasons.list, function( current ){
-				return current.id == form.data.id;
-			})[0];
-        	$.extend( reason, form.data );
-        },
-        complete : function() {
-            form.enable();
-        }
-    });
+    if ( form.data.reason.trim() )
+    	clkio.rest({
+            uri : "profiles/" + profileId + "/reasons/" + form.data.id,
+            method : "PUT",
+            data : form.disable().dataAsString(),
+            success : function( resp ) {
+            	var reason = $.grep( clkio.reasons.list, function( current ){
+    				return current.id == form.data.id;
+    			})[0];
+            	$.extend( reason, form.data );
+            },
+            complete : function() {
+                form.enable();
+            }
+        });
 }
 
 clkio.reasons.delete = function() {
