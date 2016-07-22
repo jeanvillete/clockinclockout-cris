@@ -1,0 +1,27 @@
+{
+  "name": "clockinclockout-cris",
+  "homepage": "https://github.com/jeanvillete/clockinclockout-cris",
+  "authors": [
+    "Jean Villete <jean.villete@gmail.com>"
+  ],
+  "description": "A GUI for the application clkio-cris; http://clkio.com",
+  "main": "index.html",
+  "keywords": [
+    "clkio", "clkio-cris"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    ".tmp",
+    "tmp",
+    "dist"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "font-awesome": "^4.6.3"
+  }
+}
