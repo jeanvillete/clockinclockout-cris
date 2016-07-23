@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>clkio-cris</title>
+
+        <!-- Bootstrap -->
+        <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="../bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        <link href="styles/clkio-cris.css" rel="stylesheet">
+
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#clkio-cris-navbar" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">clkio-cris</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="clkio-cris-navbar">
+                    <ul class="nav navbar-nav">
+                        <!--to be defined -->
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" >
+                                jean.villete@gmail.com <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="themes">
+                                <li>
+                                    <a href="#">
+                                        villete at gft <i class="fa fa-check" aria-hidden="true"></i>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        testing another profile
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li><a href="#">timecard</a></li>
+                                <li><a href="#">settings</a></li>
+                                <li><a href="#">logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-flud -->
+        </nav>
+
+        <section class="container">
+            <div class="row">
+                <ul class="nav nav-pills">
+                    <li><a href="#">emails</a></li>
+                    <li class="active"><a href="#">profiles</a></li>
+                    <li><a href="#">password</a></li>
+                    <li><a href="#">account</a></li>
+                </ul>
+            </div>
+
+            <!-- panel for profiles -->
+            <div class="row" id="row-profiles">
+                <!-- form for profiles -->
+                <form class="col-sm-12">
+                    <!-- box for profile description -->
+                    <div class="col-sm-6" >
+                        <input type="text" name="description" placeholder="profile description" class="form-control" />
+                    </div>
+
+                    <!-- box for hours and date format -->
+                    <div class="col-sm-6">
+                    	<div class="col-sm-6">
+                        	<input type="text" name="dateFormat" placeholder="date format" class="form-control" >
+                    	</div>
+                    	<div class="col-sm-6 pull-right">
+                        	<input type="text" name="hoursFormat" placeholder="hours format" class="form-control">
+                    	</div>
+                    </div>
+
+                    <!-- boxes for monday and tuesday -->
+                    <div class="col-sm-6">
+                    	<div class="col-sm-6">
+                        	<input type="text" name="expectedMonday" placeholder="monday" class="form-control ">
+                    	</div>
+                    	<div class="col-sm-6 pull-right">
+                        	<input type="text" name="expectedTuesday" placeholder="tuesday" class="form-control ">
+                    	</div>
+                    </div>
+
+                    <!-- boxes for wednesday and thursday -->
+                    <div class="col-sm-6">
+                    	<div class="col-sm-6">
+                        	<input type="text" name="expectedWednesday" placeholder="wednesday" class="form-control ">
+                    	</div>
+                    	<div class="col-sm-6 pull-right">
+                        	<input type="text" name="expectedThursday" placeholder="thursday" class="form-control ">
+                    	</div>
+                    </div>
+
+                    <!-- boxes for friday and saturday -->
+                    <div class="col-sm-6">
+                    	<div class="col-sm-6">
+                        	<input type="text" name="expectedFriday" placeholder="friday" class="form-control " >
+                    	</div>
+                    	<div class="col-sm-6 pull-right">
+                        	<input type="text" name="expectedSaturday" placeholder="saturday" class="form-control ">
+                    	</div>
+                    </div>
+
+                    <!-- boxes for sunday box and save/delete buttons -->
+                    <div class="col-sm-6">
+                    	<div class="col-sm-6">
+                        	<input type="text" name="expectedSunday" placeholder="sunday" class="form-control" >
+                    	</div>
+                    	<div class="col-sm-6 pull-right">
+                            <button type="submit" class="btn btn-primary" >save</button>
+                            <button type="button" class="btn btn-danger" >delete</button>
+                    	</div>
+                    </div>
+                </form>
+				
+				<!-- panel for adjustings -->
+				<div class="col-sm-6" id="row-panel-adjustings">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">adjustings</div>
+                        <div class="panel-body">
+                            <form class="input-group input-group-add">
+                                <input class="form-control" name="description" placeholder="description" type="text">
+                                <span class="input-group-btn" style="width:0px;"></span>
+                                <input class="form-control" name="timeInterval" placeholder="time interval" type="text">
+
+                                <!-- add buttons -->
+                                <span>
+                                    <button type="submit" class="btn btn-success btn-input">
+                                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                    </button>
+                                </span>
+
+                                <!-- update and delete buttons -->
+                                <span>
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><button type="submit">save</button></li>
+                                            <li><a href="#">delete</a></li>
+                                        </ul>
+                                    </div>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+				</div>
+
+				<!-- panel for reasons -->
+				<div class="col-sm-6" id="row-panel-reasons">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">reasons</div>
+                        <div class="panel-body">
+                            <form class="input-group">
+                                <input class="form-control" name="reason" placeholder="reason text" type="text">
+
+                                <!-- add buttons -->
+                                <span class="input-group-btn-add">
+                                    <button type="submit" class="btn btn-success btn-input">
+                                        <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                    </button>
+                                </span>
+
+                                <!-- update and delete buttons -->
+                                <span class="input-group-btn-upd-del" >
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><button type="button" >save</button></li>
+                                            <li><a href="#" >delete</a></li>
+                                        </ul>
+                                    </div>
+                                </span>
+                            </form>
+                        </div>
+                    </div>
+				</div>
+            </div><!-- /div#row-profiles -->
+        </section><!-- /section.container -->
+
+        <footer class="container">
+        </footer><!-- /footer.container -->
+
+        <script src="../bower_components/jquery/dist/jquery.min.js"></script>
+        <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    </body>
+</html>
