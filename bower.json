@@ -7,7 +7,8 @@
   "description": "A GUI for the application clkio-cris; http://clkio.com",
   "main": "index.html",
   "keywords": [
-    "clkio", "clkio-cris"
+    "clkio",
+    "clkio-cris"
   ],
   "license": "MIT",
   "ignore": [
@@ -22,6 +23,7 @@
   ],
   "dependencies": {
     "bootstrap": "^3.3.6",
-    "font-awesome": "^4.6.3"
+    "font-awesome": "^4.6.3",
+    "eonasdan-bootstrap-datetimepicker": "^4.17.37"
   }
 }
