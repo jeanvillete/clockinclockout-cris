@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="clkio">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -65,16 +65,19 @@
             </div><!-- /.container-flud -->
         </nav>
 
-        <section class="container">
+        <section class="container" ng-controller="TimecardController">
             <div class="row timecard-header">
                 <div class="col-sm-3">
                     <button type="button" class="btn btn-primary"> punch o clock</button>
+                    <div id="datetimepicker-time">
+                        <p>punch o clock value: <strong> {{punchOClock}} </strong></p>
+                    </div>
                 </div>
                 <div class="col-sm-3">
-                    <p>month selection goes here</p>
+                    <input type="text" class="form-control" ng-model="punchOClock">
                 </div>
                 <div class="col-sm-3">
-                    <p>year selection goes here</p>
+                    <input type="text" class="form-control" id="datimepicker-year">
                 </div>
                 <div class="col-sm-3">
                     <div class="panel panel-success">
@@ -346,5 +349,28 @@
         <script src="../bower_components/moment/min/moment.min.js"></script>
         <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="../bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="../bower_components/angular/angular.min.js"></script>
+        <script type="text/javascript">
+            angular.module( 'clkio', [] );
+            angular.module( 'clkio' ).controller( 'TimecardController', [ '$scope', function( $scope ){
+                $scope.punchOClock = '';
+                var dtp = $( "#datetimepicker-time" ).datetimepicker({
+                    inline : true,
+                    format : 'HH:mm',
+                    useCurrent : true,
+                    showClose : false
+                });
+                
+                dtp.data( "DateTimePicker" ).defaultDate( new Date() );
+
+                dtp.on( 'dp.change', function( e ){
+                    $scope.$apply(function(){
+                        $scope.punchOClock = e.date.format( dtp.data( "DateTimePicker" ).format() );
+                    });
+                });
+
+                $scope.punchOClock = dtp.data( "DateTimePicker" ).date().format( dtp.data( "DateTimePicker" ).format() );
+            }]);
+        </script>
     </body>
 </html>
