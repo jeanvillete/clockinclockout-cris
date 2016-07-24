@@ -74,7 +74,11 @@
                     </div>
                 </div>
                 <div class="col-sm-3">
-                    <input type="text" class="form-control" ng-model="punchOClock">
+                    <button class="btn btn-default" type="button" id="btn-datimepicker-month" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-click="baseDateToogle()">
+                        {{ baseDate }}
+                        <span class="caret"></span>
+                    </button>
+                    <input type="hidden" id="datimepicker-month" ng-model="baseDate">
                 </div>
                 <div class="col-sm-3">
                     <input type="text" class="form-control" id="datimepicker-year">
@@ -354,23 +358,45 @@
             angular.module( 'clkio', [] );
             angular.module( 'clkio' ).controller( 'TimecardController', [ '$scope', function( $scope ){
                 $scope.punchOClock = '';
-                var dtp = $( "#datetimepicker-time" ).datetimepicker({
+                $scope.baseDate = '';
+
+                var dptTime = $( "#datetimepicker-time" ).datetimepicker({
                     inline : true,
                     format : 'HH:mm',
                     useCurrent : true,
-                    showClose : false
-                });
-                
-                dtp.data( "DateTimePicker" ).defaultDate( new Date() );
-
-                dtp.on( 'dp.change', function( e ){
+                    showClose : false,
+                    defaultDate : new Date()
+                }).on( 'dp.change', function( e ){
                     $scope.$apply(function(){
-                        $scope.punchOClock = e.date.format( dtp.data( "DateTimePicker" ).format() );
+                        $scope.punchOClock = e.date.format( dptTime.data( "DateTimePicker" ).format() );
                     });
                 });
+                $scope.punchOClock = dptTime.data( "DateTimePicker" ).date().format( dptTime.data( "DateTimePicker" ).format() );
+                
+                var dptMonth = $( "#datimepicker-month" ).datetimepicker({
+                    format : 'MMM YYYY',
+                    useCurrent : true,
+                    defaultDate : new Date()
+                })
+                dptMonth.on( 'dp.change', function( e ){
+                    $scope.$apply(function(){
+                        $scope.baseDate = e.date.format( dptMonth.data( "DateTimePicker" ).format() );
+                    });
+                });
+                $scope.baseDate = dptMonth.data( "DateTimePicker" ).date().format( dptMonth.data( "DateTimePicker" ).format() );
 
-                $scope.punchOClock = dtp.data( "DateTimePicker" ).date().format( dtp.data( "DateTimePicker" ).format() );
+                $scope.baseDateToogle = function() {
+                    console.log( 'bla' );
+                    dptMonth.data( "DateTimePicker" ).show();
+                };
             }]);
+
+            $( function(){
+                $( "#datimepicker-year" ).datetimepicker({
+                    format : 'YYYY',
+                    useCurrent : true
+                });
+            });
         </script>
     </body>
 </html>
