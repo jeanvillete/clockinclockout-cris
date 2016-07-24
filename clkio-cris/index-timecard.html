@@ -67,23 +67,14 @@
 
         <section class="container" ng-controller="TimecardController">
             <div class="row timecard-header">
-                <div class="col-sm-3">
+                <div class="col-xs-6 col-sm-6">
                     <button type="button" class="btn btn-primary"> punch o clock</button>
-                    <div id="datetimepicker-time">
-                        <p>punch o clock value: <strong> {{punchOClock}} </strong></p>
-                    </div>
-                </div>
-                <div class="col-sm-3">
-                    <button class="btn btn-default" type="button" id="btn-datimepicker-month" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" ng-click="baseDateToogle()">
-                        {{ baseDate }}
+                    <button class="btn btn-default" type="button" id="btn-datimepicker-month" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
+                        Jul 2016
                         <span class="caret"></span>
                     </button>
-                    <input type="hidden" id="datimepicker-month" ng-model="baseDate">
                 </div>
-                <div class="col-sm-3">
-                    <input type="text" class="form-control" id="datimepicker-year">
-                </div>
-                <div class="col-sm-3">
+                <div class="col-xs-4 col-xs-offset-2 col-sm-3 col-sm-offset-3">
                     <div class="panel panel-success">
                         <div class="panel-heading text-center">
                             <span>
@@ -96,7 +87,7 @@
 
             <div class="row timecard-table">
                 <div class="col-sm-12">
-                    <table class="table table-striped table-hover">
+                    <table class="table table-striped table-hover clkio-timecard">
                         <thead>
                             <tr>
                                 <th>date</th>
@@ -127,8 +118,8 @@
                                     <div class="label label-success"> 13:33 -  17:26</div>
                                 </td>
                                 <td>08:00</td>
-                                <td>-02:05</td>
-                                <td>+03:07</td>
+                                <td>02:05</td>
+                                <td>-03:07</td>
                                 <td>text notes for a specific date goes here</td>
                             </tr>
                             <tr>
@@ -327,7 +318,7 @@
             </div><!-- /div.timecard-table -->
 
             <div class="row timecard-footer">
-                <div class="col-sm-3 col-sm-offset-9">
+                <div class="col-xs-4 col-xs-offset-8 col-sm-3 col-sm-offset-9">
                     <div class="panel panel-danger">
                         <div class="panel-heading text-center">
                             <span>
@@ -356,47 +347,6 @@
         <script src="../bower_components/angular/angular.min.js"></script>
         <script type="text/javascript">
             angular.module( 'clkio', [] );
-            angular.module( 'clkio' ).controller( 'TimecardController', [ '$scope', function( $scope ){
-                $scope.punchOClock = '';
-                $scope.baseDate = '';
-
-                var dptTime = $( "#datetimepicker-time" ).datetimepicker({
-                    inline : true,
-                    format : 'HH:mm',
-                    useCurrent : true,
-                    showClose : false,
-                    defaultDate : new Date()
-                }).on( 'dp.change', function( e ){
-                    $scope.$apply(function(){
-                        $scope.punchOClock = e.date.format( dptTime.data( "DateTimePicker" ).format() );
-                    });
-                });
-                $scope.punchOClock = dptTime.data( "DateTimePicker" ).date().format( dptTime.data( "DateTimePicker" ).format() );
-                
-                var dptMonth = $( "#datimepicker-month" ).datetimepicker({
-                    format : 'MMM YYYY',
-                    useCurrent : true,
-                    defaultDate : new Date()
-                })
-                dptMonth.on( 'dp.change', function( e ){
-                    $scope.$apply(function(){
-                        $scope.baseDate = e.date.format( dptMonth.data( "DateTimePicker" ).format() );
-                    });
-                });
-                $scope.baseDate = dptMonth.data( "DateTimePicker" ).date().format( dptMonth.data( "DateTimePicker" ).format() );
-
-                $scope.baseDateToogle = function() {
-                    console.log( 'bla' );
-                    dptMonth.data( "DateTimePicker" ).show();
-                };
-            }]);
-
-            $( function(){
-                $( "#datimepicker-year" ).datetimepicker({
-                    format : 'YYYY',
-                    useCurrent : true
-                });
-            });
         </script>
     </body>
 </html>

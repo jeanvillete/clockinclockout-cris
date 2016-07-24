@@ -5,3 +5,17 @@ section.container {
 .timecard-footer {
     margin-bottom: 30px;
 }
+
+.clkio-timecard tbody tr {
+    cursor: pointer;
+}
+
+td div.label {
+    font-size: 100%;
+    font-weight: bold;
+    margin: 3px 0px;
+    padding: 5px 2px;
+    display: block;
+    overflow-x: hidden;
+    max-width: 220px;
+}
