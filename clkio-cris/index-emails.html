@@ -76,8 +76,8 @@
             </div>
 
             <div class="row" id="row-emails">
-                <div class="col-sm-6">
-                    <form class="input-group input-group-add" >
+                <div class="col-sm-12">
+                    <form class="input-group" >
                         <input class="form-control" name="emailAddress" type="text" placeholder="email address" />
 
                         <!-- btn add email record -->
@@ -86,6 +86,28 @@
                                 <i class="fa fa-plus-square" aria-hidden="true"></i>
                             </button>
                         </span>
+                    </form>
+
+                    <form class="input-group" >
+                        <input class="form-control" name="emailAddress" type="text" placeholder="email address" value="jean.villete@gmail.com"/>
+
+                        <!-- btn update/delete email record -->
+                        <span class="input-group-btn">
+                            <span class="email-info-primay">primary</span>
+                            <span class="email-info-notconfirmed">not confirmed</span>
+                            <div class="btn-group">
+                                <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="btn-emails-set-as-primary">set as primary</a></li>
+                                    <li><a href="#" class="btn-emails-delete">delete</a></li>
+                                </ul>
+                            </div>
+                        </span>
+                    </form>
+                    <form class="input-group" >
+                        <input class="form-control" name="emailAddress" type="text" placeholder="email address" value="brunopib@gmail.com"/>
 
                         <!-- btn update/delete email record -->
                         <span class="input-group-btn">
