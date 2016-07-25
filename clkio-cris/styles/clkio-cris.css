@@ -19,3 +19,52 @@ td div.label {
     overflow-x: hidden;
     max-width: 220px;
 }
+
+.row-emails form.input-group:first-child {
+    margin-bottom: 25px;
+}
+
+.row-emails form.input-group:nth-child(1n+2) {
+    margin-bottom: 10px;
+}
+
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group {
+    z-index: auto;
+}
+
+.dropdown-menu {
+    left: auto;
+    min-width: auto;
+    right: 0px;
+}
+
+.row-nav-pill-settings {
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 30px;
+}
+
+span.email-info-primay {
+	font-size: 12px;
+	position: absolute;
+	z-index: 2;
+	right: 50px;
+	background-color: #6cc644;
+	width: 61px;
+	text-align: center;
+	color: #fff;
+	padding: 3px;
+	top: 5px;
+}
+
+span.email-info-notconfirmed {
+	font-size: 12px;
+	position: absolute;
+	z-index: 2;
+	right: 50px;
+	background-color: #f04124;
+	width: 90px;
+	text-align: center;
+	color: #fff;
+	padding: 3px;
+	top: 5px;
+}

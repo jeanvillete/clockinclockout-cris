@@ -66,7 +66,7 @@
         </nav>
 
         <section class="container">
-            <div class="row">
+            <div class="row row-nav-pill-settings">
                 <ul class="nav nav-pills">
                     <li class="active"><a href="#">emails</a></li>
                     <li><a href="#">profiles</a></li>
@@ -75,7 +75,7 @@
                 </ul>
             </div>
 
-            <div class="row" id="row-emails">
+            <div class="row row-emails">
                 <div class="col-sm-12">
                     <form class="input-group" >
                         <input class="form-control" name="emailAddress" type="text" placeholder="email address" />
@@ -89,11 +89,27 @@
                     </form>
 
                     <form class="input-group" >
-                        <input class="form-control" name="emailAddress" type="text" placeholder="email address" value="jean.villete@gmail.com"/>
+                        <input class="form-control" name="emailAddress" type="text" placeholder="email address" value="jean.villete@gmail.com" disabled/>
 
                         <!-- btn update/delete email record -->
                         <span class="input-group-btn">
                             <span class="email-info-primay">primary</span>
+                            <div class="btn-group">
+                                <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="btn-emails-set-as-primary">set as primary</a></li>
+                                    <li><a href="#" class="btn-emails-delete">delete</a></li>
+                                </ul>
+                            </div>
+                        </span>
+                    </form>
+                    <form class="input-group" >
+                        <input class="form-control" name="emailAddress" type="text" placeholder="email address" value="brunopib@gmail.com" disabled/>
+
+                        <!-- btn update/delete email record -->
+                        <span class="input-group-btn">
                             <span class="email-info-notconfirmed">not confirmed</span>
                             <div class="btn-group">
                                 <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
@@ -107,11 +123,27 @@
                         </span>
                     </form>
                     <form class="input-group" >
-                        <input class="form-control" name="emailAddress" type="text" placeholder="email address" value="brunopib@gmail.com"/>
+                        <input class="form-control" name="emailAddress" type="text" placeholder="email address" value="sampleemail@gmail.com" disabled/>
 
                         <!-- btn update/delete email record -->
                         <span class="input-group-btn">
-                            <span class="email-info-primay">primary</span>
+                            <span class="email-info-notconfirmed">not confirmed</span>
+                            <div class="btn-group">
+                                <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+                                    <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" class="btn-emails-set-as-primary">set as primary</a></li>
+                                    <li><a href="#" class="btn-emails-delete">delete</a></li>
+                                </ul>
+                            </div>
+                        </span>
+                    </form>
+                    <form class="input-group" >
+                        <input class="form-control" name="emailAddress" type="text" placeholder="email address" value="testtest@gmail.com" disabled/>
+
+                        <!-- btn update/delete email record -->
+                        <span class="input-group-btn">
                             <span class="email-info-notconfirmed">not confirmed</span>
                             <div class="btn-group">
                                 <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
@@ -125,7 +157,7 @@
                         </span>
                     </form>
                 </div>
-            </div><!-- /div#row-emails -->
+            </div><!-- /.row-emails -->
         </section><!-- /section.container -->
 
         <footer class="navbar-default navbar-fixed-bottom">
