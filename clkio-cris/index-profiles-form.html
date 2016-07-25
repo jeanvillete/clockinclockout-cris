@@ -136,20 +136,62 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">adjustings</div>
                         <div class="panel-body">
-                            <form class="input-group input-group-add">
+                            <form class="input-group">
                                 <input class="form-control" name="description" placeholder="description" type="text">
                                 <span class="input-group-btn" style="width:0px;"></span>
                                 <input class="form-control" name="timeInterval" placeholder="time interval" type="text">
 
                                 <!-- add buttons -->
-                                <span>
+                                <span class="input-group-btn">
                                     <button type="submit" class="btn btn-success btn-input">
                                         <i class="fa fa-plus-square" aria-hidden="true"></i>
                                     </button>
                                 </span>
+                            </form>
+
+                            <form class="input-group">
+                                <input class="form-control" name="description" placeholder="description" type="text" value="sample adjusting description">
+                                <span class="input-group-btn" style="width:0px;"></span>
+                                <input class="form-control" name="timeInterval" placeholder="time interval" type="text" value="08:00">
 
                                 <!-- update and delete buttons -->
-                                <span>
+                                <span class="input-group-btn">
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><button type="submit">save</button></li>
+                                            <li><a href="#">delete</a></li>
+                                        </ul>
+                                    </div>
+                                </span>
+                            </form>
+                            <form class="input-group">
+                                <input class="form-control" name="description" placeholder="description" type="text" value="sample adjusting description">
+                                <span class="input-group-btn" style="width:0px;"></span>
+                                <input class="form-control" name="timeInterval" placeholder="time interval" type="text" value="08:00">
+
+                                <!-- update and delete buttons -->
+                                <span class="input-group-btn">
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><button type="submit">save</button></li>
+                                            <li><a href="#">delete</a></li>
+                                        </ul>
+                                    </div>
+                                </span>
+                            </form>
+                            <form class="input-group">
+                                <input class="form-control" name="description" placeholder="description" type="text" value="sample adjusting description">
+                                <span class="input-group-btn" style="width:0px;"></span>
+                                <input class="form-control" name="timeInterval" placeholder="time interval" type="text" value="08:00">
+
+                                <!-- update and delete buttons -->
+                                <span class="input-group-btn">
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
                                             <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -174,14 +216,34 @@
                                 <input class="form-control" name="reason" placeholder="reason text" type="text">
 
                                 <!-- add buttons -->
-                                <span class="input-group-btn-add">
+                                <span class="input-group-btn">
                                     <button type="submit" class="btn btn-success btn-input">
                                         <i class="fa fa-plus-square" aria-hidden="true"></i>
                                     </button>
                                 </span>
+                            </form>
+
+                            <form class="input-group">
+                                <input class="form-control" name="reason" placeholder="reason text" type="text" value="sample reason description">
 
                                 <!-- update and delete buttons -->
-                                <span class="input-group-btn-upd-del" >
+                                <span class="input-group-btn" >
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><button type="button" >save</button></li>
+                                            <li><a href="#" >delete</a></li>
+                                        </ul>
+                                    </div>
+                                </span>
+                            </form>
+                            <form class="input-group">
+                                <input class="form-control" name="reason" placeholder="reason text" type="text" value="sample reason description">
+
+                                <!-- update and delete buttons -->
+                                <span class="input-group-btn" >
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
                                             <i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -197,6 +259,14 @@
                     </div>
 				</div>
             </div>
+
+            <div class="row btn-back">
+                <div class="col-xs-3 col-xs-offset-9 col-sm-2 col-sm-offset-10">
+                    <button type="button" class="btn btn-primary">
+                        back
+                    </button>
+                </div>
+            </div><!-- /div.btn-back -->
         </section><!-- /section.container -->
 
         <footer class="navbar-default navbar-fixed-bottom">
