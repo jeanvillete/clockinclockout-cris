@@ -71,3 +71,15 @@ span.email-info-notconfirmed {
 .form-new-profile {
 	margin-bottom: 25px;
 }
+
+.form-sm-group {
+	margin-bottom: 5px;
+}
+
+.row-panels-on-footer {
+	margin-top: 20px;
+}
+
+.custom-half-size {
+	width: 49%;
+}
