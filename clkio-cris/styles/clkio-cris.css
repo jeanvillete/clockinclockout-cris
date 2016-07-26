@@ -32,14 +32,13 @@ td div.label {
     z-index: auto;
 }
 
-.dropdown-menu {
+.dropdown-set-right {
     left: auto;
     min-width: auto;
     right: 0px;
 }
 
 .row-nav-pill-settings {
-    border-bottom: 2px solid #ddd;
     margin-bottom: 30px;
 }
 
