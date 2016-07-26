@@ -20,11 +20,11 @@ td div.label {
     max-width: 220px;
 }
 
-.row-emails form.input-group:first-child {
+div > form.input-group:first-child {
     margin-bottom: 25px;
 }
 
-.row-emails form.input-group:nth-child(1n+2) {
+div > form.input-group:nth-child(1n+2) {
     margin-bottom: 10px;
 }
 
@@ -66,10 +66,6 @@ span.email-info-notconfirmed {
 	color: #fff;
 	padding: 3px;
 	top: 5px;
-}
-
-.form-new-profile {
-	margin-bottom: 25px;
 }
 
 .form-sm-group {
