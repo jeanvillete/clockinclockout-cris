@@ -6,7 +6,7 @@ section.container {
     margin-bottom: 30px;
 }
 
-.clkio-timecard tbody tr {
+.table-pickable tbody tr {
     cursor: pointer;
 }
 
