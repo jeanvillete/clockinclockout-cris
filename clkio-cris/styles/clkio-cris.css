@@ -79,3 +79,10 @@ span.email-info-notconfirmed {
 .custom-half-size {
 	width: 49%;
 }
+
+footer.navbar-default {
+	background: #333333;
+	border-color: #222222;
+	color: white;
+	height: 20px;
+}
