@@ -69,7 +69,7 @@
             <div class="row timecard-header">
                 <div class="col-xs-6 col-sm-6">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal-punch-o-clock"> punch o'clock</button>
-                    <button class="btn btn-default" type="button" id="btn-datimepicker-month" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" >
+                    <button class="btn btn-default" type="button" data-toggle="modal" data-target="#modal-datimepicker-month-year" aria-haspopup="true" aria-expanded="true" >
                         Jul 2016
                         <span class="caret"></span>
                     </button>
@@ -350,7 +350,31 @@
                         </div>
                     </div><!-- /.modal-content -->
                 </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
+            </div><!-- /.modal#modal-punch-o-clock -->
+
+            <!-- modal select month/year -->
+            <div id="modal-datimepicker-month-year" class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-sm" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">select month/year</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="datimepicker-month-year"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-xs-6">
+                                <button type="button" class="btn btn-primary btn-block">select</button>
+                            </div>
+                            <div class="col-xs-6">
+                                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">close</button>
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal#modal-datimepicker-month-year -->
+
         </section><!-- /section.container -->
 
         <footer class="navbar-default navbar-fixed-bottom">
@@ -378,6 +402,15 @@
                 useCurrent : true,
                 showClose : false,
                 defaultDate : new Date()
+            });
+
+            /** booting datetime picker for month/year selection */
+            $( "#datimepicker-month-year" ).datetimepicker({
+                inline : true,
+                format : 'MMM YYYY',
+                useCurrent : true,
+                defaultDate : new Date(),
+                showClose : false
             });
         </script>
     </body>
