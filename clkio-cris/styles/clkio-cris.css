@@ -91,3 +91,15 @@ input.custom-readonly {
 input.custom-readonly:hover {
 	cursor: pointer;
 }
+
+.row-login {
+	margin-top: 50px;
+}
+
+.custom-panel-login > h3 {
+	font-size: 27px;
+	font-weight: bold;
+	border-left: 5px solid #ddd;
+	padding-left: 5px;
+	margin-bottom: 30px;
+}
