@@ -87,3 +87,7 @@ footer.navbar-default {
 input.custom-readonly {
 	background: transparent !important;
 }
+
+input.custom-readonly:hover {
+	cursor: pointer;
+}

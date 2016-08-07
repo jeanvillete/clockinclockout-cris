@@ -113,9 +113,9 @@
                         <div class="panel-heading">clockins and clockouts</div>
                         <div class="panel-body">
                             <form class="input-group">
-                                <input class="form-control custom-readonly" name="clockin" placeholder="clockin" type="text" disabled>
+                                <input class="form-control custom-readonly clkio-datetime" name="clockin" placeholder="clockin" type="text" readonly>
                                 <span class="input-group-btn" style="width:0px;"></span>
-                                <input class="form-control custom-readonly" name="clockout" placeholder="clockout" type="text" disabled>
+                                <input class="form-control custom-readonly clkio-datetime" name="clockout" placeholder="clockout" type="text" readonly>
 
                                 <!-- add buttons -->
                                 <span class="input-group-btn">
@@ -126,9 +126,9 @@
                             </form>
                             
                             <form class="input-group">
-                                <input class="form-control custom-readonly" name="clockin" readonly placeholder="clockin" type="text" value="2016-08-09 07:53">
+                                <input class="form-control custom-readonly clkio-datetime" name="clockin" placeholder="clockin" type="text" value="2016-08-09 07:53" readonly>
                                 <span class="input-group-btn" style="width:0px;"></span>
-                                <input class="form-control custom-readonly" readonly name="clockout" placeholder="clockout" type="text" value="2016-08-09 12:13">
+                                <input class="form-control custom-readonly clkio-datetime" name="clockout" placeholder="clockout" type="text" value="2016-08-09 12:13" readonly>
 
                                 <!-- update and delete buttons -->
                                 <span class="input-group-btn">
@@ -144,9 +144,9 @@
                                 </span>
                             </form>
                             <form class="input-group">
-                                <input class="form-control custom-readonly" name="clockin" readonly placeholder="clockin" type="text" value="2016-08-09 07:53">
+                                <input class="form-control custom-readonly clkio-datetime" name="clockin" placeholder="clockin" type="text" value="2016-08-09 07:53" readonly>
                                 <span class="input-group-btn" style="width:0px;"></span>
-                                <input class="form-control custom-readonly" readonly name="clockout" placeholder="clockout" type="text" value="2016-08-09 12:13">
+                                <input class="form-control custom-readonly clkio-datetime" name="clockout" placeholder="clockout" type="text" value="2016-08-09 12:13" readonly>
 
                                 <!-- update and delete buttons -->
                                 <span class="input-group-btn">
@@ -162,9 +162,9 @@
                                 </span>
                             </form>
                             <form class="input-group">
-                                <input class="form-control custom-readonly" name="clockin" readonly placeholder="clockin" type="text" value="2016-08-09 07:53">
+                                <input class="form-control custom-readonly clkio-datetime" name="clockin" placeholder="clockin" type="text" value="2016-08-09 07:53" readonly>
                                 <span class="input-group-btn" style="width:0px;"></span>
-                                <input class="form-control custom-readonly" readonly name="clockout" placeholder="clockout" type="text" value="2016-08-09 12:13">
+                                <input class="form-control custom-readonly clkio-datetime" name="clockout" placeholder="clockout" type="text" value="2016-08-09 12:13" readonly>
 
                                 <!-- update and delete buttons -->
                                 <span class="input-group-btn">
@@ -180,9 +180,9 @@
                                 </span>
                             </form>
                             <form class="input-group">
-                                <input class="form-control custom-readonly" name="clockin" readonly placeholder="clockin" type="text" value="2016-08-09 07:53">
+                                <input class="form-control custom-readonly clkio-datetime" name="clockin" placeholder="clockin" type="text" value="2016-08-09 07:53" readonly>
                                 <span class="input-group-btn" style="width:0px;"></span>
-                                <input class="form-control custom-readonly" readonly name="clockout" placeholder="clockout" type="text" value="2016-08-09 12:13">
+                                <input class="form-control custom-readonly clkio-datetime" name="clockout" placeholder="clockout" type="text" value="2016-08-09 12:13" readonly>
 
                                 <!-- update and delete buttons -->
                                 <span class="input-group-btn">
@@ -287,6 +287,29 @@
                     </button>
                 </div>
             </div><!-- /div.btn-back -->
+
+            <!-- modal clockin-clockout -->
+            <div id="modal-clockin-clockout" class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">clockin / clockout</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div id="datetimepicker-clockin-clockout"></div>
+                        </div>
+                        <div class="modal-footer">
+                            <div class="col-xs-6">
+                                <button type="button" class="btn btn-primary btn-block">set</button>
+                            </div>
+                            <div class="col-xs-6">
+                                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">close</button>
+                            </div>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal#modal-clockin-clockout -->
         </section><!-- /section.container -->
 
         <footer class="navbar-default navbar-fixed-bottom">
@@ -311,21 +334,17 @@
             angular.module( 'clkio', [] );
 
             /** booting datetime picker for punch o clock section */
-            $( "#datetimepicker-punch-o-clock" ).datetimepicker({
+            var clkioDatePicker = $( "#datetimepicker-clockin-clockout" ).datetimepicker({
                 inline : true,
-                format : 'HH:mm',
+                sideBySide : true,
+                format : 'YYYY-MM-DD HH:mm',
                 useCurrent : true,
                 showClose : false,
                 defaultDate : new Date()
             });
 
-            /** booting datetime picker for month/year selection */
-            $( "#datimepicker-month-year" ).datetimepicker({
-                inline : true,
-                format : 'MMM YYYY',
-                useCurrent : true,
-                defaultDate : new Date(),
-                showClose : false
+            $( ".clkio-datetime" ).click( function(){ 
+                $( "#modal-clockin-clockout" ).modal( 'show' );
             });
         </script>
     </body>
