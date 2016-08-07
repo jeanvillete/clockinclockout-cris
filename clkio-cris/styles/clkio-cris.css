@@ -1,9 +1,6 @@
 section.container {
     margin-top: 70px;
-}
-
-.timecard-footer {
-    margin-bottom: 30px;
+	padding-bottom: 30px;
 }
 
 .table-pickable tbody tr {
@@ -85,4 +82,8 @@ footer.navbar-default {
 	border-color: #222222;
 	color: white;
 	height: 20px;
+}
+
+input.custom-readonly {
+	background: transparent !important;
 }

@@ -65,82 +65,57 @@
             </div><!-- /.container-flud -->
         </nav>
 
-        <section class="container">
-            <div class="row row-nav-pill-settings">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <ul class="nav nav-pills">
-                        <li><a href="#">emails</a></li>
-                        <li class="active"><a href="#">profiles</a></li>
-                        <li><a href="#">password</a></li>
-                        <li><a href="#">account</a></li>
-                    </ul>
+        <section class="container" ng-controller="TimecardController">
+            <div class="col-sm-10 col-sm-offset-1">
+                <!-- box for clkio date -->
+                <div class="form-group col-sm-2">
+                    <label class="control-label">date</label>
+                    <input type="text" name="date" placeholder="date" class="form-control" value="2016-08-09" readonly>
+                </div>
+
+                <!-- box for clkio balance -->
+                <div class="form-group col-sm-2">
+                    <label class="control-label">balance</label>
+                    <input type="text" name="balance" placeholder="balance" class="form-control" value="+01:25" readonly>
+                </div>
+
+                <!-- box for clkio expected hours -->
+                <div class="form-group col-sm-2">
+                    <label class="control-label">expected hours</label>
+                    <div class="input-group">
+                        <input type="text" name="expectedHours" placeholder="expected hours" class="form-control" value="08:00">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary btn-input">
+                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- box for clkio notes -->
+                <div class="form-group col-sm-6">
+                    <label class="control-label">notes</label>
+                    <div class="input-group">
+                        <input type="text" name="notes" placeholder="notes" class="form-control" value="this is my sample notes">
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-primary btn-input">
+                                <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                            </button>
+                        </span>
+                    </div>
                 </div>
             </div>
 
-            <!-- panel for profiles -->
-            <div class="row row-profiles">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <!-- form for profiles -->
-                    <form >
-                        <!-- box for profile description -->
-                        <div class="form-group form-sm-group col-xs-6">
-                            <input type="text" name="description" placeholder="profile description" class="form-control" value="my sample profile description">
-                        </div>
-
-                        <!-- box for hours and date format -->
-                        <div class="form-group form-sm-group col-xs-3">
-                            <input type="text" name="dateFormat" placeholder="date format" class="form-control" value="yyyy-MM-dd">
-                        </div>
-                        <div class="form-group form-sm-group col-xs-3">
-                            <input type="text" name="hoursFormat" placeholder="hours format" class="form-control" value="HH:mm">
-                        </div>
-
-                        <!-- boxes for monday and tuesday -->
-                        <div class="form-group form-sm-group col-xs-3">
-                            <input type="text" name="expectedMonday" placeholder="monday" class="form-control " value="08:00">
-                        </div>
-                        <div class="form-group form-sm-group col-xs-3">
-                            <input type="text" name="expectedTuesday" placeholder="tuesday" class="form-control " value="08:00">
-                        </div>
-
-                        <!-- boxes for wednesday and thursday -->
-                        <div class="form-group form-sm-group col-xs-3">
-                            <input type="text" name="expectedWednesday" placeholder="wednesday" class="form-control " value="08:00">
-                        </div>
-                        <div class="form-group form-sm-group col-xs-3">
-                            <input type="text" name="expectedThursday" placeholder="thursday" class="form-control " value="08:00">
-                        </div>
-
-                        <!-- boxes for friday and saturday -->
-                        <div class="form-group form-sm-group col-xs-3">
-                            <input type="text" name="expectedFriday" placeholder="friday" class="form-control " value="08:00">
-                        </div>
-                        <div class="form-group form-sm-group col-xs-3">
-                            <input type="text" name="expectedSaturday" placeholder="saturday" class="form-control " value="00:00">
-                        </div>
-
-                        <!-- boxes for sunday box and save/delete buttons -->
-                        <div class="form-group form-sm-group col-xs-3">
-                            <input type="text" name="expectedSunday" placeholder="sunday" class="form-control" value="00:00">
-                        </div>
-                        <div class="form-group form-sm-group col-xs-3">
-                            <button type="submit" class="btn btn-primary custom-half-size" >save</button>
-                            <button type="button" class="btn btn-danger custom-half-size pull-right" >delete</button>
-                        </div>
-                    </form>
-                </div>
-            </div><!-- /.row-profiles -->
-				
             <div class="row row-panels-on-footer" >
-				<!-- panel for adjustings -->
-				<div class="col-sm-5 col-sm-offset-1 row-panel-adjustings" >
+                <!-- panel for clockins and clockouts -->
+                <div class="col-sm-5 col-sm-offset-1 row-panel-clockin-clockout" >
                     <div class="panel panel-primary">
-                        <div class="panel-heading">adjustings</div>
+                        <div class="panel-heading">clockins and clockouts</div>
                         <div class="panel-body">
                             <form class="input-group">
-                                <input class="form-control" name="description" placeholder="description" type="text">
+                                <input class="form-control custom-readonly" name="clockin" placeholder="clockin" type="text" disabled>
                                 <span class="input-group-btn" style="width:0px;"></span>
-                                <input class="form-control" name="timeInterval" placeholder="time interval" type="text">
+                                <input class="form-control custom-readonly" name="clockout" placeholder="clockout" type="text" disabled>
 
                                 <!-- add buttons -->
                                 <span class="input-group-btn">
@@ -149,11 +124,11 @@
                                     </button>
                                 </span>
                             </form>
-
+                            
                             <form class="input-group">
-                                <input class="form-control" name="description" placeholder="description" type="text" value="sample adjusting description">
+                                <input class="form-control custom-readonly" name="clockin" readonly placeholder="clockin" type="text" value="2016-08-09 07:53">
                                 <span class="input-group-btn" style="width:0px;"></span>
-                                <input class="form-control" name="timeInterval" placeholder="time interval" type="text" value="08:00">
+                                <input class="form-control custom-readonly" readonly name="clockout" placeholder="clockout" type="text" value="2016-08-09 12:13">
 
                                 <!-- update and delete buttons -->
                                 <span class="input-group-btn">
@@ -169,9 +144,9 @@
                                 </span>
                             </form>
                             <form class="input-group">
-                                <input class="form-control" name="description" placeholder="description" type="text" value="sample adjusting description">
+                                <input class="form-control custom-readonly" name="clockin" readonly placeholder="clockin" type="text" value="2016-08-09 07:53">
                                 <span class="input-group-btn" style="width:0px;"></span>
-                                <input class="form-control" name="timeInterval" placeholder="time interval" type="text" value="08:00">
+                                <input class="form-control custom-readonly" readonly name="clockout" placeholder="clockout" type="text" value="2016-08-09 12:13">
 
                                 <!-- update and delete buttons -->
                                 <span class="input-group-btn">
@@ -187,9 +162,9 @@
                                 </span>
                             </form>
                             <form class="input-group">
-                                <input class="form-control" name="description" placeholder="description" type="text" value="sample adjusting description">
+                                <input class="form-control custom-readonly" name="clockin" readonly placeholder="clockin" type="text" value="2016-08-09 07:53">
                                 <span class="input-group-btn" style="width:0px;"></span>
-                                <input class="form-control" name="timeInterval" placeholder="time interval" type="text" value="08:00">
+                                <input class="form-control custom-readonly" readonly name="clockout" placeholder="clockout" type="text" value="2016-08-09 12:13">
 
                                 <!-- update and delete buttons -->
                                 <span class="input-group-btn">
@@ -204,17 +179,44 @@
                                     </div>
                                 </span>
                             </form>
-                        </div>
+                            <form class="input-group">
+                                <input class="form-control custom-readonly" name="clockin" readonly placeholder="clockin" type="text" value="2016-08-09 07:53">
+                                <span class="input-group-btn" style="width:0px;"></span>
+                                <input class="form-control custom-readonly" readonly name="clockout" placeholder="clockout" type="text" value="2016-08-09 12:13">
+
+                                <!-- update and delete buttons -->
+                                <span class="input-group-btn">
+                                    <div class="btn-group">
+                                        <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+                                            <i class="fa fa-caret-down" aria-hidden="true"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-set-right">
+                                            <li><a href="#">save</a></li>
+                                            <li><a href="#">delete</a></li>
+                                        </ul>
+                                    </div>
+                                </span>
+                            </form>
+
+                        </div><!-- /.panel-body -->
                     </div>
-				</div><!-- /.row-panel-adjustings -->
+                </div><!-- /.row-panel-clockin-clockout -->
 
-				<!-- panel for reasons -->
-				<div class="col-sm-5 row-panel-reasons" >
+                <!-- panel for manual enterings -->
+                <div class="col-sm-5 row-panel-manual-entering" >
                     <div class="panel panel-primary">
-                        <div class="panel-heading">reasons</div>
+                        <div class="panel-heading">manual enterings</div>
                         <div class="panel-body">
                             <form class="input-group">
-                                <input class="form-control" name="reason" placeholder="reason text" type="text">
+                                <select name="mnlReason" class="form-control" >
+                                    <option value="">select reason</option>
+                                    <option value="12">serviço externo</option>
+                                    <option value="13">visita ao médico</option>
+                                    <option value="14">férias</option>
+                                    <option value="15">feriado</option>
+                                </select>
+                                <span class="input-group-btn" style="width:0px;"></span>
+                                <input class="form-control" name="interval" placeholder="interval" type="text">
 
                                 <!-- add buttons -->
                                 <span class="input-group-btn">
@@ -223,43 +225,59 @@
                                     </button>
                                 </span>
                             </form>
-
+                            
                             <form class="input-group">
-                                <input class="form-control" name="reason" placeholder="reason text" type="text" value="sample reason description">
+                                <select name="mnlReason" class="form-control" >
+                                    <option value="">select reason</option>
+                                    <option value="12">serviço externo</option>
+                                    <option value="13">visita ao médico</option>
+                                    <option value="14">férias</option>
+                                    <option value="15" selected>feriado</option>
+                                </select>
+                                <span class="input-group-btn" style="width:0px;"></span>
+                                <input class="form-control" name="interval" placeholder="interval" type="text" value="08:00">
 
                                 <!-- update and delete buttons -->
-                                <span class="input-group-btn" >
+                                <span class="input-group-btn">
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
                                             <i class="fa fa-caret-down" aria-hidden="true"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-set-right">
-                                            <li><a href="#" >save</a></li>
-                                            <li><a href="#" >delete</a></li>
+                                            <li><a href="#">save</a></li>
+                                            <li><a href="#">delete</a></li>
                                         </ul>
                                     </div>
                                 </span>
                             </form>
                             <form class="input-group">
-                                <input class="form-control" name="reason" placeholder="reason text" type="text" value="sample reason description">
+                                <select name="mnlReason" class="form-control" >
+                                    <option value="">select reason</option>
+                                    <option value="12">serviço externo</option>
+                                    <option value="13" selected>visita ao médico</option>
+                                    <option value="14">férias</option>
+                                    <option value="15">feriado</option>
+                                </select>
+                                <span class="input-group-btn" style="width:0px;"></span>
+                                <input class="form-control" name="interval" placeholder="interval" type="text" value="04:00">
 
                                 <!-- update and delete buttons -->
-                                <span class="input-group-btn" >
+                                <span class="input-group-btn">
                                     <div class="btn-group">
                                         <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
                                             <i class="fa fa-caret-down" aria-hidden="true"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-set-right">
-                                            <li><a href="#" >save</a></li>
-                                            <li><a href="#" >delete</a></li>
+                                            <li><a href="#">save</a></li>
+                                            <li><a href="#">delete</a></li>
                                         </ul>
                                     </div>
                                 </span>
                             </form>
-                        </div>
+                        </div><!-- /.panel-body -->
                     </div>
-				</div><!-- /.row-panel-reasons -->
-            </div>
+                </div><!-- /.row-panel-manual-entering -->
+            </div><!-- /.row-panels-on-footer -->
 
             <div class="row btn-back">
                 <div class="col-xs-3 col-xs-offset-9 col-sm-2 col-sm-offset-9">
@@ -275,7 +293,10 @@
             <div class="container">
                 <div class="row" >
                     <div class="col-lg-12">
-                        <p>Supported by <a href="https://br.linkedin.com/in/jeanvillete" rel="nofollow">Jean Villete</a>, fork me on <a href="https://github.com/jeanvillete/clockinclockout-cris">git hub</a>.</p>
+                        <p>
+                            Supported by <a href="https://br.linkedin.com/in/jeanvillete" rel="nofollow">Jean Villete</a>,
+                            fork me on <a href="https://github.com/jeanvillete/clockinclockout-cris">git hub</a>.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -288,6 +309,24 @@
         <script src="../bower_components/angular/angular.min.js"></script>
         <script type="text/javascript">
             angular.module( 'clkio', [] );
+
+            /** booting datetime picker for punch o clock section */
+            $( "#datetimepicker-punch-o-clock" ).datetimepicker({
+                inline : true,
+                format : 'HH:mm',
+                useCurrent : true,
+                showClose : false,
+                defaultDate : new Date()
+            });
+
+            /** booting datetime picker for month/year selection */
+            $( "#datimepicker-month-year" ).datetimepicker({
+                inline : true,
+                format : 'MMM YYYY',
+                useCurrent : true,
+                defaultDate : new Date(),
+                showClose : false
+            });
         </script>
     </body>
 </html>
