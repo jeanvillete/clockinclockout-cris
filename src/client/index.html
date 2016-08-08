@@ -7,12 +7,21 @@
         <title>clkio-cris</title>
         <base href="/">
 
-        <!-- Bootstrap -->
-        <link href="/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
-        <link href="/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-        <link href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-        <link href="styles/clkio-cris.css" rel="stylesheet">
+        <style>
+            /* This helps the ng-show/ng-hide animations start at the right place. */
+            /* Since Angular has this but needs to load, this gives us the class early. */
+            .ng-hide { display: none!important; }
+        </style>
+
+        <!-- build:css styles/lib.css -->
+        <!-- bower:css -->
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:css styles/app.css -->
+        <!-- inject:css -->
+        <!-- endinject -->
+        <!-- endbuild -->
 
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -73,16 +82,26 @@
             <div class="container">
                 <div class="row" >
                     <div class="col-lg-12">
-                        <p>Supported by <a href="https://br.linkedin.com/in/jeanvillete" rel="nofollow">Jean Villete</a>, fork me on <a href="https://github.com/jeanvillete/clockinclockout-cris">git hub</a>.</p>
+                        <p>
+                            Supported by <a href="https://br.linkedin.com/in/jeanvillete" rel="nofollow">Jean Villete</a>,
+                            fork me on <a href="https://github.com/jeanvillete/clockinclockout-cris">git hub</a>.
+                        </p>
                     </div>
                 </div>
             </div>
         </footer><!-- /footer.container -->
 
-        <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-        <script src="/bower_components/moment/min/moment.min.js"></script>
-        <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
-        <script src="/bower_components/angular/angular.min.js"></script>
+        <!-- build:js js/lib.js -->
+        <!-- bower:js -->
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:js js/app.js -->
+        <!-- inject:js -->
+        <!-- endinject -->
+
+        <!-- inject:templates:js -->
+        <!-- endinject -->
+        <!-- endbuild -->
     </body>
 </html>
