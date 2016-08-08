@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>clkio-cris</title>
+        <base href="/">
 
         <!-- Bootstrap -->
         <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -70,42 +71,63 @@
                 <div class="col-sm-10 col-sm-offset-1">
                     <ul class="nav nav-pills">
                         <li><a href="#">emails</a></li>
-                        <li><a href="#">profiles</a></li>
-                        <li class="active"><a href="#">password</a></li>
+                        <li class="active"><a href="#">profiles</a></li>
+                        <li><a href="#">password</a></li>
                         <li><a href="#">account</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="row" id="row-password">
-                <div class="col-sm-10 col-sm-offset-1">
-                    <blockquote>
-                        <h3>Request for changing password</h3>
-                        <p>The process to reset password constitutes the following steps</p>
-                        <ol>
-                            <li>Through this screen, on the button bellow, click 'Reset password' and submit the request.</li>
-                            <li>An email is going to arrieve on your inbox, in order to ensure you really want to proceed.</li>
-                            <li>As soon you click the confirmation link, you are going to be redirected to here again, but to a specific screen where you will provide the new password you want to change to.</li>
-                        </ol>
-                        <cite>
-                            Note:
-                            <smal>Your password is going to be changed only after the entire process mentioned above is successfully completed,
-                            also bear in mind that each requesting for reset (to receive the email confirmation) is valid through a period of 30 minutes and is one shot,
-                            so if you loose the time range or something wrong happens for the first try, maybe it's better you start the process again.
-                            </smal>
-                        </cite>
-                    </blockquote>
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="requesting-change-password" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                            jean.villete@gmail.com
-                            <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="requesting-change-password">
-                            <li><a href="#">Reset password</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div><!-- /div#row-password -->
+            <!-- panel for profiles -->
+            <div class="row row-profiles">
+            	<!-- form for profile's description -->
+            	<div class="col-sm-10 col-sm-offset-1">
+                    <form class="input-group" >
+                        <input class="form-control" name="description" type="text" placeholder="profile description" />
+                        
+                        <!-- btn add profile (description) record -->
+                        <span class="input-group-btn" >
+                            <button type="submit" class="btn btn-success btn-input" >
+                                <i class="fa fa-plus-square" aria-hidden="true"></i>
+                            </button>
+                        </span>
+                    </form>
+				</div>
+				
+				<div class="col-sm-10 col-sm-offset-1">
+                    <table class="table table-striped table-hover table-pickable">
+                        <thead>
+                            <tr>
+                                <th>description</th>
+                                <th>date format</th>
+                                <th>hours format</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>villete at gft</td>
+                                <td>dd/MM/yyyy</td>
+                                <td>HH/mm</td>
+                            </tr>
+                            <tr>
+                                <td>villete at gft</td>
+                                <td>dd/MM/yyyy</td>
+                                <td>HH/mm</td>
+                            </tr>
+                            <tr>
+                                <td>villete at gft</td>
+                                <td>dd/MM/yyyy</td>
+                                <td>HH/mm</td>
+                            </tr>
+                            <tr>
+                                <td>villete at gft</td>
+                                <td>dd/MM/yyyy</td>
+                                <td>HH/mm</td>
+                            </tr>
+                        </tbody>
+                    </table>
+				</div>
+            </div><!-- /.row-profiles -->
         </section><!-- /section.container -->
 
         <footer class="navbar-default navbar-fixed-bottom">

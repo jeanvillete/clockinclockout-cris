@@ -1,0 +1,173 @@
+{
+/*
+	 // Place your snippets for JavaScript here. Each snippet is defined under a snippet name and has a prefix, body and 
+	 // description. The prefix is what is used to trigger the snippet and the body will be expanded and inserted. Possible variables are:
+	 // $1, $2 for tab stops, ${id} and ${id:label} and ${1:label} for variables. Variables with the same id are connected.
+	 // Example:
+	 "Print to console": {
+		"prefix": "log",
+		"body": [
+			"console.log('$1');",
+			"$2"
+		],
+		"description": "Log output to console"
+	}
+*/
+	"Angular Controller": {
+		"prefix": "ngcontroller",
+		"body": [
+			"(function() {",
+			"\t'use strict';",
+			"",
+			"\tangular",
+			"\t\t.module('${Module}')",
+			"\t\t.controller('${Controller}Controller', ${Controller}Controller);",
+			"\t",
+			"\t${Controller}Controller.$inject = ['${dependency1}'];",
+			"\t/* @ngInject */",
+			"\tfunction ${Controller}Controller(${dependency1}) {",
+			"\t\tvar vm = this;",
+			"\t\t$0",
+			"",
+			"\t\tactivate();",
+			"",
+			"\t\t////////////////",
+			"",
+			"\t\tfunction activate() { }",
+			"\t}",
+			"})();"
+		],
+		"description": "Angular 1 controller"
+	},
+	"Angular Service": {
+		"prefix": "ngservice",
+		"body": [
+			"(function() {",
+			"\t'use strict';",
+			"",
+			"\tangular",
+			"\t\t.module('${Module}')",
+			"\t\t.service('${Service}', ${Service});",
+			"",
+			"\t${Service}.$inject = ['${dependency1}'];",
+			"\tfunction ${Service}(${dependency1}) {",
+			"\t\tthis.${exposedFn} = ${exposedFn};",
+			"\t\t$0",
+			"\t\t////////////////",
+			"\t\tfunction ${exposedFn}() { }",
+			"\t}",
+			"})();"
+		],
+		"description": "Angular 1 service"
+	},
+	"Angular Factory": {
+		"prefix": "ngfactory",
+		"body": [
+			"(function() {",
+			"\t'use strict';",
+			"",
+			"\tangular",
+			"\t\t.module('${Module}')",
+			"\t\t.factory('${Service}', ${Service});",
+			"",
+			"\t${Service}.$inject = ['${dependency1}'];",
+			"\tfunction ${Service}(${dependency1}) {",
+			"\t\tvar service = {",
+			"\t\t\t${exposedFn}:${exposedFn}",
+			"\t\t};",
+			"\t\t$0",
+			"\t\treturn service;",
+			"",
+			"\t\t////////////////",
+			"\t\tfunction ${exposedFn}() { }",
+			"\t}",
+			"})();"
+		],
+		"description": "Angular 1 factory"
+	},
+	"Angular Directive": {
+		"prefix": "ngdirective",
+		"body": [
+			"(function() {",
+			"\t'use strict';",
+			"",
+			"\tangular",
+			"\t\t.module('${Module}')",
+			"\t\t.directive('${Directive}', ${Directive});",
+			"",
+			"\t${Directive}.$inject = ['${dependency1}'];",
+			"\tfunction ${Directive}(${dependency1}) {",
+			"\t\t// Usage:",
+			"\t\t//",
+			"\t\t// Creates:",
+			"\t\t//",
+			"\t\tvar directive = {",
+			"\t\t    bindToController: true,",
+			"\t\t    controller: ${Controller}Controller,",
+			"\t\t    controllerAs: '${vm}',",
+			"\t\t    link: link,",
+			"\t\t    restrict: 'A',",
+			"\t\t    scope: {",
+			"\t\t    }",
+			"\t\t};",
+			"\t\treturn directive;",
+			"\t\t",
+			"\t\tfunction link(scope, element, attrs) {",
+			"\t\t}",
+			"\t}",
+			"\t/* @ngInject */",
+			"\tfunction ${Controller}Controller () {",
+			"\t\t$0",
+			"\t}",
+			"})();"
+		],
+		"description": "Angular 1 directive"
+	},
+	"Angular Module": {
+		"prefix": "ngmodule",
+		"body": [
+			"(function() {",
+			"\t'use strict';",
+			"",
+			"\tangular.module('${module}', [",
+			"\t\t$0",
+			"\t]);",
+			"})();"
+		],
+		"description": "Angular 1 module"
+	},
+	"Angular Route": {
+		"prefix": "ngroute",
+		"body": [
+			"(function(){",
+			"\t'use strict';",
+			"\t",
+			"\tangular.module( 'Module' ).run( appRun );",
+			"\t",
+			"\tappRun.$inject = [ 'routerHelper' ];",
+			"\t/* @ngInject */",
+			"\tfunction appRun( routerHelper ){",
+			"\t\trouterHelper.configureStates( getStates() );",
+			"\t}",
+			"",
+			"\tfunction getStates() {",
+			"\t\treturn [",
+			"\t\t\t{",
+			"\t\t\t\tstate : 'stateName',",
+			"\t\t\t\tconfig : {",
+			"\t\t\t\t\turl : '/urlState',",
+			"\t\t\t\t\ttemplateUrl : 'app/templateUrl.html',",
+			"\t\t\t\t\tcontroller : 'SomeController',",
+			"\t\t\t\t\tcontrollerAs : 'vm',",
+			"\t\t\t\t\ttitle : 'templateTitle',",
+			"\t\t\t\t\tsettings : {",
+			"\t\t\t\t\t}",
+			"\t\t\t\t}",
+			"\t\t\t}",
+			"\t\t];",
+			"\t}",
+			"})();"
+		],
+		"description": "Angular 1 route"
+	}
+}

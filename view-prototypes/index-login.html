@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>clkio-cris</title>
+        <base href="/">
 
         <!-- Bootstrap -->
         <link href="../bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -39,33 +40,47 @@
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" >
-                                jean.villete@gmail.com <span class="caret"></span>
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="themes">
-                                <li>
-                                    <a href="#">
-                                        villete at gft <i class="fa fa-check" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        testing another profile
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li><a href="#">timecard</a></li>
-                                <li><a href="#">settings</a></li>
-                                <li><a href="#">logout</a></li>
-                            </ul>
-                        </li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-flud -->
         </nav>
 
         <section class="container">
+            <div class="row row-login" >
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body custom-panel-login">
+                            <h3>Login</h3>
+                            <form>
+                                <hr>
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-envelope"></span>
+                                    </span>
+                                    <input class="form-control" name="user" placeholder="user" type="text" >
+                                </div>
+                                <div class="input-group form-group">
+                                    <span class="input-group-addon">
+                                        <span class="glyphicon glyphicon-lock"></span>
+                                    </span>
+                                    <input class="form-control" name="password" placeholder="password" type="password" >
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-primary btn-block" type="submit">
+                                        login
+                                    </button>
+                                </div>
+                                <hr>
+                                <div class="form-group">
+                                    <button class="btn btn-info btn-block" type="button">
+                                        register
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section><!-- /section.container -->
 
         <footer class="navbar-default navbar-fixed-bottom">
@@ -85,6 +100,7 @@
         <script src="../bower_components/angular/angular.min.js"></script>
         <script type="text/javascript">
             angular.module( 'clkio', [] );
+            document.forms[0].elements[0].focus();
         </script>
     </body>
 </html>
