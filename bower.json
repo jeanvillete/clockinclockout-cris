@@ -22,10 +22,28 @@
     "dist"
   ],
   "dependencies": {
+    "jquery": "^2.2.2",
+    "angular": "~1.5.3",
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.6.3",
     "eonasdan-bootstrap-datetimepicker": "^4.17.37",
-    "angular": "^1.5.8",
     "toastr": "^2.1.2"
+  },
+  "resolutions": {
+    "angular": "1.5.3"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.min.css",
+        "dist/css/bootstrap-theme.min.css",
+        "dist/js/bootstrap.js"
+      ]
+    },
+    "font-awesome" : {
+      "main" : [
+        "css/font-awesome.min.css"
+      ]
+    }
   }
 }

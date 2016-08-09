@@ -1,0 +1,36 @@
+{
+  "name": "clockinclockout-cris",
+  "version": "1.0.0",
+  "description": "This is a web GUI built in html5 + bootstrap + jQuery + angularjs, acting on behalf of http://clkio.com",
+  "main": "gulp.config.js",
+  "scripts": {
+    "init": "npm install",
+    "install": "bower install",
+    "start": "node src/server/app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jeanvillete/clockinclockout-cris.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jeanvillete/clockinclockout-cris/issues"
+  },
+  "homepage": "https://github.com/jeanvillete/clockinclockout-cris#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "morgan": "^1.7.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-if": "^2.0.1",
+    "gulp-inject": "^1.0.1",
+    "gulp-load-plugins": "^1.2.4",
+    "gulp-order": "^1.1.1",
+    "gulp-task-listing": "^1.0.1",
+    "gulp-util": "^3.0.7",
+    "wiredep": "^4.0.0"
+  }
+}
