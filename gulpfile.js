@@ -29,13 +29,37 @@ gulp.task( 'wiredep', function() {
     .pipe( gulp.dest( config.client ) );
 });
 
-gulp.task('inject', [ 'wiredep' /**, 'templatecache' **/ ], function() {
+gulp.task( 'inject', [ 'wiredep' /**, 'templatecache' **/ ], function() {
   log('Wire up css into the html, after files are ready');
 
   return gulp
     .src( config.index )
     .pipe( inject( config.css ) )
     .pipe( gulp.dest( config.client ) );
+});
+
+/**
+ * serve the dev environment
+ * --debug-brk or --debug
+ * --nosync
+ */
+gulp.task( 'serve-dev', [ 'inject' ], function() {
+  var nodeOptions = {
+      script : config.server + 'app.js',
+      delayTime : 1,
+      watch : [ config.server ]
+  };
+
+  return $.nodemon( nodeOptions )
+    .on('start', function() {
+      log('*** nodemon started');
+    })
+    .on('crash', function() {
+      log('*** nodemon crashed: script crashed for some reason');
+    })
+    .on('exit', function() {
+      log('*** nodemon exited cleanly');
+    });
 });
 
 /**

@@ -1,6 +1,7 @@
 module.exports = function() {
     var client = './src/client/'
     var clientApp = client + 'app/';
+    var server = './src/server/';
 
     var config = {
         client : client,
@@ -16,7 +17,8 @@ module.exports = function() {
             '**/*.module.js',
             '**/*.js'
         ],
-        css : client + 'styles/styles.css'
+        css : client + 'styles/styles.css',
+        server : server
     };
 
     return config;

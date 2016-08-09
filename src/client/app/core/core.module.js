@@ -6,6 +6,7 @@
       'blocks.exception',
       'blocks.logger',
       'blocks.router',
+      'app.login',
       'ui.router'
     ]);
 })();
