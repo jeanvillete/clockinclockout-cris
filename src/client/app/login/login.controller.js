@@ -5,9 +5,9 @@
         .module('app.login')
         .controller('LoginController', LoginController );
     
-    LoginController.$inject = [ 'dependency1' ];
+    LoginController.$inject = [];
     /* @ngInject */
-    function LoginController(dependency1) {
+    function LoginController() {
         var vm = this;
         
 

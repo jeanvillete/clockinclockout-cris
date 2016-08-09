@@ -27,7 +27,8 @@
     "bootstrap": "^3.3.6",
     "font-awesome": "^4.6.3",
     "eonasdan-bootstrap-datetimepicker": "^4.17.37",
-    "toastr": "^2.1.2"
+    "toastr": "^2.1.2",
+    "angular-ui-router": "^0.3.1"
   },
   "resolutions": {
     "angular": "1.5.3"
@@ -40,8 +41,8 @@
         "dist/js/bootstrap.js"
       ]
     },
-    "font-awesome" : {
-      "main" : [
+    "font-awesome": {
+      "main": [
         "css/font-awesome.min.css"
       ]
     }
