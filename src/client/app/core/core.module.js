@@ -9,6 +9,7 @@
       'blocks.logger',
       'blocks.router',
       'app.login',
-      'app.timecard'
+      'app.timecard',
+      'app.profile'
     ]);
 })();

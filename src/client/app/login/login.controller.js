@@ -17,7 +17,7 @@
 
         activate();
 
-        ////////////////
+        ///////////////
 
         function activate() {
         }
@@ -38,11 +38,9 @@
             return loginService.login( credentials )
                 .then( success, fail );
 
-            function success( data ) {
-                $rootScope.principal = {
-                    clkioLoginCode : data.code
-                };
+            ///////////////
 
+            function success( data ) {
                 $injector.get( '$state' ).go( 'timecard' );
             }
 
@@ -61,5 +59,6 @@
                 $injector.get( '$state' ).go( 'login' );
             }
         }
+        
     }
 })();

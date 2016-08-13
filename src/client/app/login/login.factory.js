@@ -31,6 +31,7 @@
 
             function success( response ) {
                 $cookies.put( 'clkioLoginCode', response.data.code );
+                $cookies.put( 'user', credentials.email );
                 return response.data;
             }
 
@@ -47,6 +48,7 @@
 
             function success( response ) {
                 $cookies.remove( 'clkioLoginCode' );
+                $cookies.remove( 'user' );
                 return response.data;
             }
 

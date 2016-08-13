@@ -48,20 +48,15 @@
                         <!--to be defined -->
                     </ul>
 
-                    <ul class="nav navbar-nav navbar-right">
+                    <ul class="nav navbar-nav navbar-right ng-hide" ng-show="principal && true">
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" href="#" >
-                                jean.villete@gmail.com <span class="caret"></span>
+                                {{ principal.user }} <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="themes">
-                                <li>
+                                <li ng-repeat="profile in principal.profiles">
                                     <a href="#">
-                                        villete at gft <i class="fa fa-check" aria-hidden="true"></i>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#">
-                                        testing another profile
+                                        {{ profile.description }} <i class="fa fa-check" aria-hidden="true" ng-show="profile.id === principal.profile.id" ></i>
                                     </a>
                                 </li>
                                 <li class="divider"></li>
