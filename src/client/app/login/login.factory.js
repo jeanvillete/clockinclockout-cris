@@ -46,7 +46,7 @@
                 .then( success, fail );
 
             function success( response ) {
-                delete $cookies[ 'clkioLoginCode' ];
+                $cookies.remove( 'clkioLoginCode' );
                 return response.data;
             }
 

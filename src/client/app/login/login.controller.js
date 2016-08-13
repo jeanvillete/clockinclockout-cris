@@ -13,6 +13,7 @@
         vm.password = '';
         vm.alert = false;
         vm.doLogin = doLogin;
+        vm.doLogout = doLogout;
 
         activate();
 
@@ -47,6 +48,17 @@
 
             function fail( e ) {
                 return vm.alert = 'Invalid Email and/or Password.';
+            }
+        }
+
+        function doLogout() {
+            return loginService.logout()
+                .then( success );
+            
+            function success( data ) {
+                $rootScope.principal = false;
+
+                $injector.get( '$state' ).go( 'login' );
             }
         }
     }

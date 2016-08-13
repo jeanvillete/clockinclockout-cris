@@ -18,9 +18,12 @@
     if ($logProvider.debugEnabled) {
       $logProvider.debugEnabled(true);
     }
+    
     exceptionHandlerProvider.configure(config.appErrorPrefix);
     routerHelperProvider.configure({ docTitle: config.appTitle + ': ' });
+
     $httpProvider.interceptors.push( 'httpAuthService' );
+    $httpProvider.interceptors.push( 'restApiLoginCodeService' );
   }
 
 })();
