@@ -41,7 +41,7 @@
   extendExceptionHandler.$inject = ['$delegate', 'exceptionHandler', 'logger'];
 
   /**
-   * Extend the $exceptionHandler service to also display a toast.
+   * Extend the $exceptionHandler service.
    * @param  {Object} $delegate
    * @param  {Object} exceptionHandler
    * @param  {Object} logger

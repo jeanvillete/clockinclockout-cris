@@ -3,10 +3,12 @@
 
   angular
     .module('app.core', [
+      'ui.router',
+      'ngCookies',
       'blocks.exception',
       'blocks.logger',
       'blocks.router',
       'app.login',
-      'ui.router'
+      'app.timecard'
     ]);
 })();

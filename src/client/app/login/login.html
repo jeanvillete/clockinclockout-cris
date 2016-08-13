@@ -3,19 +3,22 @@
         <div class="panel panel-default">
             <div class="panel-body custom-panel-login">
                 <h3>Login</h3>
-                <form>
+                <form name="formLogin" ng-submit="vm.doLogin()" novalidate>
                     <hr>
+                    <div class="alert alert-danger" role="alert" ng-show="vm.alert && true">
+                        {{ vm.alert }}
+                    </div>
                     <div class="input-group form-group">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-envelope"></span>
                         </span>
-                        <input class="form-control" name="user" placeholder="user" type="text" >
+                        <input class="form-control" name="user" placeholder="user" type="text" ng-model="vm.email">
                     </div>
                     <div class="input-group form-group">
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-lock"></span>
                         </span>
-                        <input class="form-control" name="password" placeholder="password" type="password" >
+                        <input class="form-control" name="password" placeholder="password" type="password" ng-model="vm.password">
                     </div>
                     <div class="form-group">
                         <button class="btn btn-primary btn-block" type="submit">
