@@ -10,7 +10,7 @@
         <div class="panel panel-success">
             <div class="panel-heading text-center">
                 <span>
-                    total balance: <strong> +16:25 </strong>
+                    total balance: <strong> {{ vm.timecard.totalTime }} </strong>
                 </span>
             </div>
         </div>
@@ -25,7 +25,6 @@
                     <th>date</th>
                     <th>records</th>
                     <th>expected</th>
-                    <th>day balance</th>
                     <th>balance</th>
                     <th>notes</th>
                 </tr>
@@ -36,14 +35,13 @@
                     <td>
                         <div ng-repeat="entering in day.tableEntering | clkioOnlyFilter" class="label"
                             ng-class="{ 'label-success' : entering.clockin && entering.clockout, 'label-warning' : !entering.clockin || !entering.clockout }">
-                            {{ entering.clockin ? ( entering.clockin | clkioHoursFilter ) : '?' }} - {{ entering.clockout ? ( entering.clockout | clkioHoursFilter ) : '?' }}
+                            {{ entering.clockin | clkioHoursFilter }} - {{ entering.clockout | clkioHoursFilter }}
                         </div>
                         <div ng-repeat="entering in day.tableEntering | reasonOnlyFilter" class="label label-info" >
                             {{ entering.reason.reason }}
                         </div>
                     </td>
                     <td> {{ day.expectedHours }} </td>
-                    <td> TBD </td>
                     <td> {{ day.balance }} </td>
                     <td> {{ day.notes }} </td>
                 </tr>
@@ -57,7 +55,7 @@
         <div class="panel panel-danger">
             <div class="panel-heading text-center">
                 <span>
-                    month balance: <strong> -02:57 </strong>
+                    month balance: <strong> {{ vm.timecard.totalTimeMonthly }} </strong>
                 </span>
             </div>
         </div>

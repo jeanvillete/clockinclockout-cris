@@ -7,7 +7,7 @@
 
     function clkioHoursFilter() {
         return function( clkio ) {
-            return clkio ? clkio.substring( clkio.indexOf( ' ' ) + 1 ) : '';
+            return clkio ? clkio.substring( clkio.indexOf( ' ' ) + 1 ) : '?';
         };
     }
 })();
