@@ -10,6 +10,7 @@
       'blocks.router',
       'app.login',
       'app.timecard',
-      'app.profile'
+      'app.profile', 
+      'ui.bootstrap'
     ]);
 })();

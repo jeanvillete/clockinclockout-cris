@@ -5,8 +5,8 @@
         .module('app.timecard')
         .factory('timecardService', timecardService);
 
-    timecardService.$inject = [ '$http', 'clkioHost', 'exception' ];
-    function timecardService( $http, clkioHost, exception ) {
+    timecardService.$inject = [ '$http', 'clkioHost', 'exception', 'dateFilter' ];
+    function timecardService( $http, clkioHost, exception, dateFilter ) {
         var service = {
             getTimecard : getTimecard
         };
@@ -15,8 +15,8 @@
 
         ////////////////
 
-        function getTimecard( profile ) {
-            var api = clkioHost + 'profiles/' + profile.id +  '/timecard';
+        function getTimecard( profile, date ) {
+            var api = clkioHost + 'profiles/' + profile.id +  '/timecard/' + ( date ? dateFilter( date, 'yyyy-MM' ) : '' );
             return $http.get( api )
                 .then( success, fail );
 

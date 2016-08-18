@@ -28,7 +28,8 @@
     "font-awesome": "^4.6.3",
     "eonasdan-bootstrap-datetimepicker": "^4.17.37",
     "angular-ui-router": "^0.3.1",
-    "angular-cookies": "^1.5.8"
+    "angular-cookies": "^1.5.8",
+    "angular-bootstrap": "^2.0.2"
   },
   "resolutions": {
     "angular": "1.5.3"

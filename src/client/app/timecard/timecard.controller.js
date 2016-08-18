@@ -5,17 +5,21 @@
         .module('app.timecard')
         .controller('TimecardController', TimecardController);
     
-    TimecardController.$inject = [ '$rootScope', '$injector', '$cookies', 'profileService', 'timecardService', '$q' ];
+    TimecardController.$inject = [ '$rootScope', '$injector', '$cookies', 'profileService', 'timecardService', '$q', '$uibModal' ];
     /* @ngInject */
-    function TimecardController( $rootScope, $injector, $cookies, profileService, timecardService, $q ) {
+    function TimecardController( $rootScope, $injector, $cookies, profileService, timecardService, $q, $uibModal ) {
         var vm = this;
         vm.timecard = {};
+        vm.date;
+        vm.popBaseDateUp = popBaseDateUp;
 
         activate();
 
         ///////////////
 
         function activate() {
+            vm.date = new Date();
+
             if ( !$cookies.get( 'clkioLoginCode' ) ) {
                 return $injector.get( '$state' ).go( 'login' );
             } else if ( !$rootScope.principal ) {
@@ -28,8 +32,8 @@
             getProfile().then( getTimecard );
         }
 
-        function getTimecard( profile ) {
-            return timecardService.getTimecard( profile )
+        function getTimecard( profile, date ) {
+            return timecardService.getTimecard( profile, date )
                 .then( success );
 
             ///////////////
@@ -49,6 +53,24 @@
                 $rootScope.principal.profile = data.profiles[ 0 ];
 
                 return $rootScope.principal.profile;
+            }
+        }
+
+        function popBaseDateUp() {
+            $uibModal.open({
+                animation : false,
+                templateUrl : 'app/timecard.basedate.modal/timecard.basedate.modal.html',
+                controller : 'TimecardBaseDateModalController',
+                controllerAs : 'vm',
+                size : 'sm',
+                resolve : {
+                    defaultDate : function() { return vm.date; }
+                }
+            }).result.then( success );
+
+            function success( date ) {
+                vm.date = date;
+                return getTimecard( $rootScope.principal.profile, vm.date );
             }
         }
 

@@ -1,0 +1,26 @@
+<!-- modal select month/year -->
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" ng-click=" vm.cancel() ">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <h4 class="modal-title">select month/year</h4>
+    </div>
+    <div class="modal-body">
+        <div id="datimepicker-month-year">
+            {{ vm.show() }}
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-primary btn-block" ng-click=" vm.select() ">
+                select
+            </button>
+        </div>
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-default btn-block" ng-click=" vm.cancel() ">
+                close
+            </button>
+        </div>
+    </div>
+</div><!-- /.modal-content -->
