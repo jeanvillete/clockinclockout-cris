@@ -1,6 +1,6 @@
 <div class="row timecard-header">
     <div class="col-xs-6 col-sm-6">
-        <button type="button" class="btn btn-primary" > punch o'clock</button>
+        <button type="button" class="btn btn-primary" ng-click=" vm.popPunchOClockUp() "> punch o'clock</button>
         <button class="btn btn-default" type="button" ng-click=" vm.popBaseDateUp() " >
             {{ vm.date | date:'MMM yyyy' }}
             <span class="caret"></span>

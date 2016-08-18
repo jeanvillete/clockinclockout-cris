@@ -5,13 +5,14 @@
         .module('app.timecard')
         .controller('TimecardController', TimecardController);
     
-    TimecardController.$inject = [ '$rootScope', '$injector', '$cookies', 'profileService', 'timecardService', '$q', '$uibModal' ];
+    TimecardController.$inject = [ '$rootScope', '$injector', '$cookies', 'profileService', 'timecardService', '$q', '$uibModal', '$filter' ];
     /* @ngInject */
-    function TimecardController( $rootScope, $injector, $cookies, profileService, timecardService, $q, $uibModal ) {
+    function TimecardController( $rootScope, $injector, $cookies, profileService, timecardService, $q, $uibModal, $filter ) {
         var vm = this;
         vm.timecard = {};
         vm.date;
         vm.popBaseDateUp = popBaseDateUp;
+        vm.popPunchOClockUp = popPunchOClockUp;
 
         activate();
 
@@ -56,6 +57,22 @@
             }
         }
 
+        function punchOClock( timestamp ) {
+            return timecardService.punchOClock( $rootScope.principal.profile, timestamp )
+                .then( success );
+
+            ///////////////
+
+            function success( data ) {
+                vm.timecard.totalTimeMonthly = data.timeCard.totalTimeMonthly;
+                vm.timecard.totalTime = data.timeCard.totalTime;
+
+                for ( var i = 0; i < vm.timecard.days.length; i++ )
+                    if ( vm.timecard.days[ i ].date === data.timeCard.days[ 0 ].date )
+                        vm.timecard.days[ i ] = data.timeCard.days[ 0 ];
+            }
+        }
+
         function popBaseDateUp() {
             $uibModal.open({
                 animation : false,
@@ -72,6 +89,16 @@
                 vm.date = date;
                 return getTimecard( $rootScope.principal.profile, vm.date );
             }
+        }
+
+        function popPunchOClockUp() {
+            return $uibModal.open({
+                animation : false,
+                templateUrl : 'app/timecard.punchoclock.modal/timecard.punchoclock.modal.html',
+                controller : 'TimecardPunchOClockModalController',
+                controllerAs : 'vm',
+                size : 'sm'
+            }).result.then( punchOClock );
         }
 
     }

@@ -14,13 +14,7 @@
         vm.cancel = cancel;
         vm.show = show;
 
-        activate();
-
         ////////////////
-
-        function activate() {
-            
-        }
 
         function select() {
             var pickedDateUp = vm.datetimepicker.data( 'DateTimePicker' ).date();

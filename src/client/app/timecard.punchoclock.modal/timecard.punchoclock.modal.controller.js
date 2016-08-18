@@ -5,16 +5,37 @@
         .module('timecard.punchoclock.modal')
         .controller('TimecardPunchOClockModalController', TimecardPunchOClockModalController);
     
-    TimecardPunchOClockModalController.$inject = ['dependency1'];
+    TimecardPunchOClockModalController.$inject = [ '$uibModalInstance' ];
     /* @ngInject */
-    function TimecardPunchOClockModalController(dependency1) {
+    function TimecardPunchOClockModalController( $uibModalInstance ) {
         var vm = this;
-        
-
-        activate();
+        vm.datetimepicker;
+        vm.select = select;
+        vm.cancel = cancel;
+        vm.show = show;
 
         ////////////////
 
-        function activate() { }
+        function select() {
+            var pickedDateUp = vm.datetimepicker.data( 'DateTimePicker' ).date();
+
+            vm.datetimepicker.data( 'DateTimePicker' ).destroy();
+            $uibModalInstance.close( pickedDateUp.toDate() );
+        }
+
+        function cancel() {
+            vm.datetimepicker.data( 'DateTimePicker' ).destroy();
+            $uibModalInstance.dismiss( 'cancel' );
+        }
+
+        function show() {
+            vm.datetimepicker = $( "#datetimepicker-punch-o-clock" ).datetimepicker({
+                inline : true,
+                format : 'HH:mm',
+                useCurrent : true,
+                showClose : false,
+                defaultDate : new Date()
+            });
+        }
     }
 })();
