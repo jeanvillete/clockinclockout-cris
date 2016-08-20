@@ -30,7 +30,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat=" day in vm.timecard.days ">
+                <tr ng-repeat=" day in vm.timecard.days " ng-click=" vm.edit( day ) " >
                     <td> {{ day.date }} </td>
                     <td>
                         <div ng-repeat=" entering in day.tableEntering | clkioOnlyFilter " class="label"

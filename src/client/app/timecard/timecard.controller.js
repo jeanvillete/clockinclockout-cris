@@ -5,14 +5,15 @@
         .module('app.timecard')
         .controller('TimecardController', TimecardController);
     
-    TimecardController.$inject = [ '$rootScope', '$injector', '$cookies', 'profileService', 'timecardService', '$q', '$uibModal', '$filter' ];
+    TimecardController.$inject = [ '$rootScope', '$injector', '$cookies', 'profileService', 'timecardService', '$q', '$uibModal', '$filter', '$stateParams' ];
     /* @ngInject */
-    function TimecardController( $rootScope, $injector, $cookies, profileService, timecardService, $q, $uibModal, $filter ) {
+    function TimecardController( $rootScope, $injector, $cookies, profileService, timecardService, $q, $uibModal, $filter, $stateParams ) {
         var vm = this;
         vm.timecard = {};
         vm.date;
         vm.popBaseDateUp = popBaseDateUp;
         vm.popPunchOClockUp = popPunchOClockUp;
+        vm.edit = edit;
 
         activate();
 
@@ -29,8 +30,10 @@
                     user : $cookies.get( 'user' )
                 };
             }
-
-            getProfile().then( getTimecard );
+            
+            if ( !( vm.timecard = $stateParams.timecard ) ) {
+                return getProfile().then( getTimecard );
+            }
         }
 
         function getTimecard( profile, date ) {
@@ -101,5 +104,13 @@
             }).result.then( punchOClock );
         }
 
+        function edit( day ) {
+            var params = {
+                timecard : vm.timecard,
+                date : day.date
+            };
+
+            $injector.get( '$state' ).go( 'timecardDetails', params );
+        }
     }
 })();

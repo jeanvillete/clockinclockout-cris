@@ -1,0 +1,166 @@
+
+<div class="row" >
+    <div class="col-sm-10 col-sm-offset-1">
+        <!-- box for clkio date -->
+        <div class="form-group col-sm-2">
+            <label class="control-label" for="date">date</label>
+            <input type="text" id="date" name="date" placeholder="date" class="form-control" ng-model=" vm.day.date " readonly>
+        </div>
+
+        <!-- box for clkio balance -->
+        <div class="form-group col-sm-2">
+            <label class="control-label" for="balance">balance</label>
+            <input type="text" id="balance" name="balance" placeholder="balance" class="form-control" ng-model=" vm.day.balance " readonly>
+        </div>
+
+        <!-- box for clkio expected hours -->
+        <div class="form-group col-sm-2">
+            <label class="control-label" for="expectedHours">expected hours</label>
+            <div class="input-group">
+                <input type="text" id="expectedHours" name="expectedHours" placeholder="expected hours" class="form-control" ng-model=" vm.day.expectedHours ">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary btn-input">
+                        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+
+        <!-- box for clkio notes -->
+        <div class="form-group col-sm-6">
+            <label class="control-label" for="notes">notes</label>
+            <div class="input-group">
+                <input type="text" id="notes" name="notes" placeholder="notes" class="form-control" ng-model=" vm.day.notes ">
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-primary btn-input">
+                        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row row-panels-on-footer" >
+    <!-- panel for clockins and clockouts -->
+    <div class="col-sm-5 col-sm-offset-1 row-panel-clockin-clockout" >
+        <div class="panel panel-primary">
+            <div class="panel-heading">clockins and clockouts</div>
+            <div class="panel-body">
+                <form class="input-group">
+                    <input class="form-control custom-readonly clkio-datetime" name="clockin" placeholder="clockin" type="text" readonly>
+                    <span class="input-group-btn" style="width:0px;"></span>
+                    <input class="form-control custom-readonly clkio-datetime" name="clockout" placeholder="clockout" type="text" readonly>
+
+                    <!-- add buttons -->
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-success btn-input">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                        </button>
+                    </span>
+                </form>
+                
+                <form class="input-group" ng-repeat=" entering in vm.day.tableEntering | clkioOnlyFilter ">
+                    <input class="form-control custom-readonly clkio-datetime" name="clockin" placeholder="clockin" type="text" ng-model=" entering.clockin " readonly>
+                    <span class="input-group-btn" style="width:0px;"></span>
+                    <input class="form-control custom-readonly clkio-datetime" name="clockout" placeholder="clockout" type="text" ng-model=" entering.clockout " readonly>
+
+                    <!-- update and delete buttons -->
+                    <span class="input-group-btn">
+                        <input type="hidden" name="id" ng-model=" entering.id ">
+                        <div class="btn-group">
+                            <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+                                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-set-right">
+                                <li><a href="#">save</a></li>
+                                <li><a href="#">delete</a></li>
+                            </ul>
+                        </div>
+                    </span>
+                </form>
+            </div><!-- /.panel-body -->
+        </div>
+    </div><!-- /.row-panel-clockin-clockout -->
+
+    <!-- panel for manual enterings -->
+    <div class="col-sm-5 row-panel-manual-entering" >
+        <div class="panel panel-primary">
+            <div class="panel-heading">manual enterings</div>
+            <div class="panel-body">
+                <form class="input-group">
+                    <select name="mnlReason" class="form-control" >
+                        <option value="">select reason</option>
+                        <option value="12">serviço externo</option>
+                        <option value="13">visita ao médico</option>
+                        <option value="14">férias</option>
+                        <option value="15">feriado</option>
+                    </select>
+                    <span class="input-group-btn" style="width:0px;"></span>
+                    <input class="form-control" name="interval" placeholder="interval" type="text">
+
+                    <!-- add buttons -->
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-success btn-input">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                        </button>
+                    </span>
+                </form>
+                
+                <form class="input-group" ng-repeat=" entering in vm.day.tableEntering | reasonOnlyFilter ">
+                    <select name="mnlReason" class="form-control" ng-options=" reason.id as reason.reason for reason in principal.profile.reasons " ng-model=" entering.reason.id " >
+                        <option value="">select reason</option>
+                    </select>
+                    <span class="input-group-btn" style="width:0px;"></span>
+                    <input class="form-control" name="interval" placeholder="interval" type="text" ng-model=" entering.timeInterval ">
+
+                    <!-- update and delete buttons -->
+                    <span class="input-group-btn">
+                        <input type="hidden" name="id" ng-model=" entering.id ">
+                        <div class="btn-group">
+                            <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+                                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-set-right">
+                                <li><a href="#">save</a></li>
+                                <li><a href="#">delete</a></li>
+                            </ul>
+                        </div>
+                    </span>
+                </form>
+            </div><!-- /.panel-body -->
+        </div>
+    </div><!-- /.row-panel-manual-entering -->
+</div><!-- /.row-panels-on-footer -->
+
+<div class="row btn-back">
+    <div class="col-xs-3 col-xs-offset-9 col-sm-2 col-sm-offset-9">
+        <a href="" class="btn btn-primary btn-lg btn-block" ng-click=" vm.back() ">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            back
+        </a>
+    </div>
+</div><!-- /div.btn-back -->
+
+<!-- modal clockin-clockout -->
+<div id="modal-clockin-clockout" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">clockin / clockout</h4>
+            </div>
+            <div class="modal-body">
+                <div id="datetimepicker-clockin-clockout"></div>
+            </div>
+            <div class="modal-footer">
+                <div class="col-xs-6">
+                    <button type="button" class="btn btn-primary btn-block">set</button>
+                </div>
+                <div class="col-xs-6">
+                    <button type="button" class="btn btn-default btn-block" data-dismiss="modal">close</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal#modal-clockin-clockout -->

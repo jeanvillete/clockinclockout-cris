@@ -1,7 +1,7 @@
 (function(){
     'use strict';
     
-    angular.module( 'app.timecard' ).run( appRun );
+    angular.module( 'app.timecard.details' ).run( appRun );
     
     appRun.$inject = [ 'routerHelper' ];
     /* @ngInject */
@@ -12,17 +12,18 @@
     function getStates() {
         return [
             {
-                state : 'timecard',
+                state : 'timecardDetails',
                 config : {
-                    url : '/',
-                    templateUrl : 'app/timecard/timecard.html',
-                    controller : 'TimecardController',
+                    url : '/timecardDetails',
+                    templateUrl : 'app/timecard.details/timecard.details.html',
+                    controller : 'TimecardDetailsController',
                     controllerAs : 'vm',
-                    title : 'Timecard',
+                    title : 'Timecard Details',
                     settings : {
                     },
                     params : {
-                        timecard : undefined
+                        timecard : null,
+                        date : null
                     }
                 }
             }
