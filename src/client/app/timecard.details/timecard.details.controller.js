@@ -9,6 +9,8 @@
     /* @ngInject */
     function TimecardDetailsController( $rootScope, $injector, $stateParams, timecardService ) {
         var vm = this;
+        vm.expectedHours;
+        vm.notes;
         vm.day;
         vm.timecard;
         vm.back = back;
@@ -24,6 +26,9 @@
 
             if ( !vm.timecard || !( vm.day = getDay( $stateParams.date ) ) )
                 return $injector.get( '$state' ).go( 'timecard' );
+
+            vm.expectedHours = vm.day.expectedHours;
+            vm.notes = vm.day.notes;
         }
 
         function getDay( date ) {
@@ -36,6 +41,9 @@
 
         function updateModel( data ) {
             vm.day = data.timeCard.days[ 0 ];
+
+            vm.expectedHours = vm.day.expectedHours;
+            vm.notes = vm.day.notes;
 
             vm.timecard.totalTimeMonthly = data.timeCard.totalTimeMonthly;
             vm.timecard.totalTime = data.timeCard.totalTime;
@@ -50,13 +58,13 @@
                 timecard : vm.timecard,
             }
 
-            $injector.get( '$state' ).go( 'timecard', params );
+            return $injector.get( '$state' ).go( 'timecard', params );
         }
 
         function saveNotes() {
             var params = {
                 "date" : vm.day.date,
-                "text" : vm.day.notes
+                "text" : vm.notes
             };
 
             return timecardService.saveNotes( $rootScope.principal.profile, params )
@@ -66,7 +74,7 @@
         function saveExpectedHours() {
             var params = {
                 "date" : vm.day.date,
-                "expectedHours" : vm.day.expectedHours
+                "expectedHours" : vm.expectedHours
             };
 
             return timecardService.saveExpectedHours( $rootScope.principal.profile, params )

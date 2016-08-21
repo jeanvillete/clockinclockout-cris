@@ -57,9 +57,6 @@
         function saveNotes( profile, params ) {
             var api = clkioHost + 'profiles/' + profile.id +  '/timecard/notes';
 
-            if ( !params.text )
-                return $q.reject( toastr.error( "The field 'notes' has to be filled.", "Hey, fill it please.") );
-
             return $http.put( api, params )
                 .then( success, fail );
 

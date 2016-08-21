@@ -17,7 +17,7 @@
         <div class="form-group col-sm-2">
             <label class="control-label" for="expectedHours">expected hours</label>
             <form name="formExpectedHours" class="input-group" ng-submit=" vm.saveExpectedHours() ">
-                <input type="text" id="expectedHours" name="expectedHours" placeholder="expected hours" class="form-control" ng-model=" vm.day.expectedHours ">
+                <input type="text" id="expectedHours" name="expectedHours" placeholder="expected hours" class="form-control" ng-model=" vm.expectedHours ">
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-primary btn-input" >
                         <i class="fa fa-check-square-o" aria-hidden="true"></i>
@@ -30,7 +30,7 @@
         <div class="form-group col-sm-6">
             <label class="control-label" for="notes">notes</label>
             <form name="formNotes" class="input-group" ng-submit=" vm.saveNotes() ">
-                <input type="text" id="notes" name="notes" placeholder="notes" class="form-control" ng-model=" vm.day.notes ">
+                <input type="text" id="notes" name="notes" placeholder="notes" class="form-control" ng-model=" vm.notes ">
                 <span class="input-group-btn">
                     <button type="submit" class="btn btn-primary btn-input" >
                         <i class="fa fa-check-square-o" aria-hidden="true"></i>
@@ -135,10 +135,10 @@
 
 <div class="row btn-back">
     <div class="col-xs-3 col-xs-offset-9 col-sm-2 col-sm-offset-9">
-        <a href="" class="btn btn-primary btn-lg btn-block" ng-click=" vm.back() ">
+        <button type="button" class="btn btn-primary btn-lg btn-block" ng-click=" vm.back() ">
             <span class="glyphicon glyphicon-chevron-left"></span>
             back
-        </a>
+        </button>
     </div>
 </div><!-- /div.btn-back -->
 
