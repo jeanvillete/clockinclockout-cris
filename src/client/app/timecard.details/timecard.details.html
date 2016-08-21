@@ -16,27 +16,27 @@
         <!-- box for clkio expected hours -->
         <div class="form-group col-sm-2">
             <label class="control-label" for="expectedHours">expected hours</label>
-            <div class="input-group">
+            <form name="formExpectedHours" class="input-group" ng-submit=" vm.saveExpectedHours() ">
                 <input type="text" id="expectedHours" name="expectedHours" placeholder="expected hours" class="form-control" ng-model=" vm.day.expectedHours ">
                 <span class="input-group-btn">
-                    <button type="button" class="btn btn-primary btn-input">
+                    <button type="submit" class="btn btn-primary btn-input" >
                         <i class="fa fa-check-square-o" aria-hidden="true"></i>
                     </button>
                 </span>
-            </div>
+            </form>
         </div>
 
         <!-- box for clkio notes -->
         <div class="form-group col-sm-6">
             <label class="control-label" for="notes">notes</label>
-            <div class="input-group">
+            <form name="formNotes" class="input-group" ng-submit=" vm.saveNotes() ">
                 <input type="text" id="notes" name="notes" placeholder="notes" class="form-control" ng-model=" vm.day.notes ">
                 <span class="input-group-btn">
-                    <button type="button" class="btn btn-primary btn-input">
+                    <button type="submit" class="btn btn-primary btn-input" >
                         <i class="fa fa-check-square-o" aria-hidden="true"></i>
                     </button>
                 </span>
-            </div>
+            </form>
         </div>
     </div>
 </div>

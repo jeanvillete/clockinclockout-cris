@@ -5,13 +5,15 @@
         .module('app.timecard.details')
         .controller('TimecardDetailsController', TimecardDetailsController);
     
-    TimecardDetailsController.$inject = [ '$injector', '$stateParams', 'timecardService' ];
+    TimecardDetailsController.$inject = [ '$rootScope', '$injector', '$stateParams', 'timecardService' ];
     /* @ngInject */
-    function TimecardDetailsController( $injector, $stateParams, timecardService ) {
+    function TimecardDetailsController( $rootScope, $injector, $stateParams, timecardService ) {
         var vm = this;
         vm.day;
         vm.timecard;
         vm.back = back;
+        vm.saveNotes = saveNotes;
+        vm.saveExpectedHours = saveExpectedHours;
 
         activate();
 
@@ -21,7 +23,7 @@
             vm.timecard = $stateParams.timecard;
 
             if ( !vm.timecard || !( vm.day = getDay( $stateParams.date ) ) )
-                $injector.get( '$state' ).go( 'timecard' );
+                return $injector.get( '$state' ).go( 'timecard' );
         }
 
         function getDay( date ) {
@@ -32,12 +34,43 @@
             return null;
         }
 
+        function updateModel( data ) {
+            vm.day = data.timeCard.days[ 0 ];
+
+            vm.timecard.totalTimeMonthly = data.timeCard.totalTimeMonthly;
+            vm.timecard.totalTime = data.timeCard.totalTime;
+
+            for ( var i = 0; i < vm.timecard.days.length; i++ )
+                if ( vm.timecard.days[ i ].date === data.timeCard.days[ 0 ].date )
+                    vm.timecard.days[ i ] = data.timeCard.days[ 0 ];
+        }
+
         function back() {
             var params = {
                 timecard : vm.timecard,
             }
 
             $injector.get( '$state' ).go( 'timecard', params );
+        }
+
+        function saveNotes() {
+            var params = {
+                "date" : vm.day.date,
+                "text" : vm.day.notes
+            };
+
+            return timecardService.saveNotes( $rootScope.principal.profile, params )
+                .then( updateModel );
+        }
+
+        function saveExpectedHours() {
+            var params = {
+                "date" : vm.day.date,
+                "expectedHours" : vm.day.expectedHours
+            };
+
+            return timecardService.saveExpectedHours( $rootScope.principal.profile, params )
+                .then( updateModel );
         }
     }
 })();

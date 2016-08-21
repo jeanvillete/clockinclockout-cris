@@ -26,4 +26,15 @@
     $httpProvider.interceptors.push( 'restApiLoginCodeService' );
   }
 
+  core.config( toastrConfig );
+
+  toastrConfig.$inject = ['toastr'];
+  /* @ngInject */
+  function toastrConfig( toastr ) {
+    toastr.options.timeOut = 10000;
+    toastr.options.positionClass = 'toast-top-right';
+    toastr.options.closeButton = true;
+    toastr.options.preventDuplicates = true;
+  }
+
 })();
