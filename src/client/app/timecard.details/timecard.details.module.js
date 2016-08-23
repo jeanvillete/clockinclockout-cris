@@ -3,6 +3,7 @@
 
     angular.module('app.timecard.details', [
         'timecard.clkio.modal',
-        'app.clockinclockout'
+        'app.clockinclockout',
+        'app.manualentering'
     ]);
 })();

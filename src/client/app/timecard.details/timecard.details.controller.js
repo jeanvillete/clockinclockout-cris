@@ -5,11 +5,12 @@
         .module('app.timecard.details')
         .controller('TimecardDetailsController', TimecardDetailsController);
     
-    TimecardDetailsController.$inject = [ '$rootScope', '$injector', '$stateParams', 'timecardService', '$uibModal', 'dateFilter', 'moment', 'clkioService' ];
+    TimecardDetailsController.$inject = [ '$rootScope', '$injector', '$stateParams', 'timecardService', '$uibModal', 'dateFilter', 'moment', 'clkioService', 'manualEnteringService' ];
     /* @ngInject */
-    function TimecardDetailsController( $rootScope, $injector, $stateParams, timecardService, $uibModal, dateFilter, moment, clkioService ) {
+    function TimecardDetailsController( $rootScope, $injector, $stateParams, timecardService, $uibModal, dateFilter, moment, clkioService, manualEnteringService ) {
         var vm = this;
         vm.clkio;
+        vm.manualEntering;
         vm.expectedHours;
         vm.notes;
         vm.day;
@@ -21,6 +22,9 @@
         vm.createClockinClockout = createClockinClockout;
         vm.updateClockinClockout = updateClockinClockout;
         vm.deleteClockinClockout = deleteClockinClockout;
+        vm.createManualEntering = createManualEntering;
+        vm.updateManualEntering = updateManualEntering;
+        vm.deleteManualEntering = deleteManualEntering;
 
         activate();
 
@@ -35,6 +39,7 @@
             vm.expectedHours = vm.day.expectedHours;
             vm.notes = vm.day.notes;
             vm.clkio = { clockin:'', clockout:'' };
+            vm.manualEntering = { reason: { id: 0 }, timeInterval: '', id: 0 };
         }
 
         function getDay( date ) {
@@ -148,5 +153,31 @@
                 .then( updateModel );
         }
 
+        function createManualEntering( manualEntering ) {
+            angular.extend( manualEntering, { day : vm.day } );
+            return manualEnteringService.create( $rootScope.principal.profile, manualEntering )
+                .then( success );
+
+            ///////////////
+
+            function success( data ) {
+                angular.extend( manualEntering, { reason: { id: 0 }, timeInterval: '', id: 0 } );
+                updateModel( data );
+            }
+        }
+
+        function updateManualEntering( manualEntering ) {
+            manualEntering.day = { date : vm.day.date };
+            return manualEnteringService.update( $rootScope.principal.profile, manualEntering )
+                .then( updateModel );
+        }
+
+        function deleteManualEntering( manualEntering ) {
+            if ( !confirm( 'Confirm delete?' ) )
+                return;
+
+            return manualEnteringService.delete( $rootScope.principal.profile, manualEntering )
+                .then( updateModel );
+        }
     }
 })();

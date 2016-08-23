@@ -60,7 +60,7 @@
                     </span>
                 </form>
                 
-                <form class="input-group" name="formUpdateClockinClockout" ng-repeat=" entering in vm.day.tableEntering | clkioOnlyFilter " >
+                <form class="input-group" name="formUpdateClockinClockout" ng-repeat=" entering in vm.day.tableEntering | clkioOnlyFilter " ng-submit=" vm.updateClockinClockout( entering ) ">
                     <input class="form-control custom-readonly clkio-datetime" name="clockin" placeholder="clockin" type="text" ng-model=" entering.clockin " ng-click=" vm.popClkioUp( entering, 'clockin' ) " readonly>
                     <span class="input-group-btn" style="width:0px;"></span>
                     <input class="form-control custom-readonly clkio-datetime" name="clockout" placeholder="clockout" type="text" ng-model=" entering.clockout " ng-click=" vm.popClkioUp( entering, 'clockout' ) " readonly>
@@ -88,16 +88,12 @@
         <div class="panel panel-primary">
             <div class="panel-heading">manual enterings</div>
             <div class="panel-body">
-                <form class="input-group">
-                    <select name="mnlReason" class="form-control" >
+                <form class="input-group" name="formCreateManualEntering" ng-submit=" vm.createManualEntering( vm.manualEntering ) ">
+                    <select name="mnlReason" class="form-control" ng-options=" reason.id as reason.reason for reason in principal.profile.reasons " ng-model=" vm.manualEntering.reason.id ">
                         <option value="">select reason</option>
-                        <option value="12">serviço externo</option>
-                        <option value="13">visita ao médico</option>
-                        <option value="14">férias</option>
-                        <option value="15">feriado</option>
                     </select>
                     <span class="input-group-btn" style="width:0px;"></span>
-                    <input class="form-control" name="interval" placeholder="interval" type="text">
+                    <input class="form-control" name="interval" placeholder="interval" type="text" ng-model=" vm.manualEntering.timeInterval ">
 
                     <!-- add buttons -->
                     <span class="input-group-btn">
@@ -107,7 +103,7 @@
                     </span>
                 </form>
                 
-                <form class="input-group" ng-repeat=" entering in vm.day.tableEntering | reasonOnlyFilter ">
+                <form class="input-group" name="formUpdateManualEntering" ng-repeat=" entering in vm.day.tableEntering | reasonOnlyFilter " ng-submit=" vm.updateManualEntering( entering ) ">
                     <select name="mnlReason" class="form-control" ng-options=" reason.id as reason.reason for reason in principal.profile.reasons " ng-model=" entering.reason.id " >
                         <option value="">select reason</option>
                     </select>
@@ -122,8 +118,8 @@
                                 <i class="fa fa-caret-down" aria-hidden="true"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-set-right">
-                                <li><a href="#">save</a></li>
-                                <li><a href="#">delete</a></li>
+                                <li><a href="#" ng-click=" vm.updateManualEntering( entering ) ">save</a></li>
+                                <li><a href="#" ng-click=" vm.deleteManualEntering( entering ) ">delete</a></li>
                             </ul>
                         </div>
                     </span>
