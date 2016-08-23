@@ -91,6 +91,8 @@ input.custom-readonly {
 
 input.custom-readonly:hover {
 	cursor: pointer;
+	border: 1px solid #3175B0;
+	background-color: #E6F1FC !important;
 }
 
 .row-login {

@@ -5,8 +5,8 @@
         .module('app.timecard')
         .factory('timecardService', timecardService);
 
-    timecardService.$inject = [ '$http', 'clkioHost', 'exception', 'dateFilter', '$q' ];
-    function timecardService( $http, clkioHost, exception, dateFilter, $q ) {
+    timecardService.$inject = [ '$http', 'clkioHost', 'exception', 'dateFilter', '$q', 'toastr' ];
+    function timecardService( $http, clkioHost, exception, dateFilter, $q, toastr ) {
         var service = {
             getTimecard : getTimecard,
             punchOClock : punchOClock,

@@ -47,10 +47,10 @@
         <div class="panel panel-primary">
             <div class="panel-heading">clockins and clockouts</div>
             <div class="panel-body">
-                <form class="input-group">
-                    <input class="form-control custom-readonly clkio-datetime" name="clockin" placeholder="clockin" type="text" readonly>
+                <form class="input-group" name="formCreateClockinClockout" ng-submit=" vm.createClockinClockout( vm.clkio ) ">
+                    <input class="form-control custom-readonly clkio-datetime" name="clockin" placeholder="clockin" type="text" ng-model=" vm.clkio.clockin " ng-click=" vm.popClkioUp( vm.clkio, 'clockin' ) " readonly>
                     <span class="input-group-btn" style="width:0px;"></span>
-                    <input class="form-control custom-readonly clkio-datetime" name="clockout" placeholder="clockout" type="text" readonly>
+                    <input class="form-control custom-readonly clkio-datetime" name="clockout" placeholder="clockout" type="text" ng-model=" vm.clkio.clockout " ng-click=" vm.popClkioUp( vm.clkio, 'clockout' ) " readonly>
 
                     <!-- add buttons -->
                     <span class="input-group-btn">
@@ -60,10 +60,10 @@
                     </span>
                 </form>
                 
-                <form class="input-group" ng-repeat=" entering in vm.day.tableEntering | clkioOnlyFilter ">
-                    <input class="form-control custom-readonly clkio-datetime" name="clockin" placeholder="clockin" type="text" ng-model=" entering.clockin " readonly>
+                <form class="input-group" name="formUpdateClockinClockout" ng-repeat=" entering in vm.day.tableEntering | clkioOnlyFilter " >
+                    <input class="form-control custom-readonly clkio-datetime" name="clockin" placeholder="clockin" type="text" ng-model=" entering.clockin " ng-click=" vm.popClkioUp( entering, 'clockin' ) " readonly>
                     <span class="input-group-btn" style="width:0px;"></span>
-                    <input class="form-control custom-readonly clkio-datetime" name="clockout" placeholder="clockout" type="text" ng-model=" entering.clockout " readonly>
+                    <input class="form-control custom-readonly clkio-datetime" name="clockout" placeholder="clockout" type="text" ng-model=" entering.clockout " ng-click=" vm.popClkioUp( entering, 'clockout' ) " readonly>
 
                     <!-- update and delete buttons -->
                     <span class="input-group-btn">
@@ -73,8 +73,8 @@
                                 <i class="fa fa-caret-down" aria-hidden="true"></i>
                             </button>
                             <ul class="dropdown-menu dropdown-set-right">
-                                <li><a href="#">save</a></li>
-                                <li><a href="#">delete</a></li>
+                                <li><a href="#" ng-click=" vm.updateClockinClockout( entering ) ">save</a></li>
+                                <li><a href="#" ng-click=" vm.deleteClockinClockout( entering ) ">delete</a></li>
                             </ul>
                         </div>
                     </span>
@@ -141,26 +141,3 @@
         </button>
     </div>
 </div><!-- /div.btn-back -->
-
-<!-- modal clockin-clockout -->
-<div id="modal-clockin-clockout" class="modal fade" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">clockin / clockout</h4>
-            </div>
-            <div class="modal-body">
-                <div id="datetimepicker-clockin-clockout"></div>
-            </div>
-            <div class="modal-footer">
-                <div class="col-xs-6">
-                    <button type="button" class="btn btn-primary btn-block">set</button>
-                </div>
-                <div class="col-xs-6">
-                    <button type="button" class="btn btn-default btn-block" data-dismiss="modal">close</button>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal#modal-clockin-clockout -->
