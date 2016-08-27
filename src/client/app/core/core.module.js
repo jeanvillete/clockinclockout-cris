@@ -5,12 +5,12 @@
     .module('app.core', [
       'ui.router',
       'ngCookies',
+      'ui.bootstrap',
       'blocks.exception',
       'blocks.logger',
       'blocks.router',
       'app.login',
       'app.timecard',
-      'app.profile', 
-      'ui.bootstrap'
+      'app.settings'
     ]);
 })();

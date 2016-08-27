@@ -66,8 +66,8 @@
                                     </a>
                                 </li>
                                 <li class="divider"></li>
-                                <li><a href="#">timecard</a></li>
-                                <li><a href="#">settings</a></li>
+                                <li><a href="" ui-sref="timecard">timecard</a></li>
+                                <li><a href="" ui-sref="email">settings</a></li>
                                 <li><a href="" ng-controller="LoginController as vm" ng-click="vm.doLogout()">logout</a></li>
                             </ul>
                         </li>
@@ -110,19 +110,25 @@
         <!-- build:js js/app.js -->
         <!-- inject:js -->
         <script src="/src/client/app/app.module.js"></script>
+        <script src="/src/client/app/account/account.module.js"></script>
         <script src="/src/client/app/blocks/exception/exception.module.js"></script>
         <script src="/src/client/app/blocks/logger/logger.module.js"></script>
         <script src="/src/client/app/blocks/router/router.module.js"></script>
         <script src="/src/client/app/clockinclockout/clockinclockout.module.js"></script>
         <script src="/src/client/app/core/core.module.js"></script>
+        <script src="/src/client/app/email/email.module.js"></script>
         <script src="/src/client/app/login/login.module.js"></script>
         <script src="/src/client/app/manualentering/manualentering.module.js"></script>
+        <script src="/src/client/app/password/password.module.js"></script>
         <script src="/src/client/app/profile/profile.module.js"></script>
+        <script src="/src/client/app/settings/settings.module.js"></script>
         <script src="/src/client/app/timecard.basedate.modal/timecard.basedate.modal.module.js"></script>
         <script src="/src/client/app/timecard.clkio.modal/timecard.clkio.modal.module.js"></script>
         <script src="/src/client/app/timecard.details/timecard.details.module.js"></script>
         <script src="/src/client/app/timecard.punchoclock.modal/timecard.punchoclock.modal.module.js"></script>
         <script src="/src/client/app/timecard/timecard.module.js"></script>
+        <script src="/src/client/app/account/account.controller.js"></script>
+        <script src="/src/client/app/account/account.route.js"></script>
         <script src="/src/client/app/blocks/exception/exception-handler.provider.js"></script>
         <script src="/src/client/app/blocks/exception/exception.js"></script>
         <script src="/src/client/app/blocks/logger/logger.js"></script>
@@ -133,11 +139,19 @@
         <script src="/src/client/app/core/core.httpauth.interceptor.js"></script>
         <script src="/src/client/app/core/core.logincode.interceptor.js"></script>
         <script src="/src/client/app/core/core.route.js"></script>
+        <script src="/src/client/app/email/email.controller.js"></script>
+        <script src="/src/client/app/email/email.route.js"></script>
         <script src="/src/client/app/login/login.controller.js"></script>
         <script src="/src/client/app/login/login.factory.js"></script>
         <script src="/src/client/app/login/login.route.js"></script>
         <script src="/src/client/app/manualentering/manualentering.factory.js"></script>
+        <script src="/src/client/app/password/password.controller.js"></script>
+        <script src="/src/client/app/password/password.route.js"></script>
+        <script src="/src/client/app/profile/profile.controller.js"></script>
         <script src="/src/client/app/profile/profile.factory.js"></script>
+        <script src="/src/client/app/profile/profile.route.js"></script>
+        <script src="/src/client/app/settings/settings.menu.controller.js"></script>
+        <script src="/src/client/app/settings/settings.menu.directive.js"></script>
         <script src="/src/client/app/timecard.basedate.modal/timecard.basedate.modal.controller.js"></script>
         <script src="/src/client/app/timecard.clkio.modal/timecard.clkio.modal.controller.js"></script>
         <script src="/src/client/app/timecard.details/timecard.details.controller.js"></script>
