@@ -15,11 +15,17 @@
 
         <!-- build:css styles/lib.css -->
         <!-- bower:css -->
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css" />
+        <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="/bower_components/eonasdan-bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.min.css" />
+        <link rel="stylesheet" href="/bower_components/toastr/toastr.css" />
         <!-- endbower -->
         <!-- endbuild -->
 
         <!-- build:css styles/app.css -->
         <!-- inject:css -->
+        <link rel="stylesheet" href="/src/client/styles/styles.css">
         <!-- endinject -->
         <!-- endbuild -->
 
@@ -55,7 +61,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="themes">
                                 <li ng-repeat="profile in principal.profiles">
-                                    <a href="#">
+                                    <a href="" ng-click=" principal.changeProfile( profile ) ">
                                         {{ profile.description }} <i class="fa fa-check" aria-hidden="true" ng-show="profile.id === principal.profile.id" ></i>
                                     </a>
                                 </li>
@@ -88,11 +94,61 @@
 
         <!-- build:js js/lib.js -->
         <!-- bower:js -->
+        <script src="/bower_components/jquery/dist/jquery.js"></script>
+        <script src="/bower_components/angular/angular.js"></script>
+        <script src="/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="/bower_components/moment/moment.js"></script>
+        <script src="/bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js"></script>
+        <script src="/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="/bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="/bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+        <script src="/bower_components/toastr/toastr.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
         <!-- build:js js/app.js -->
         <!-- inject:js -->
+        <script src="/src/client/app/app.module.js"></script>
+        <script src="/src/client/app/blocks/exception/exception.module.js"></script>
+        <script src="/src/client/app/blocks/logger/logger.module.js"></script>
+        <script src="/src/client/app/blocks/router/router.module.js"></script>
+        <script src="/src/client/app/clockinclockout/clockinclockout.module.js"></script>
+        <script src="/src/client/app/core/core.module.js"></script>
+        <script src="/src/client/app/login/login.module.js"></script>
+        <script src="/src/client/app/manualentering/manualentering.module.js"></script>
+        <script src="/src/client/app/profile/profile.module.js"></script>
+        <script src="/src/client/app/timecard.basedate.modal/timecard.basedate.modal.module.js"></script>
+        <script src="/src/client/app/timecard.clkio.modal/timecard.clkio.modal.module.js"></script>
+        <script src="/src/client/app/timecard.details/timecard.details.module.js"></script>
+        <script src="/src/client/app/timecard.punchoclock.modal/timecard.punchoclock.modal.module.js"></script>
+        <script src="/src/client/app/timecard/timecard.module.js"></script>
+        <script src="/src/client/app/blocks/exception/exception-handler.provider.js"></script>
+        <script src="/src/client/app/blocks/exception/exception.js"></script>
+        <script src="/src/client/app/blocks/logger/logger.js"></script>
+        <script src="/src/client/app/blocks/router/router-helper.provider.js"></script>
+        <script src="/src/client/app/clockinclockout/clockinclockout.factory.js"></script>
+        <script src="/src/client/app/core/config.js"></script>
+        <script src="/src/client/app/core/constants.js"></script>
+        <script src="/src/client/app/core/core.httpauth.interceptor.js"></script>
+        <script src="/src/client/app/core/core.logincode.interceptor.js"></script>
+        <script src="/src/client/app/core/core.route.js"></script>
+        <script src="/src/client/app/login/login.controller.js"></script>
+        <script src="/src/client/app/login/login.factory.js"></script>
+        <script src="/src/client/app/login/login.route.js"></script>
+        <script src="/src/client/app/manualentering/manualentering.factory.js"></script>
+        <script src="/src/client/app/profile/profile.factory.js"></script>
+        <script src="/src/client/app/timecard.basedate.modal/timecard.basedate.modal.controller.js"></script>
+        <script src="/src/client/app/timecard.clkio.modal/timecard.clkio.modal.controller.js"></script>
+        <script src="/src/client/app/timecard.details/timecard.details.controller.js"></script>
+        <script src="/src/client/app/timecard.details/timecard.details.route.js"></script>
+        <script src="/src/client/app/timecard.punchoclock.modal/timecard.punchoclock.modal.controller.js"></script>
+        <script src="/src/client/app/timecard/timecard.clkioHoursFilter.filter.js"></script>
+        <script src="/src/client/app/timecard/timecard.clkioOnly.filter.js"></script>
+        <script src="/src/client/app/timecard/timecard.controller.js"></script>
+        <script src="/src/client/app/timecard/timecard.factory.js"></script>
+        <script src="/src/client/app/timecard/timecard.reasonOnly.filter.js"></script>
+        <script src="/src/client/app/timecard/timecard.route.js"></script>
         <!-- endinject -->
 
         <!-- inject:templates:js -->

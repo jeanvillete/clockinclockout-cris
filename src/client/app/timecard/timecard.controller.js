@@ -5,9 +5,9 @@
         .module('app.timecard')
         .controller('TimecardController', TimecardController);
     
-    TimecardController.$inject = [ '$rootScope', '$injector', '$cookies', 'profileService', 'timecardService', '$q', '$uibModal', '$filter', '$stateParams' ];
+    TimecardController.$inject = [ '$rootScope', '$scope','$injector', '$cookies', 'profileService', 'timecardService', '$q', '$uibModal', '$filter', '$stateParams' ];
     /* @ngInject */
-    function TimecardController( $rootScope, $injector, $cookies, profileService, timecardService, $q, $uibModal, $filter, $stateParams ) {
+    function TimecardController( $rootScope, $scope, $injector, $cookies, profileService, timecardService, $q, $uibModal, $filter, $stateParams ) {
         var vm = this;
         vm.timecard = {};
         vm.date;
@@ -30,6 +30,10 @@
                     user : $cookies.get( 'user' )
                 };
             }
+
+            $scope.$on( 'timecard_changeProfile', function( event, profile ){
+                return getTimecard( profile );
+            });
             
             if ( !( vm.timecard = $stateParams.timecard ) ) {
                 return getProfile().then( getTimecard );
@@ -55,8 +59,17 @@
             function success( data ){
                 $rootScope.principal.profiles = data.profiles;
                 $rootScope.principal.profile = data.profiles[ 0 ];
+                $rootScope.principal.changeProfile = changeProfile;
 
                 return $rootScope.principal.profile;
+
+                function changeProfile( profile ) {
+                    if ( $rootScope.principal.profile === profile )
+                        return;
+                        
+                    $rootScope.principal.profile = profile;
+                    $rootScope.$broadcast( 'timecard_changeProfile', profile );
+                }
             }
         }
 
