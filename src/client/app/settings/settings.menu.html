@@ -1,16 +1,16 @@
 <div class="row row-nav-pill-settings">
     <div class="col-sm-10 col-sm-offset-1">
         <ul class="nav nav-pills">
-            <li ng-class="{'active' : vm.isSelected( 'email' ) }">
+            <li ng-class="{'active' : isSelected( 'email' ) }">
                 <a href="" ui-sref="email">emails</a>
             </li>
-            <li ng-class="{'active' : vm.isSelected( 'profile' ) }">
+            <li ng-class="{'active' : isSelected( 'profile' ) }">
                 <a href="" ui-sref="profile">profiles</a>
             </li>
-            <li ng-class="{'active' : vm.isSelected( 'password' ) }">
+            <li ng-class="{'active' : isSelected( 'password' ) }">
                 <a href="" ui-sref="password">password</a>
             </li>
-            <li ng-class="{'active' : vm.isSelected( 'account' ) }">
+            <li ng-class="{'active' : isSelected( 'account' ) }">
                 <a href="" ui-sref="account">account</a>
             </li>
         </ul>

@@ -2,8 +2,8 @@
 
 <div class="row row-emails">
     <div class="col-sm-10 col-sm-offset-1">
-        <form class="input-group" >
-            <input class="form-control" name="emailAddress" type="text" placeholder="email address" />
+        <form class="input-group" name="formCreateEmail" ng-submit=" vm.create() " >
+            <input class="form-control" name="emailAddress" type="text" placeholder="email address" ng-model=" vm.email.emailAddress " />
 
             <!-- btn add email record -->
             <span class="input-group-btn" >
@@ -13,70 +13,28 @@
             </span>
         </form>
 
-        <form class="input-group" >
-            <input class="form-control" name="emailAddress" type="text" placeholder="email address" value="jean.villete@gmail.com" disabled/>
+        <form class="input-group" name="formUpdateEmail" ng-repeat=" email in vm.emails " >
+            <input class="form-control" name="emailAddress" type="text" placeholder="email address" ng-model=" email.emailAddress " disabled/>
 
             <!-- btn update/delete email record -->
             <span class="input-group-btn">
-                <span class="email-info-primay">primary</span>
+                <span class="email-info-primay" ng-show=" email.primary " >primary</span>
+                <span class="email-info-notconfirmed" ng-hide=" email.confirmed ">not confirmed</span>
                 <div class="btn-group">
                     <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
                         <i class="fa fa-caret-down" aria-hidden="true"></i>
                     </button>
                     <ul class="dropdown-menu dropdown-set-right">
-                        <li><a href="#" class="btn-emails-set-as-primary">set as primary</a></li>
-                        <li><a href="#" class="btn-emails-delete">delete</a></li>
-                    </ul>
-                </div>
-            </span>
-        </form>
-        <form class="input-group" >
-            <input class="form-control" name="emailAddress" type="text" placeholder="email address" value="brunopib@gmail.com" disabled/>
-
-            <!-- btn update/delete email record -->
-            <span class="input-group-btn">
-                <span class="email-info-notconfirmed">not confirmed</span>
-                <div class="btn-group">
-                    <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
-                        <i class="fa fa-caret-down" aria-hidden="true"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-set-right">
-                        <li><a href="#" class="btn-emails-set-as-primary">set as primary</a></li>
-                        <li><a href="#" class="btn-emails-delete">delete</a></li>
-                    </ul>
-                </div>
-            </span>
-        </form>
-        <form class="input-group" >
-            <input class="form-control" name="emailAddress" type="text" placeholder="email address" value="sampleemail@gmail.com" disabled/>
-
-            <!-- btn update/delete email record -->
-            <span class="input-group-btn">
-                <span class="email-info-notconfirmed">not confirmed</span>
-                <div class="btn-group">
-                    <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
-                        <i class="fa fa-caret-down" aria-hidden="true"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-set-right">
-                        <li><a href="#" class="btn-emails-set-as-primary">set as primary</a></li>
-                        <li><a href="#" class="btn-emails-delete">delete</a></li>
-                    </ul>
-                </div>
-            </span>
-        </form>
-        <form class="input-group" >
-            <input class="form-control" name="emailAddress" type="text" placeholder="email address" value="testtest@gmail.com" disabled/>
-
-            <!-- btn update/delete email record -->
-            <span class="input-group-btn">
-                <span class="email-info-notconfirmed">not confirmed</span>
-                <div class="btn-group">
-                    <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
-                        <i class="fa fa-caret-down" aria-hidden="true"></i>
-                    </button>
-                    <ul class="dropdown-menu dropdown-set-right">
-                        <li><a href="#" class="btn-emails-set-as-primary">set as primary</a></li>
-                        <li><a href="#" class="btn-emails-delete">delete</a></li>
+                        <li ng-hide=" email.primary ">
+                            <a href="" ng-click=" vm.setAsPrimary( email ) " class="btn-emails-set-as-primary">
+                                set as primary
+                            </a>
+                        </li>
+                        <li>
+                            <a href="" ng-click=" vm.delete( email ) " class="btn-emails-delete">
+                                delete
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </span>

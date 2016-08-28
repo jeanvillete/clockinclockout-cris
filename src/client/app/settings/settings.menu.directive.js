@@ -10,7 +10,6 @@
     function settingsMenuDirective() {
         var directive = {
             controller: 'SettingsMenuController',
-            controllerAs: 'vm',
             restrict: 'E',
             templateUrl : 'app/settings/settings.menu.html'
         };

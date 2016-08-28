@@ -5,11 +5,10 @@
         .module('app.settings')
         .controller('SettingsMenuController', SettingsMenuController);
     
-    SettingsMenuController.$inject = [ '$injector' ];
+    SettingsMenuController.$inject = [ '$injector', '$scope' ];
     /* @ngInject */
-    function SettingsMenuController( $injector ) {
-        var vm = this;
-        vm.isSelected = isSelected;
+    function SettingsMenuController( $injector, $scope ) {
+        $scope.isSelected = isSelected;
 
         ////////////////
 
