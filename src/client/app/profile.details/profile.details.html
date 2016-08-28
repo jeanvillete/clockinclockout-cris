@@ -1,0 +1,144 @@
+<!-- panel for profiles -->
+<div class="row row-profiles">
+    <div class="col-sm-10 col-sm-offset-1">
+        <!-- form for profiles -->
+        <form name="formUpdateProfile" ng-submit=" vm.update() ">
+            <!-- box for profile description -->
+            <div class="form-group form-sm-group col-xs-6">
+                <input type="text" name="description" placeholder="profile description" class="form-control" ng-model=" vm.profile.description ">
+            </div>
+
+            <!-- box for hours and date format -->
+            <div class="form-group form-sm-group col-xs-3">
+                <input type="text" name="dateFormat" placeholder="date format" class="form-control" ng-model=" vm.profile.dateFormat ">
+            </div>
+            <div class="form-group form-sm-group col-xs-3">
+                <input type="text" name="hoursFormat" placeholder="hours format" class="form-control" ng-model=" vm.profile.hoursFormat ">
+            </div>
+
+            <!-- boxes for monday and tuesday -->
+            <div class="form-group form-sm-group col-xs-3">
+                <input type="text" name="expectedMonday" placeholder="monday" class="form-control " ng-model=" vm.profile.expectedMonday ">
+            </div>
+            <div class="form-group form-sm-group col-xs-3">
+                <input type="text" name="expectedTuesday" placeholder="tuesday" class="form-control " ng-model=" vm.profile.expectedTuesday ">
+            </div>
+
+            <!-- boxes for wednesday and thursday -->
+            <div class="form-group form-sm-group col-xs-3">
+                <input type="text" name="expectedWednesday" placeholder="wednesday" class="form-control "  ng-model=" vm.profile.expectedWednesday ">
+            </div>
+            <div class="form-group form-sm-group col-xs-3">
+                <input type="text" name="expectedThursday" placeholder="thursday" class="form-control " ng-model=" vm.profile.expectedThursday ">
+            </div>
+
+            <!-- boxes for friday and saturday -->
+            <div class="form-group form-sm-group col-xs-3">
+                <input type="text" name="expectedFriday" placeholder="friday" class="form-control " ng-model=" vm.profile.expectedFriday ">
+            </div>
+            <div class="form-group form-sm-group col-xs-3">
+                <input type="text" name="expectedSaturday" placeholder="saturday" class="form-control " ng-model=" vm.profile.expectedSaturday ">
+            </div>
+
+            <!-- boxes for sunday box and save/delete buttons -->
+            <div class="form-group form-sm-group col-xs-3">
+                <input type="text" name="expectedSunday" placeholder="sunday" class="form-control" ng-model=" vm.profile.expectedSunday ">
+            </div>
+            <div class="form-group form-sm-group col-xs-3">
+                <button type="submit" class="btn btn-primary custom-half-size" >save</button>
+                <button type="button" class="btn btn-danger custom-half-size pull-right" ng-click=" vm.delete() " >delete</button>
+            </div>
+        </form>
+    </div>
+</div><!-- /.row-profiles -->
+    
+<div class="row row-panels-on-footer" >
+    <!-- panel for adjustings -->
+    <div class="col-sm-5 col-sm-offset-1 row-panel-adjustings" >
+        <div class="panel panel-primary">
+            <div class="panel-heading">adjustings</div>
+            <div class="panel-body">
+                <form class="input-group" name="formCreateAdjusting" ng-submit=" vm.createAdjusting() ">
+                    <input class="form-control" name="description" placeholder="description" type="text" ng-model=" vm.adjusting.description ">
+                    <span class="input-group-btn" style="width:0px;"></span>
+                    <input class="form-control" name="timeInterval" placeholder="time interval" type="text" ng-model=" vm.adjusting.timeInterval ">
+
+                    <!-- add buttons -->
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-success btn-input">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                        </button>
+                    </span>
+                </form>
+
+                <form class="input-group" ng-repeat=" adjusting in vm.profile.adjustings ">
+                    <input class="form-control" name="description" placeholder="description" type="text" ng-model=" adjusting.description ">
+                    <span class="input-group-btn" style="width:0px;"></span>
+                    <input class="form-control" name="timeInterval" placeholder="time interval" type="text" ng-model=" adjusting.timeInterval ">
+
+                    <!-- update and delete buttons -->
+                    <span class="input-group-btn">
+                        <div class="btn-group">
+                            <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+                                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-set-right">
+                                <li>
+                                    <a href="" ng-click=" vm.updateAdjusting( adjusting ) ">save</a>
+                                </li>
+                                <li>
+                                    <a href="" ng-click=" vm.deleteAdjusting( adjusting ) ">delete</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </span>
+                </form>
+            </div>
+        </div>
+    </div><!-- /.row-panel-adjustings -->
+
+    <!-- panel for reasons -->
+    <div class="col-sm-5 row-panel-reasons" >
+        <div class="panel panel-primary">
+            <div class="panel-heading">reasons</div>
+            <div class="panel-body">
+                <form class="input-group" name="formCreateReason" ng-submit=" vm.createReason() ">
+                    <input class="form-control" name="reason" placeholder="reason text" type="text" ng-model=" vm.reason.reason ">
+
+                    <!-- add buttons -->
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-success btn-input">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i>
+                        </button>
+                    </span>
+                </form>
+
+                <form class="input-group" ng-repeat=" reason in vm.profile.reasons ">
+                    <input class="form-control" name="reason" placeholder="reason text" type="text" ng-model=" reason.reason ">
+
+                    <!-- update and delete buttons -->
+                    <span class="input-group-btn" >
+                        <div class="btn-group">
+                            <button class="btn btn-primary btn-input btn-input-caret dropdown-toggle" type="button" aria-expanded="false" data-toggle="dropdown">
+                                <i class="fa fa-caret-down" aria-hidden="true"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-set-right">
+                                <li><a href="" ng-click=" vm.updateReason( reason ) " >save</a></li>
+                                <li><a href="" ng-click=" vm.deleteReason( reason ) " >delete</a></li>
+                            </ul>
+                        </div>
+                    </span>
+                </form>
+            </div>
+        </div>
+    </div><!-- /.row-panel-reasons -->
+</div>
+
+<div class="row btn-back">
+    <div class="col-xs-3 col-xs-offset-9 col-sm-2 col-sm-offset-9">
+        <a href="" ui-sref="profile" class="btn btn-primary btn-lg btn-block" >
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            back
+        </a>
+    </div>
+</div><!-- /div.btn-back -->

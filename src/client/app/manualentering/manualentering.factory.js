@@ -66,7 +66,7 @@
 
         function _delete( profile, manualEntering ) {
             var api = clkioHost + 'profiles/' + profile.id +  '/timecard/manualentering/' + manualEntering.id;
-            return $http.delete( api, manualEntering )
+            return $http.delete( api )
                 .then( success, fail );
 
             ////////////////

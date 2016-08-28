@@ -4,8 +4,8 @@
 <div class="row row-profiles">
     <!-- form for profile's description -->
     <div class="col-sm-10 col-sm-offset-1">
-        <form class="input-group" >
-            <input class="form-control" name="description" type="text" placeholder="profile description" />
+        <form class="input-group" name="formInsertProfile" ng-submit=" vm.create() ">
+            <input class="form-control" name="description" type="text" placeholder="profile description" ng-model=" vm.profile.description " />
             
             <!-- btn add profile (description) record -->
             <span class="input-group-btn" >
@@ -26,25 +26,10 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>villete at gft</td>
-                    <td>dd/MM/yyyy</td>
-                    <td>HH/mm</td>
-                </tr>
-                <tr>
-                    <td>villete at gft</td>
-                    <td>dd/MM/yyyy</td>
-                    <td>HH/mm</td>
-                </tr>
-                <tr>
-                    <td>villete at gft</td>
-                    <td>dd/MM/yyyy</td>
-                    <td>HH/mm</td>
-                </tr>
-                <tr>
-                    <td>villete at gft</td>
-                    <td>dd/MM/yyyy</td>
-                    <td>HH/mm</td>
+                <tr ng-repeat=" profile in principal.profiles " ng-click=" vm.edit( profile ) ">
+                    <td> {{ profile.description }} </td>
+                    <td> {{ profile.dateFormat }} </td>
+                    <td> {{ profile.hoursFormat }} </td>
                 </tr>
             </tbody>
         </table>

@@ -62,7 +62,7 @@
 
         function _delete( profile, clkio ) {
             var api = clkioHost + 'profiles/' + profile.id +  '/timecard/clockinclockout/' + clkio.id;
-            return $http.delete( api, clkio )
+            return $http.delete( api )
                 .then( success, fail );
 
             ////////////////

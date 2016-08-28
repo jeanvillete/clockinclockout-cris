@@ -57,7 +57,7 @@
             if ( !email.id )
                 return $q.reject( console.error( 'Invalid object state, it was supposed it has the "id" be filled.' ) );
 
-            return $http.delete( api + email.id, email )
+            return $http.delete( api + email.id )
                 .then( success, fail );
 
             ////////////////

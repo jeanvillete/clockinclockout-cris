@@ -28,7 +28,6 @@
 			"\tfunction ${Controller}Controller(${dependency1}) {",
 			"\t\tvar vm = this;",
 			"\t\t$0",
-			"",
 			"\t\tactivate();",
 			"",
 			"\t\t////////////////",
