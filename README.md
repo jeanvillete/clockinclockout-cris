@@ -12,3 +12,10 @@ I follow on this project John Pappa's [style guide for angular 1](https://github
 
 ### building optimized for production
  - `gulp build`
+
+***
+
+Related projects;
+- clockinclockout-jaxws; https://github.com/jeanvillete/clockinclockout-jaxws/
+- clockinclockout-schemas; https://github.com/jeanvillete/clockinclockout-schemas
+- clockinclockout-rest; https://github.com/jeanvillete/clockinclockout-rest
