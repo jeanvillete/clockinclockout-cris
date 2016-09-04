@@ -5,15 +5,21 @@
         .module( 'app.password' )
         .controller('PasswordController', PasswordController);
     
-    PasswordController.$inject = [];
+    PasswordController.$inject = [ 'principalHolderService' ];
     /* @ngInject */
-    function PasswordController() {
+    function PasswordController( principalHolderService ) {
         var vm = this;
 
         activate();
 
         ////////////////
 
-        function activate() { }
+        function activate() {
+            if ( !principalHolderService.getLoginCode() ) {
+                return $injector.get( '$state' ).go( 'login' );
+            } else {
+                principalHolderService.getProfiles( true );
+            }
+        }
     }
 })();

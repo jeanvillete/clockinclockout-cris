@@ -5,9 +5,9 @@
         .module('app.account')
         .controller('AccountController', AccountController);
     
-    AccountController.$inject = [];
+    AccountController.$inject = [ 'principalHolderService' ];
     /* @ngInject */
-    function AccountController() {
+    function AccountController( principalHolderService ) {
         var vm = this;
         
 
@@ -15,6 +15,12 @@
 
         ////////////////
 
-        function activate() { }
+        function activate() {
+            if ( !principalHolderService.getLoginCode() ) {
+                return $injector.get( '$state' ).go( 'login' );
+            } else {
+                principalHolderService.getProfiles( true );
+            }
+        }
     }
 })();
