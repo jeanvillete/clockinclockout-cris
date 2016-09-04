@@ -18,6 +18,10 @@ td div.label {
 	min-width: 200px;
 }
 
+div.form-group > label.control-label {
+	margin-bottom: 0px !important;
+}
+
 div > form.input-group:first-child {
     margin-bottom: 25px;
 }
@@ -67,7 +71,7 @@ span.email-info-notconfirmed {
 }
 
 .form-sm-group {
-	margin-bottom: 5px;
+	margin-bottom: 10px;
 }
 
 .row-panels-on-footer {
@@ -110,4 +114,8 @@ input.custom-readonly:hover {
 
 #toast-container > div {
 	opacity: 1 !important;
+}
+
+.custom-saveprofile-formgroup {
+	padding-top: 21px;
 }
