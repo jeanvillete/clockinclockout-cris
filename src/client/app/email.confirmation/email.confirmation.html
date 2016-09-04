@@ -1,0 +1,21 @@
+<div class="row row-email-confirmation" >
+    <div class="col-sm-8 col-sm-offset-2">
+        <blockquote>
+            <h3>
+                Working on email confirmation
+                <img ng-src="images/ajax.gif" ng-show=" !vm.error && !vm.success ">
+            </h3>
+        </blockquote>
+
+        <div class="alert alert-danger" role="alert" ng-hide=" !vm.error ">
+            An error has happend while processing the email request.
+        </div>
+
+        <div class="alert alert-success" role="alert" ng-hide=" !vm.success ">
+            {{ vm.emailAddress }} has been confirmed successfully.
+            <a href="" class="" ui-sref="login">
+                go to login
+            </a>
+        </div>
+    </div>
+</div>

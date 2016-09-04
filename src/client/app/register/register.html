@@ -1,0 +1,51 @@
+<div class="row row-login" >
+    <div class="col-sm-4 col-sm-offset-4">
+        <div class="panel panel-default">
+            <div class="panel-body custom-panel-login">
+                <h3>Register New User</h3>
+                <form name="formRegisterUser" ng-submit=" vm.doRegister() " novalidate>
+                    <hr>
+                    <div class="alert alert-danger" role="alert" ng-show=" vm.alert ">
+                        {{ vm.alert }}
+                    </div>
+                    <div class="alert alert-success" role="alert" ng-show=" vm.successMessage ">
+                        <p>
+                            Great! Your registering has been done.
+                        </p>
+                        <p>
+                            Check your inbox out, confirm the email address and then get logged in =]
+                        </p> 
+                    </div>
+                    <div class="input-group form-group">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                        </span>
+                        <input class="form-control" name="user" placeholder="email" type="text" ng-model=" vm.email " ng-disabled=" vm.successMessage ">
+                    </div>
+                    <div class="input-group form-group">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-lock"></span>
+                        </span>
+                        <input class="form-control" name="password" placeholder="password" type="password" ng-model=" vm.password " ng-disabled=" vm.successMessage ">
+                    </div>
+                    <div class="input-group form-group">
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-lock"></span>
+                        </span>
+                        <input class="form-control" name="confirmPassword" placeholder="confirm password" type="password" ng-model=" vm.confirmPassword " ng-disabled=" vm.successMessage ">
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <button class="btn btn-primary btn-block" type="submit" ng-disabled=" vm.successMessage ">
+                            register
+                        </button>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <a href="" class="btn btn-default btn-block" ui-sref="login">
+                            back
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

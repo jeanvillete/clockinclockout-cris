@@ -9,6 +9,7 @@ module.exports = function() {
             bowerDirectory + 'font-awesome/fonts/**/*.*',
             bowerDirectory + 'bootstrap/fonts/**/*.*'
         ],
+        images : client + 'images/**/*.*',
         htmltemplates : clientApp + '**/*.html',
         temp : './.tmp/',
         build : './build/',

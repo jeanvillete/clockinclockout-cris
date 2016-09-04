@@ -16,7 +16,7 @@
         ////////////////
         function responseError( response ) {
             var $state = $injector.get( '$state' );
-            if ( [ 401, 403 ].indexOf( response.status ) >= 0 && !$state.includes( 'login' ) ) {
+            if ( [ 401, 403 ].indexOf( response.status ) >= 0 && !$state.includes( 'login' ) && !$state.includes( 'confirmation' ) ) {
                 delete $rootScope.principal;
                 $cookies.remove( 'clkioLoginCode' );
                 $state.go( 'login' );

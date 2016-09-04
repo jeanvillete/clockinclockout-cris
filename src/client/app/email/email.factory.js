@@ -13,7 +13,8 @@
             list:list,
             create : create,
             delete : _delete,
-            setAsPrimary : setAsPrimary
+            setAsPrimary : setAsPrimary,
+            confirm : confirm
         };
         
         return service;
@@ -90,6 +91,25 @@
 
             function fail( e ) {
                 toastr.error( e.data.message, "Problems while setting 'email' record as primary.");
+                return exception.catcher( 'XHR Failed for; ' + api )( e );
+            }
+        }
+
+        function confirm( email ) {
+            if ( !( email.emailAddress && email.confirmationCode ) ) {
+                return $q.reject( "Impossible process request, it is mandatory to be provided properly both 'email address' and 'confirmation code'." );
+            }
+
+            return $http.post( api + "confirmations/" + email.confirmationCode, email )
+                .then( success, fail );
+
+            ////////////////
+
+            function success( response ) {
+                return response.data;
+            }
+
+            function fail( e ) {
                 return exception.catcher( 'XHR Failed for; ' + api )( e );
             }
         }
