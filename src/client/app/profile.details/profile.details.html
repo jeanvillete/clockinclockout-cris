@@ -5,46 +5,56 @@
         <form name="formUpdateProfile" ng-submit=" vm.update() ">
             <!-- box for profile description -->
             <div class="form-group form-sm-group col-xs-6">
-                <input type="text" name="description" placeholder="profile description" class="form-control" ng-model=" vm.profile.description ">
+                <label class="control-label" for="description">description</label>
+                <input type="text" id="description" name="description" placeholder="profile description" class="form-control" ng-model=" vm.profile.description ">
             </div>
 
             <!-- box for hours and date format -->
             <div class="form-group form-sm-group col-xs-3">
-                <input type="text" name="dateFormat" placeholder="date format" class="form-control" ng-model=" vm.profile.dateFormat ">
+                <label class="control-label" for="dateFormat">date format</label>
+                <input type="text" id="dateFormat" name="dateFormat" placeholder="date format" class="form-control" ng-model=" vm.profile.dateFormat ">
             </div>
             <div class="form-group form-sm-group col-xs-3">
-                <input type="text" name="hoursFormat" placeholder="hours format" class="form-control" ng-model=" vm.profile.hoursFormat ">
+                <label class="control-label" for="hoursFormat">hours format</label>
+                <input type="text" id="hoursFormat" name="hoursFormat" placeholder="hours format" class="form-control" ng-model=" vm.profile.hoursFormat ">
             </div>
 
             <!-- boxes for monday and tuesday -->
             <div class="form-group form-sm-group col-xs-3">
-                <input type="text" name="expectedMonday" placeholder="monday" class="form-control " ng-model=" vm.profile.expectedMonday ">
+                <label class="control-label" for="expectedMonday">monday</label>
+                <input type="text" id="expectedMonday" name="expectedMonday" placeholder="monday" class="form-control " ng-model=" vm.profile.expectedMonday ">
             </div>
             <div class="form-group form-sm-group col-xs-3">
-                <input type="text" name="expectedTuesday" placeholder="tuesday" class="form-control " ng-model=" vm.profile.expectedTuesday ">
+                <label class="control-label" for="expectedTuesday">tuesday</label>
+                <input type="text" id="expectedTuesday" name="expectedTuesday" placeholder="tuesday" class="form-control " ng-model=" vm.profile.expectedTuesday ">
             </div>
 
             <!-- boxes for wednesday and thursday -->
             <div class="form-group form-sm-group col-xs-3">
-                <input type="text" name="expectedWednesday" placeholder="wednesday" class="form-control "  ng-model=" vm.profile.expectedWednesday ">
+                <label class="control-label" for="expectedWednesday">wednesday</label>
+                <input type="text" id="expectedWednesday" name="expectedWednesday" placeholder="wednesday" class="form-control "  ng-model=" vm.profile.expectedWednesday ">
             </div>
             <div class="form-group form-sm-group col-xs-3">
-                <input type="text" name="expectedThursday" placeholder="thursday" class="form-control " ng-model=" vm.profile.expectedThursday ">
+                <label class="control-label" for="expectedThursday">thursday</label>
+                <input type="text" id="expectedThursday" name="expectedThursday" placeholder="thursday" class="form-control " ng-model=" vm.profile.expectedThursday ">
             </div>
 
             <!-- boxes for friday and saturday -->
             <div class="form-group form-sm-group col-xs-3">
-                <input type="text" name="expectedFriday" placeholder="friday" class="form-control " ng-model=" vm.profile.expectedFriday ">
+                <label class="control-label" for="expectedFriday">friday</label>
+                <input type="text" id="expectedFriday" name="expectedFriday" placeholder="friday" class="form-control " ng-model=" vm.profile.expectedFriday ">
             </div>
             <div class="form-group form-sm-group col-xs-3">
-                <input type="text" name="expectedSaturday" placeholder="saturday" class="form-control " ng-model=" vm.profile.expectedSaturday ">
+                <label class="control-label" for="expectedSaturday">saturday</label>
+                <input type="text" id="expectedSaturday" name="expectedSaturday" placeholder="saturday" class="form-control " ng-model=" vm.profile.expectedSaturday ">
             </div>
 
             <!-- boxes for sunday box and save/delete buttons -->
             <div class="form-group form-sm-group col-xs-3">
-                <input type="text" name="expectedSunday" placeholder="sunday" class="form-control" ng-model=" vm.profile.expectedSunday ">
+                <label class="control-label" for="expectedSunday">sunday</label>
+                <input type="text" id="expectedSunday" name="expectedSunday" placeholder="sunday" class="form-control" ng-model=" vm.profile.expectedSunday ">
             </div>
-            <div class="form-group form-sm-group col-xs-3">
+            <div class="form-group form-sm-group col-xs-3 custom-saveprofile-formgroup">
                 <button type="submit" class="btn btn-primary custom-half-size" >save</button>
                 <button type="button" class="btn btn-danger custom-half-size pull-right" ng-click=" vm.delete() " >delete</button>
             </div>

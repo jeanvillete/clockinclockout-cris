@@ -5,9 +5,9 @@
         .module('app.manualentering')
         .factory('manualEnteringService', manualEnteringService);
 
-    manualEnteringService.$inject = [ '$http', 'clkioHost', 'exception', '$q' ];
+    manualEnteringService.$inject = [ '$http', 'clkioHost', 'exception', '$q', 'toastr' ];
     /* @ngInject */
-    function manualEnteringService( $http, clkioHost, exception, $q ) {
+    function manualEnteringService( $http, clkioHost, exception, $q, toastr ) {
         var service = {
             create : create,
             update : update,
@@ -18,6 +18,16 @@
 
         ////////////////
 
+        function param( manualEntering ) {
+            return {
+                reason : manualEntering.reason,
+                timeInterval : manualEntering.timeInterval,
+                day : {
+                    date : manualEntering.day.date
+                }
+            };
+        }
+
         function create( profile, manualEntering ) {
             var api = clkioHost + 'profiles/' + profile.id +  '/timecard/manualentering';
 
@@ -26,12 +36,13 @@
             else if ( !manualEntering.timeInterval )
                 return $q.reject( toastr.error( "Field 'time interval' is mandatory", "Required fields.") );
 
-            return $http.post( api, manualEntering )
+            return $http.post( api, param( manualEntering ) )
                 .then( success, fail );
 
             ////////////////
 
             function success( response ) {
+                toastr.success( "New 'manual entering' saved.", "Success!");
                 return response.data;
             }
 
@@ -49,12 +60,13 @@
             else if ( !manualEntering.timeInterval )
                 return $q.reject( toastr.error( "Field 'time interval' is mandatory", "Required fields.") );
 
-            return $http.put( api, manualEntering )
+            return $http.put( api, param( manualEntering ) )
                 .then( success, fail );
 
             ////////////////
 
             function success( response ) {
+                toastr.success( "Record 'manual entering' changed.", "Success!");
                 return response.data;
             }
 
@@ -72,6 +84,7 @@
             ////////////////
 
             function success( response ) {
+                toastr.success( "Record 'manual entering' deleted.", "Success!");
                 return response.data;
             }
 

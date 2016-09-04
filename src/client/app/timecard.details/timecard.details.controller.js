@@ -5,9 +5,9 @@
         .module('app.timecard.details')
         .controller('TimecardDetailsController', TimecardDetailsController);
     
-    TimecardDetailsController.$inject = [ '$rootScope', '$injector', '$stateParams', 'timecardService', '$uibModal', 'dateFilter', 'moment', 'clkioService', 'manualEnteringService' ];
+    TimecardDetailsController.$inject = [ '$injector', '$stateParams', 'timecardService', '$uibModal', 'dateFilter', 'moment', 'clkioService', 'manualEnteringService', 'principalHolderService' ];
     /* @ngInject */
-    function TimecardDetailsController( $rootScope, $injector, $stateParams, timecardService, $uibModal, dateFilter, moment, clkioService, manualEnteringService ) {
+    function TimecardDetailsController( $injector, $stateParams, timecardService, $uibModal, dateFilter, moment, clkioService, manualEnteringService, principalHolderService ) {
         var vm = this;
         vm.clkio;
         vm.manualEntering;
@@ -78,7 +78,7 @@
                 "text" : vm.notes
             };
 
-            return timecardService.saveNotes( $rootScope.principal.profile, params )
+            return timecardService.saveNotes( principalHolderService.getProfile(), params )
                 .then( updateModel );
         }
 
@@ -88,7 +88,7 @@
                 "expectedHours" : vm.expectedHours
             };
 
-            return timecardService.saveExpectedHours( $rootScope.principal.profile, params )
+            return timecardService.saveExpectedHours( principalHolderService.getProfile(), params )
                 .then( updateModel );
         }
 
@@ -100,18 +100,18 @@
                 controllerAs : 'vm',
                 resolve : {
                     minDate : function() {
-                        return moment( vm.day.date, $rootScope.principal.profile.dateFormat.toUpperCase() );
+                        return moment( vm.day.date, principalHolderService.getProfile().dateFormat.toUpperCase() );
                     },
                     enabledDates : function() {
-                        return setProperty === 'clockin' ? [ moment( vm.day.date, $rootScope.principal.profile.dateFormat.toUpperCase() ) ] : false;
+                        return setProperty === 'clockin' ? [ moment( vm.day.date, principalHolderService.getProfile().dateFormat.toUpperCase() ) ] : false;
                     },
                     defaultDate : function() {
                         if ( clkio[ setProperty ] ) {
-                            return moment( clkio[ setProperty ], $rootScope.principal.profile.dateFormat.toUpperCase() + ' ' + $rootScope.principal.profile.hoursFormat );
+                            return moment( clkio[ setProperty ], principalHolderService.getProfile().dateFormat.toUpperCase() + ' ' + principalHolderService.getProfile().hoursFormat );
                         }
 
                         var now = new Date();
-                        var thisMoment = moment( vm.day.date, $rootScope.principal.profile.dateFormat.toUpperCase() );
+                        var thisMoment = moment( vm.day.date, principalHolderService.getProfile().dateFormat.toUpperCase() );
                         thisMoment.hour( now.getHours() );
                         thisMoment.minute( now.getMinutes() );
                         return thisMoment;
@@ -122,12 +122,12 @@
             ///////////////
 
             function success( date ) {
-                clkio[ setProperty ] = dateFilter( date, $rootScope.principal.profile.dateFormat + ' ' + $rootScope.principal.profile.hoursFormat );
+                clkio[ setProperty ] = dateFilter( date, principalHolderService.getProfile().dateFormat + ' ' + principalHolderService.getProfile().hoursFormat );
             }
         }
 
         function createClockinClockout( clkio ) {
-            return clkioService.create( $rootScope.principal.profile, clkio )
+            return clkioService.create( principalHolderService.getProfile(), clkio )
                 .then( success );
 
             ///////////////
@@ -141,7 +141,7 @@
         }
 
         function updateClockinClockout( clkio ) {
-            return clkioService.update( $rootScope.principal.profile, clkio )
+            return clkioService.update( principalHolderService.getProfile(), clkio )
                 .then( updateModel );
         }
 
@@ -149,13 +149,13 @@
             if ( !confirm( 'Confirm delete?' ) )
                 return;
 
-            return clkioService.delete( $rootScope.principal.profile, clkio )
+            return clkioService.delete( principalHolderService.getProfile(), clkio )
                 .then( updateModel );
         }
 
         function createManualEntering( manualEntering ) {
             angular.extend( manualEntering, { day : vm.day } );
-            return manualEnteringService.create( $rootScope.principal.profile, manualEntering )
+            return manualEnteringService.create( principalHolderService.getProfile(), manualEntering )
                 .then( success );
 
             ///////////////
@@ -168,7 +168,7 @@
 
         function updateManualEntering( manualEntering ) {
             manualEntering.day = { date : vm.day.date };
-            return manualEnteringService.update( $rootScope.principal.profile, manualEntering )
+            return manualEnteringService.update( principalHolderService.getProfile(), manualEntering )
                 .then( updateModel );
         }
 
@@ -176,7 +176,7 @@
             if ( !confirm( 'Confirm delete?' ) )
                 return;
 
-            return manualEnteringService.delete( $rootScope.principal.profile, manualEntering )
+            return manualEnteringService.delete( principalHolderService.getProfile(), manualEntering )
                 .then( updateModel );
         }
     }

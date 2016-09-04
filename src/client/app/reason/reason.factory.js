@@ -33,6 +33,7 @@
                 .then( success, fail );
 
             function success( response ) {
+                toastr.success( "New 'reason' saved.", "Success!");
                 return response.data;
             }
 
@@ -56,6 +57,7 @@
                 .then( success, fail );
 
             function success( response ) {
+                toastr.success( "Record 'reason' changed.", "Success!");
                 return response.data;
             }
 
@@ -77,6 +79,7 @@
                 .then( success, fail );
 
             function success( response ) {
+                toastr.success( "Record 'reason' deleted.", "Success!");
                 return response.data;
             }
 

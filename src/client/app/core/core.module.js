@@ -11,6 +11,7 @@
       'blocks.router',
       'app.login',
       'app.timecard',
-      'app.settings'
+      'app.settings',
+      'app.principal.holder'
     ]);
 })();

@@ -35,6 +35,7 @@
                 .then( success, fail );
 
             function success( response ) {
+                toastr.success( "New 'adjusting' saved.", "Success!");
                 return response.data;
             }
 
@@ -60,6 +61,7 @@
                 .then( success, fail );
 
             function success( response ) {
+                toastr.success( "Record 'adjusting' changed.", "Success!");
                 return response.data;
             }
 
@@ -81,6 +83,7 @@
                 .then( success, fail );
 
             function success( response ) {
+                toastr.success( "Record 'adjusting' deleted.", "Success!");
                 return response.data;
             }
 

@@ -5,9 +5,9 @@
         .module('app.profile.details')
         .controller('ProfileDetailsController', ProfileDetailsController);
     
-    ProfileDetailsController.$inject = [ 'profileService', 'adjustingService', 'reasonService', '$stateParams', '$injector', '$rootScope' ];
+    ProfileDetailsController.$inject = [ 'profileService', 'adjustingService', 'reasonService', '$stateParams', '$injector', 'principalHolderService' ];
     /* @ngInject */
-    function ProfileDetailsController( profileService, adjustingService, reasonService, $stateParams, $injector, $rootScope ) {
+    function ProfileDetailsController( profileService, adjustingService, reasonService, $stateParams, $injector, principalHolderService ) {
         var vm = this;
         vm.profile;
         vm.adjusting;
@@ -59,8 +59,8 @@
                 .then( success );
             
             function success( data ) {
-                var index = $rootScope.principal.profiles.indexOf( $stateParams.profile );
-                if ( index > -1 ) $rootScope.principal.profiles.splice( index, 1 );
+                var index = principalHolderService.getProfiles().indexOf( $stateParams.profile );
+                if ( index > -1 ) principalHolderService.getProfiles().splice( index, 1 );
                 $injector.get( '$state' ).go( 'profile' );
             }
         }

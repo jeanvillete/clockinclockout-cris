@@ -5,9 +5,9 @@
         .module('app.login')
         .controller('LoginController', LoginController );
     
-    LoginController.$inject = [ 'loginService', '$rootScope', '$injector' ];
+    LoginController.$inject = [ 'loginService', '$rootScope', '$injector', '$cookies' ];
     /* @ngInject */
-    function LoginController( loginService, $rootScope, $injector ) {
+    function LoginController( loginService, $rootScope, $injector, $cookies ) {
         var vm = this;
         vm.email = '';
         vm.password = '';
@@ -20,6 +20,8 @@
         ///////////////
 
         function activate() {
+            if ( $cookies.get( 'clkioLoginCode' ) )
+                return $injector.get( '$state' ).go( 'timecard' );
         }
 
         function doLogin() {

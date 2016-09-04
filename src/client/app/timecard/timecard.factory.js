@@ -46,10 +46,12 @@
             ////////////////
 
             function success( response ) {
+                toastr.success( "Punch o clock done.", "Success!");
                 return response.data;
             }
 
             function fail( e ) {
+                toastr.error( e.data.message, "Issue raised while invoking 'punch o clock' backend service.");
                 return exception.catcher( 'XHR Failed for; ' + api )( e );
             }
         }
@@ -63,6 +65,7 @@
             ////////////////
 
             function success( response ) {
+                toastr.success( "Notes saved.", "Success!");
                 return response.data;
             }
 
@@ -84,6 +87,7 @@
             ////////////////
 
             function success( response ) {
+                toastr.success( "Expected hours saved.", "Success!");
                 return response.data;
             }
 

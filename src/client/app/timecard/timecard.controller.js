@@ -5,9 +5,9 @@
         .module('app.timecard')
         .controller('TimecardController', TimecardController);
     
-    TimecardController.$inject = [ '$rootScope', '$scope','$injector', '$cookies', 'profileService', 'timecardService', '$q', '$uibModal', '$filter', '$stateParams' ];
+    TimecardController.$inject = [ '$rootScope', '$scope','$injector', '$cookies', 'principalHolderService', 'timecardService', '$q', '$uibModal', '$filter', '$stateParams' ];
     /* @ngInject */
-    function TimecardController( $rootScope, $scope, $injector, $cookies, profileService, timecardService, $q, $uibModal, $filter, $stateParams ) {
+    function TimecardController( $rootScope, $scope, $injector, $cookies, principalHolderService, timecardService, $q, $uibModal, $filter, $stateParams ) {
         var vm = this;
         vm.timecard = {};
         vm.date;
@@ -24,11 +24,6 @@
 
             if ( !$cookies.get( 'clkioLoginCode' ) ) {
                 return $injector.get( '$state' ).go( 'login' );
-            } else if ( !$rootScope.principal ) {
-                $rootScope.principal = {
-                    clkioLoginCode : $cookies.get( 'clkioLoginCode' ),
-                    user : $cookies.get( 'user' )
-                };
             }
 
             $scope.$on( 'timecard_changeProfile', function( event, profile ){
@@ -36,7 +31,7 @@
             });
             
             if ( !( vm.timecard = $stateParams.timecard ) ) {
-                return getProfile().then( getTimecard );
+                return principalHolderService.getProfile( true ).then( getTimecard );
             }
         }
 
@@ -51,30 +46,8 @@
             }
         }
 
-        function getProfile() {
-            return $q.when( $rootScope.principal.profile || profileService.list().then( success ) );
-
-            ///////////////
-
-            function success( data ){
-                $rootScope.principal.profiles = data.profiles;
-                $rootScope.principal.profile = data.profiles[ 0 ];
-                $rootScope.principal.changeProfile = changeProfile;
-
-                return $rootScope.principal.profile;
-
-                function changeProfile( profile ) {
-                    if ( $rootScope.principal.profile === profile )
-                        return;
-                        
-                    $rootScope.principal.profile = profile;
-                    $rootScope.$broadcast( 'timecard_changeProfile', profile );
-                }
-            }
-        }
-
         function punchOClock( timestamp ) {
-            return timecardService.punchOClock( $rootScope.principal.profile, timestamp )
+            return timecardService.punchOClock( principalHolderService.getProfile(), timestamp )
                 .then( success );
 
             ///////////////
@@ -103,7 +76,7 @@
 
             function success( date ) {
                 vm.date = date;
-                return getTimecard( $rootScope.principal.profile, vm.date );
+                return getTimecard( principalHolderService.getProfile(), vm.date );
             }
         }
 

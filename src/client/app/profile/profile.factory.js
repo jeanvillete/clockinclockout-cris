@@ -5,9 +5,9 @@
         .module('app.profile')
         .factory('profileService', profileService);
 
-    profileService.$inject = [ 'clkioHost','$http', 'exception', '$q', 'toastr', '$rootScope' ];
+    profileService.$inject = [ 'clkioHost','$http', 'exception', '$q', 'toastr', '$injector' ];
     /* @ngInject */
-    function profileService( clkioHost, $http, exception, $q, toastr, $rootScope ) {
+    function profileService( clkioHost, $http, exception, $q, toastr, $injector ) {
         var api = clkioHost + 'profiles/';
         var service = {
             list : list,
@@ -37,7 +37,7 @@
                 return $q.reject( toastr.error( "The field 'profile description' is mandatory.", "Required field.") );
 
             var _profile = {};
-            angular.extend( _profile, $rootScope.principal.profile );
+            angular.extend( _profile, $injector.get( 'principalHolderService' ).getProfile() );
             _profile.id = null;
             _profile.reasons = [];
             _profile.adjustings = [];
@@ -47,6 +47,7 @@
                 .then( success, fail );
 
             function success( response ) {
+                toastr.success( "New 'profile' saved.", "Success!");
                 return response.data;
             }
 
@@ -76,6 +77,7 @@
                 .then( success, fail );
 
             function success( response ) {
+                toastr.success( "Record 'profile' changed.", "Success!");
                 return response.data;
             }
 
@@ -89,7 +91,7 @@
             if ( !profile.id )
                 return $q.reject( console.error( 'Invalid state object, it\'s missing an id property/value.' ) );
 
-            if ( $rootScope.principal.profile.id === profile.id )
+            if ( $injector.get( 'principalHolderService' ).getProfile().id === profile.id )
                 return $q.reject( toastr.warning( 'This profile is the current one in use, please pick up another one and try again.',
                     'Impossible delete current profile.') );
 
@@ -97,6 +99,7 @@
                 .then( success, fail );
 
             function success( response ) {
+                toastr.success( "Record 'profile' deleted.", "Success!");
                 return response.data;
             }
 

@@ -5,9 +5,9 @@
         .module('app.email')
         .controller('EmailController', EmailController);
     
-    EmailController.$inject = [ 'emailService' ];
+    EmailController.$inject = [ 'emailService', '$injector', 'principalHolderService' ];
     /* @ngInject */
-    function EmailController( emailService ) {
+    function EmailController( emailService, $injector, principalHolderService ) {
         var vm = this;
         vm.email;
         vm.emails;
@@ -20,6 +20,12 @@
         ////////////////
 
         function activate() {
+            if ( !principalHolderService.getLoginCode() ) {
+                return $injector.get( '$state' ).go( 'login' );
+            } else {
+                principalHolderService.getProfiles( true );
+            }
+
             vm.emails = [];
             vm.email = { "emailAddress":"" };
 
