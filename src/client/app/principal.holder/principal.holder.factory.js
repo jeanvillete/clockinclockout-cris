@@ -13,14 +13,14 @@
         var service = {
             getLoginCode : getLoginCode,
             getProfiles : getProfiles,
-            getProfile : getProfile
+            getProfile : getProfile,
+            restore : restore
         };
 
         $rootScope.principal = {
-            clkioLoginCode : $cookies.get( 'clkioLoginCode' ),
-            user : $cookies.get( 'user' ),
-            changeProfile : changeProfile 
+            changeProfile : changeProfile
         };
+        restore();
 
         return service;
 
@@ -59,6 +59,11 @@
 
         function getLoginCode() {
             return $rootScope.principal.clkioLoginCode;
+        }
+
+        function restore(){
+            $rootScope.principal.clkioLoginCode = $cookies.get( 'clkioLoginCode' );
+            $rootScope.principal.user = $cookies.get( 'user' );
         }
     }
 })();

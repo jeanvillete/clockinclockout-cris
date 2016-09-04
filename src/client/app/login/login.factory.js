@@ -5,8 +5,8 @@
         .module('app.login')
         .factory('loginService', loginService);
 
-    loginService.$inject = [ '$http', 'clkioHost', 'exception', '$cookies' ];
-    function loginService( $http, clkioHost, exception, $cookies ) {
+    loginService.$inject = [ '$http', 'clkioHost', 'exception', '$cookies', 'principalHolderService' ];
+    function loginService( $http, clkioHost, exception, $cookies, principalHolderService ) {
         var service = {
             login : login,
             logout : logout
@@ -32,6 +32,8 @@
             function success( response ) {
                 $cookies.put( 'clkioLoginCode', response.data.code );
                 $cookies.put( 'user', credentials.email );
+                principalHolderService.restore();
+
                 return response.data;
             }
 
@@ -49,6 +51,8 @@
             function success( response ) {
                 $cookies.remove( 'clkioLoginCode' );
                 $cookies.remove( 'user' );
+                principalHolderService.restore();
+
                 return response.data;
             }
 
