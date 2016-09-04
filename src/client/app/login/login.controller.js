@@ -56,8 +56,6 @@
                 .then( success );
             
             function success( data ) {
-                $rootScope.principal = false;
-
                 $injector.get( '$state' ).go( 'login' );
             }
         }
