@@ -44,6 +44,7 @@
             ////////////////
 
             function success( response ) {
+                toastr.success( "New email record saved.", "Success!");
                 return response.data;
             }
 
@@ -63,6 +64,7 @@
             ////////////////
 
             function success( response ) {
+                toastr.success( "Email deleted.", "Success!");
                 return response.data;
             }
 
@@ -82,6 +84,7 @@
             ////////////////
 
             function success( response ) {
+                toastr.success( "Email record changed, set as primary.", "Success!");
                 return response.data;
             }
 

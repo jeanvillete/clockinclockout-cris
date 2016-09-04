@@ -5,9 +5,9 @@
         .module( 'app.clockinclockout' )
         .factory( 'clkioService', clkioService );
 
-    clkioService.$inject = [ '$http', 'clkioHost', 'exception', '$q' ];
+    clkioService.$inject = [ '$http', 'clkioHost', 'exception', '$q', 'toastr' ];
     /* @ngInject */
-    function clkioService( $http, clkioHost, exception, $q ) {
+    function clkioService( $http, clkioHost, exception, $q, toastr ) {
         var service = {
             create : create,
             update : update,
@@ -30,6 +30,7 @@
             ////////////////
 
             function success( response ) {
+                toastr.success( "New 'clockin/clockout' saved.", "Success!");
                 return response.data;
             }
 
@@ -51,6 +52,7 @@
             ////////////////
 
             function success( response ) {
+                toastr.success( "Record 'clockin/clockout' changed.", "Success!");
                 return response.data;
             }
 
@@ -68,6 +70,7 @@
             ////////////////
 
             function success( response ) {
+                toastr.success( "Record 'clockin/clockout' deleted.", "Success!");
                 return response.data;
             }
 

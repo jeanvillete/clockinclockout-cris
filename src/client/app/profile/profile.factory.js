@@ -47,6 +47,7 @@
                 .then( success, fail );
 
             function success( response ) {
+                toastr.success( "New 'profile' saved.", "Success!");
                 return response.data;
             }
 
@@ -76,6 +77,7 @@
                 .then( success, fail );
 
             function success( response ) {
+                toastr.success( "Record 'profile' changed.", "Success!");
                 return response.data;
             }
 
@@ -97,6 +99,7 @@
                 .then( success, fail );
 
             function success( response ) {
+                toastr.success( "Record 'profile' deleted.", "Success!");
                 return response.data;
             }
 
