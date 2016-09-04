@@ -12,6 +12,8 @@
       'app.login',
       'app.timecard',
       'app.settings',
-      'app.principal.holder'
+      'app.principal.holder',
+      'app.register',
+      'app.email.confirmation'
     ]);
 })();

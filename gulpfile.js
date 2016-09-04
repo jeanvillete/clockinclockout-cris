@@ -67,7 +67,7 @@ gulp.task( 'serve-dev', [ 'inject' ], function() {
  * Build everything
  * This is separate, optimize before handling image or fonts
  */
-gulp.task( 'build', [ 'optimize', 'fonts' ], function( done ) {
+gulp.task( 'build', [ 'optimize', 'images', 'fonts' ], function( done ) {
   log('Building everything');
 
   var msg = {
@@ -149,7 +149,6 @@ gulp.task( 'clean-code', function( done ) {
  */
 gulp.task( 'fonts', [ 'clean-fonts' ], function( done ) {
   log( 'Copying fonts' );
-  console.log( config.fonts );
   return gulp
     .src( config.fonts )
     .pipe( gulp.dest( config.build + 'fonts' ) );
@@ -162,6 +161,28 @@ gulp.task( 'fonts', [ 'clean-fonts' ], function( done ) {
 gulp.task( 'clean-fonts', function( done ) {
   return gulp
     .src( config.build + 'fonts/**/*.*' )
+    .pipe( $.deleteFile() );
+});
+
+/**
+ * Compress images
+ * @return {Stream}
+ */
+gulp.task('images', ['clean-images'], function() {
+  log('Compressing and copying images');
+  return gulp
+    .src( config.images )
+    .pipe( $.imagemin( { optimizationLevel: 4 } ) )
+    .pipe( gulp.dest( config.build + 'images' ) );
+});
+
+/**
+ * Remove all images from the build folder
+ * @param  {Function} done - callback when complete
+ */
+gulp.task('clean-images', function(done) {
+  return gulp
+    .src( config.build + 'images/**/*.*' )
     .pipe( $.deleteFile() );
 });
 
